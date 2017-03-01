@@ -25,7 +25,7 @@ char genRandomInt()
 	return flightNumInt[rand() % stringLengthInt];
 }
 
-int main()
+/*int main()
 {
 	for (unsigned int j = 0; j < 10; j++) {
 		string Str;
@@ -40,4 +40,4 @@ int main()
 
 		cout << Str << endl;
 	}
-}
+}*/
