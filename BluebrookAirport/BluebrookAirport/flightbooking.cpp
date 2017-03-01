@@ -9,8 +9,6 @@
 #include <vector>
 #include <ctime>
 
-using namespace std;
-
 //-----------------------------------------------------------------------------
 // Name: generateSeatingChart
 // Desc: Generate a new seating chart file
@@ -61,8 +59,29 @@ void printSeatingChart(flight flight) {
 }
 
 //-----------------------------------------------------------------------------
+// Name: checkSeat
+// Desc: Checks to see if a seat is already booked
+//-----------------------------------------------------------------------------
+
+bool checkSeat(flight flight, int row, int column) {
+	string seatValue;
+	int seatID = ((((column - 1) * flight.rows) + row));
+
+	ifstream flightFile;
+	flightFile.open(flight.flightID + ".txt");
+	for (int i = 0; i < seatID + 1; i++) {
+		getline(flightFile, seatValue);
+		if (i == seatID && seatValue == "X") {
+			return false;
+		}
+	}
+	return true;
+}
+
+
+//-----------------------------------------------------------------------------
 // Name: addBooking
-// Desc: Adds a booked seat to the booking chart of a flight if it is available
+// Desc: Adds a booked seat to the booking chart of a flight
 //-----------------------------------------------------------------------------
 
 void addBooking(flight flight, int row, int column) {
@@ -85,9 +104,7 @@ void addBooking(flight flight, int row, int column) {
 				}
 			}
 			else {
-				if (seatValue == "O") {
-					outputFlightFile << "X\n";
-				}
+				outputFlightFile << "X\n";
 			}
 		}
 		inputFlightFile.close();
@@ -160,14 +177,20 @@ int main() {
 		cin >> userRow;
 		cout << string("Column number (1 - ") + to_string(availableFlights[i].columns) + "): ";
 		cin >> userColumn;
-		if (userRow >= 1 && userRow <= availableFlights[i].rows && userColumn >= 1 && userColumn <= availableFlights[i].columns) {
+		if (userRow >= 1 && userRow <= availableFlights[i].rows && userColumn >= 1 && userColumn <= availableFlights[i].columns && checkSeat(availableFlights[i], userRow, userColumn)) {
 			break;
-		} else if (userRow > availableFlights[i].rows || userRow < 1) {
+		}
+		else if (userRow > availableFlights[i].rows || userRow < 1) {
 			cout << "Row does not exist." << endl;
-		} else if (userRow > availableFlights[i].columns || userColumn < 1) {
+		}
+		else if (userRow > availableFlights[i].columns || userColumn < 1) {
 			cout << "Column does not exist." << endl;
 		}
+		else if (!checkSeat(availableFlights[i], userRow, userColumn)) {
+			cout << "Seat is already booked." << endl;
+		}
 	}
+
 	addBooking(availableFlights[i], userRow, userColumn);
 	printSeatingChart(availableFlights[i]);
 }
