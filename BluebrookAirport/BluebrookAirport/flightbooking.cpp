@@ -9,6 +9,8 @@
 #include <vector>
 #include <ctime>
 
+//test commit
+
 //-----------------------------------------------------------------------------
 // Name: generateSeatingChart
 // Desc: Generate a new seating chart file
@@ -137,10 +139,10 @@ int main() {
 	flight A00004("A00004", H78VFS, "18:21", "19:14");
 
 	//RESET SEATING CHARTS
-	//generateSeatingChart(A00001);
-	//generateSeatingChart(A00002);
-	//generateSeatingChart(A00003);
-	//generateSeatingChart(A00004);
+	/*generateSeatingChart(A00001);
+	generateSeatingChart(A00002);
+	generateSeatingChart(A00003);
+	generateSeatingChart(A00004);*/
 
 	vector<flight> availableFlights;
 	availableFlights.push_back(A00001);
