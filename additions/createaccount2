@@ -1,0 +1,50 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+	string forename, surname, phone, email, postcode, username, password1, password2;
+	cout << "Please enter your forename: ";
+	cin >> forename;
+
+	cout << "\nPlease enter your surname: ";
+	cin >> surname;
+
+	cout << "\nPlease enter your phone number: ";
+	cin >> phone;
+	while ((phone.length() < 12) || (phone.length() > 12))
+	{
+		cout << "\nINVALID PHONE NUMBER - NOT  12 digits: ";
+		cout << "\nPlease enter your phone number: ";
+		cin >> phone;
+
+	}
+	cout << "\nPlease enter your email address: ";
+	cin >> email;
+
+
+	cout << "\nPlease enter your postcode: ";
+	cin >> postcode;
+
+	cout << "\nPlease enter a username: ";
+	cin >> username;
+
+	cout << "\nPlease enter a password: ";
+	cin >> password1;
+
+	cout << "\nPlease re-enter a password: ";
+	cin >> password2;
+	while (password1 != password2) 
+	{
+		cout << " INVALID - Passwords do not match" << endl;
+		cout << "\nPlease enter a password: ";
+		cin >> password1;
+		cout << "\nPlease re-enter a password: ";
+		cin >> password2;
+	}
+
+	cout << "\n\n ACCOUNT SUCCESSFULLY CREATED!";
+	return 0;
+}
