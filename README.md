@@ -1,5 +1,7 @@
 # Software Design and Implementation Project 
 
+![Bluebrook Logo](https://raw.githubusercontent.com/joezed/Software-Design-Imp/master/resources/bluebrook%20logo.png)
+
 ## Description
 Bluebrook Airport System - this project will simulate a small, domestic airport that will allow customers to log in, book seats and manage their own personal bookings. On top of this, it will allow a tv screen to be linked to show flight times and simulate delays and then the program will react accordingly. An adminstrator account will be able to manage flights and see employee data and employees can access time sheets. 
 
