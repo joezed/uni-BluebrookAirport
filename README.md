@@ -4,8 +4,11 @@
 
 ## Members
 Joe Zalewski - email?
+
 Rajal Hussain - email?
+
 Paul Havelin - email?
+
 Samuel Crane - email?
 
 ## Tutor
