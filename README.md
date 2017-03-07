@@ -1,7 +1,12 @@
 # Software Design and Implementation Project 
 
-##Members
-Joe Zalewski
-Rajal Hussain
-Paul Havelin
-Samuel Crane
+## Description
+
+## Members
+Joe Zalewski - email?
+Rajal Hussain - email?
+Paul Havelin - email?
+Samuel Crane - email?
+
+## Tutor
+Pedro Machado - pedro.baptistamachado@ntu.ac.uk
