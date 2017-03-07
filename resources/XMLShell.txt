@@ -1,0 +1,18 @@
+<flight="XXXXXX">
+  <seat>
+    <row></row>
+    <col></col>
+    <price></price>
+    <firstclass></firstclass>
+    <booked></booked>
+    <userid></userid>
+  </seat>
+</flight>
+
+<user>
+  <firstname></firstname>
+  <surname></surname>
+  <email></email>
+  <phone></phone>
+  <userid></userid>
+</user>
