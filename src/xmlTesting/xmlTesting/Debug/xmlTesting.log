@@ -1,0 +1,19 @@
+﻿  xmlTesting.cpp
+f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\xmltesting.cpp(30): error C2065: 'vecList': undeclared identifier
+f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\xmltesting.cpp(31): error C3312: no callable 'begin' function found for type 'unknown-type'
+f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\xmltesting.cpp(31): error C3312: no callable 'end' function found for type 'unknown-type'
+f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\xmltesting.cpp(33): error C2065: 'item': undeclared identifier
+f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\xmltesting.cpp(38): error C2065: 'vecGroup': undeclared identifier
+f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\xmltesting.cpp(38): error C2228: left of '.size' must have class/struct/union
+  f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\xmltesting.cpp(38): note: type is 'unknown-type'
+f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\xmltesting.cpp(38): error C2661: 'tinyxml2::XMLElement::SetAttribute': no overloaded function takes 1 arguments
+f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\xmltesting.cpp(42): error C3861: 'XMLCheckResult': identifier not found
+  tinyxml2.cpp
+f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\tinyxml2.cpp(65): warning C4005: 'TIXML_SSCANF': macro redefinition
+  f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\tinyxml2.cpp(60): note: see previous definition of 'TIXML_SSCANF'
+f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\tinyxml2.cpp(92): warning C4005: 'TIXML_SNPRINTF': macro redefinition
+  f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\tinyxml2.cpp(63): note: see previous definition of 'TIXML_SNPRINTF'
+f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\tinyxml2.cpp(93): warning C4005: 'TIXML_VSNPRINTF': macro redefinition
+  f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\tinyxml2.cpp(64): note: see previous definition of 'TIXML_VSNPRINTF'
+f:\year 2\software design and implementation\term 2\xmltesting\xmltesting\tinyxml2.cpp(2678): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
+  Generating Code...
