@@ -6,8 +6,10 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include "tinyxml2.h"
 
 using namespace std;
+using namespace tinyxml2;
 
 class plane {
 	string planeID;
@@ -128,6 +130,39 @@ public:
 			oldFile.close();
 			newFile.close();
 			remove((flightID + "-temp.txt").c_str());
+		}
+	}
+
+	void createXML() {
+		XMLDocument xmlDoc;
+		XMLNode * pRoot = xmlDoc.NewElement("Root");
+		xmlDoc.InsertFirstChild(pRoot);
+
+		XMLElement * pElement = xmlDoc.NewElement("IntValue");
+		pElement->SetText(10);
+		pRoot->InsertEndChild(pElement);
+
+		pElement = xmlDoc.NewElement("FloatValue");
+		pElement->SetText(0.5f);
+
+		pRoot->InsertEndChild(pElement);
+
+		pElement = xmlDoc.NewElement("Date");
+		pElement->SetAttribute("day", 26);
+		pElement->SetAttribute("month", "April");
+		pElement->SetAttribute("year", 2014);
+		pElement->SetAttribute("dateFormat", "26/04/2014");
+
+		pRoot->InsertEndChild(pElement);
+
+		pElement = xmlDoc.NewElement("List");
+
+		for (const auto & item : vecList)
+		{
+			XMLElement * pListElement = xmlDoc.NewElement("Item");
+			pListElement->SetText(item);
+
+			pElement->InsertEndChild(pListElement);
 		}
 	}
 
