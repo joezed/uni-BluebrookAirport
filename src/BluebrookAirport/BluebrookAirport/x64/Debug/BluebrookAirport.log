@@ -1,8 +1,6 @@
-﻿  stdafx.cpp
-  PlaneNumberGenerator.cpp
-  flightbooking.cpp
-  flight.cpp
+﻿  flight.cpp
   Generating Code...
-  LINK : H:\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe not found or not built by the last incremental link; performing full link
-  BluebrookAirport.vcxproj -> H:\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
-  BluebrookAirport.vcxproj -> H:\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)
+  Skipping... (no relevant changes detected)
+  flightbooking.cpp
+  BluebrookAirport.vcxproj -> C:\Users\n0626631\Desktop\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
+  BluebrookAirport.vcxproj -> C:\Users\n0626631\Desktop\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)

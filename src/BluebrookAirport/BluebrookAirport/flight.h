@@ -8,6 +8,8 @@
 #include <ctime>
 #include "tinyxml2.h"
 
+
+
 using namespace std;
 using namespace tinyxml2;
 
@@ -134,36 +136,59 @@ public:
 	}
 
 	void createXML() {
-		XMLDocument xmlDoc;
-		XMLNode * pRoot = xmlDoc.NewElement("Root");
-		xmlDoc.InsertFirstChild(pRoot);
 
-		XMLElement * pElement = xmlDoc.NewElement("IntValue");
-		pElement->SetText(10);
-		pRoot->InsertEndChild(pElement);
+		string flightNumber = flightID;
+		int rowNumber = rows;
+		int colNumber = columns;
+		//price
+		//firstclass
+		//booked
+		//userid
 
-		pElement = xmlDoc.NewElement("FloatValue");
-		pElement->SetText(0.5f);
+		const char * flightID = flightNumber.c_str();
+		//const char * row = rowNumber.c_str();
+		//const char * col = colNumber.c_str();
 
-		pRoot->InsertEndChild(pElement);
+		FILE * fp;
+		fp = fopen("test.xml", "w");
+		XMLPrinter printer(fp);
+		
 
-		pElement = xmlDoc.NewElement("Date");
-		pElement->SetAttribute("day", 26);
-		pElement->SetAttribute("month", "April");
-		pElement->SetAttribute("year", 2014);
-		pElement->SetAttribute("dateFormat", "26/04/2014");
+		XMLDocument doc;
+		printer.OpenElement("flights");
+		printer.OpenElement("flight");
+		printer.PushAttribute("id", flightID);
+		printer.OpenElement("seat");
 
-		pRoot->InsertEndChild(pElement);
+		printer.OpenElement("rows");
+		printer.PushText("(Row number)");
+		printer.CloseElement();
 
-		pElement = xmlDoc.NewElement("List");
+		printer.OpenElement("cols");
+		printer.PushText("(Col number)");
+		printer.CloseElement();
 
-		for (const auto & item : vecList)
-		{
-			XMLElement * pListElement = xmlDoc.NewElement("Item");
-			pListElement->SetText(item);
+		printer.OpenElement("price");
+		printer.PushText("(Price)");
+		printer.CloseElement();
 
-			pElement->InsertEndChild(pListElement);
-		}
+		printer.OpenElement("firstclass");
+		printer.PushText("(True/False)");
+		printer.CloseElement();
+
+		printer.OpenElement("booked");
+		printer.PushText("(True/False)");
+		printer.CloseElement();
+
+		printer.OpenElement("userid");
+		printer.PushText("(User ID)");
+		printer.CloseElement();
+
+		printer.CloseElement();
+		printer.CloseElement();
+		printer.CloseElement();
+
+		doc.Print(&printer);
 	}
 
 };
