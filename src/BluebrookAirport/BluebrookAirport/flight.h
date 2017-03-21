@@ -153,40 +153,49 @@ public:
 		fp = fopen("test.xml", "w");
 		XMLPrinter printer(fp);
 		
+		int PlaneSeatCalc = (rowNumber * colNumber);
+		cout << PlaneSeatCalc;
 
 		XMLDocument doc;
 		printer.OpenElement("flights");
 		printer.OpenElement("flight");
 		printer.PushAttribute("id", flightID);
-		printer.OpenElement("seat");
 
-		printer.OpenElement("rows");
-		printer.PushText("(Row number)");
-		printer.CloseElement();
+		for (int i = 0; i < rowNumber; i++) {
+			for (int j = 0; j < colNumber; j++) {
+				printer.OpenElement("seat");
 
-		printer.OpenElement("cols");
-		printer.PushText("(Col number)");
-		printer.CloseElement();
+				printer.OpenElement("row");
+				printer.PushText(i + 1);
+				printer.CloseElement();
 
-		printer.OpenElement("price");
-		printer.PushText("(Price)");
-		printer.CloseElement();
+				printer.OpenElement("col");
+				printer.PushText(j + 1);
+				printer.CloseElement();
 
-		printer.OpenElement("firstclass");
-		printer.PushText("(True/False)");
-		printer.CloseElement();
+				printer.OpenElement("price");
+				printer.PushText("(Price)");
+				printer.CloseElement();
 
-		printer.OpenElement("booked");
-		printer.PushText("(True/False)");
-		printer.CloseElement();
+				printer.OpenElement("firstclass");
+				printer.PushText("(True/False)");
+				printer.CloseElement();
 
-		printer.OpenElement("userid");
-		printer.PushText("(User ID)");
-		printer.CloseElement();
+				printer.OpenElement("booked");
+				printer.PushText("(True/False)");
+				printer.CloseElement();
 
-		printer.CloseElement();
-		printer.CloseElement();
-		printer.CloseElement();
+				printer.OpenElement("userid");
+				printer.PushText("(User ID)");
+				printer.CloseElement();
+
+				printer.CloseElement(); // closes SEAT
+
+			}
+		}
+
+		printer.CloseElement(); // closes FLIGHT
+		printer.CloseElement(); // closes FLIGHTS
 
 		doc.Print(&printer);
 	}

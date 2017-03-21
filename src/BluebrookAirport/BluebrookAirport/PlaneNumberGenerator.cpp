@@ -25,19 +25,19 @@ char genRandomInt()
 	return flightNumInt[rand() % stringLengthInt];
 }
 
-/*int main()
+string PlaneIDGen()
 {
-	for (unsigned int j = 0; j < 10; j++) {
-		string Str;
+	string PlaneNo;
+	for (unsigned int j = 0; j < 1; j++) {
 		for (unsigned int i = 0; i < 3; i++)
 		{
-			Str += genRandomChar();
+			PlaneNo += genRandomChar();
 		}
 		for (unsigned int i = 0; i < 3; i++)
 		{
-			Str += genRandomInt();
+			PlaneNo += genRandomInt();
 		}
-
-		cout << Str << endl;
 	}
-}*/
+
+	return PlaneNo;
+}

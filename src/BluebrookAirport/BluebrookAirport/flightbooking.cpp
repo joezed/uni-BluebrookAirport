@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 #include <ctime>
+#include "PlaneNumberGenerator.cpp"
+#include "flightbooking.h"
 
 int main() {
 
@@ -83,6 +85,8 @@ int main() {
 	//currentFlight.addBooking(userRow, userColumn);
 	//currentFlight.printSeatingChart();
 
+	string FlightNum = PlaneIDGen();
+	
 	plane J51CLS("J51CLS", 50, 4, 2);
 	flight A00001("A00001", J51CLS, "12:02", "16:43");
 	A00001.createXML();
