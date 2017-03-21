@@ -13,11 +13,11 @@
 using namespace std;
 using namespace tinyxml2;
 
-class plane {
+class Plane {
 	string planeID;
 	int rows, columns, aisles;
 public:
-	plane(string, int rows, int columns, int aisles);
+	Plane(string, int rows, int columns, int aisles);
 
 	int getRows() {
 		return rows;
@@ -32,11 +32,11 @@ public:
 	}
 };
 
-class flight {
-	plane planeDetails;
+class Flight {
+	Plane planeDetails;
 	string departureTime, arrivalTime;
 public:
-	flight(string flightID, plane planeDetails, string departureTime, string arrivalTime);
+	Flight(string flightID, Plane planeDetails, string departureTime, string arrivalTime);
 	string flightID;
 	int rows, columns, aisles;
 
@@ -191,4 +191,22 @@ public:
 		doc.Print(&printer);
 	}
 
+};
+
+class Account {
+	string forename, surname, email, 
+public:
+	Account(string, int rows, int columns, int aisles);
+
+	int getRows() {
+		return rows;
+	}
+
+	int getColumns() {
+		return columns;
+	}
+
+	int getAisles() {
+		return aisles;
+	}
 };
