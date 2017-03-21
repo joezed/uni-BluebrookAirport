@@ -8,16 +8,69 @@
 #include <ctime>
 #include "tinyxml2.h"
 
-
-
 using namespace std;
 using namespace tinyxml2;
+
+class Account {
+	string forename, surname, email, phone, password;
+public:
+	Account(string forename, string surname, string email, string password);
+
+	void createXML() {
+
+		string forename_temp = forename;
+		string surname_temp = surname;
+		string email_temp = email;
+		string phone_temp = phone;
+		string password_temp = password;
+
+		const char * forename = forename_temp.c_str();
+		const char * surname = surname_temp.c_str();
+		const char * email = email_temp.c_str();
+		const char * phone = phone_temp.c_str();
+		const char * password = password_temp.c_str();
+
+		FILE * fp;
+		fp = fopen("users.xml", "w");
+		XMLPrinter printer(fp);
+
+
+		XMLDocument doc;
+		printer.OpenElement("users");
+		printer.OpenElement("user");
+
+		printer.OpenElement("forename");
+		printer.PushText(forename);
+		printer.CloseElement();
+
+		printer.OpenElement("surname");
+		printer.PushText(surname);
+		printer.CloseElement();
+
+		printer.OpenElement("email");
+		printer.PushText(email);
+		printer.CloseElement();
+
+		printer.OpenElement("phone");
+		printer.PushText(phone);
+		printer.CloseElement();
+
+		printer.OpenElement("password");
+		printer.PushText(password);
+		printer.CloseElement();
+
+		printer.CloseElement();
+		printer.CloseElement();
+
+		doc.Print(&printer);
+	}
+};
 
 class Plane {
 	string planeID;
 	int rows, columns, aisles;
 public:
-	Plane(string, int rows, int columns, int aisles);
+	Plane(string planeID, int rows, int columns, int aisles);
 
 	int getRows() {
 		return rows;
@@ -140,17 +193,19 @@ public:
 		string flightNumber = flightID;
 		int rowNumber = rows;
 		int colNumber = columns;
+		string fileName = flightNumber + ".xml";
 		//price
 		//firstclass
 		//booked
 		//userid
 
 		const char * flightID = flightNumber.c_str();
+		const char * XMLDoc = fileName.c_str();
 		//const char * row = rowNumber.c_str();
 		//const char * col = colNumber.c_str();
 
 		FILE * fp;
-		fp = fopen("test.xml", "w");
+		fp = fopen(XMLDoc, "w");
 		XMLPrinter printer(fp);
 		
 
@@ -191,22 +246,4 @@ public:
 		doc.Print(&printer);
 	}
 
-};
-
-class Account {
-	string forename, surname, email, 
-public:
-	Account(string, int rows, int columns, int aisles);
-
-	int getRows() {
-		return rows;
-	}
-
-	int getColumns() {
-		return columns;
-	}
-
-	int getAisles() {
-		return aisles;
-	}
 };

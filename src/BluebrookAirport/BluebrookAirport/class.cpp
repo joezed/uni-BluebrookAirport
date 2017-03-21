@@ -10,6 +10,13 @@
 
 using namespace std;
 
+Account::Account(string fore, string sur, string emailAddress, string pass) {
+	forename = fore;
+	surname = sur;
+	email = emailAddress;
+	password = pass;
+}
+
 Plane::Plane(string ID = "000000", int r = 0, int c = 0, int a = 0) {
 	planeID = ID;
 	rows = r;
