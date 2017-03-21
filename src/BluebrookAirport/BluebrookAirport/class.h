@@ -193,20 +193,20 @@ public:
 
 };
 
-class Account {
-	string forename, surname, email, 
-public:
-	Account(string, int rows, int columns, int aisles);
-
-	int getRows() {
-		return rows;
-	}
-
-	int getColumns() {
-		return columns;
-	}
-
-	int getAisles() {
-		return aisles;
-	}
-};
+//class Account {
+//	string forename, surname, email, 
+//public:
+//	Account(string, int rows, int columns, int aisles);
+//
+//	int getRows() {
+//		return rows;
+//	}
+//
+//	int getColumns() {
+//		return columns;
+//	}
+//
+//	int getAisles() {
+//		return aisles;
+//	}
+//};

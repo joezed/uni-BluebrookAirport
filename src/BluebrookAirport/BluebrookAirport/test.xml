@@ -1,8 +1,8 @@
 <flights>
     <flight id="A00001">
         <seat>
-            <row>(Row number)</row>
-            <col>(Col number)</col>
+            <rows>(Row number)</rows>
+            <cols>(Col number)</cols>
             <price>(Price)</price>
             <firstclass>(True/False)</firstclass>
             <booked>(True/False)</booked>

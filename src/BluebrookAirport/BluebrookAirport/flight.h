@@ -151,7 +151,7 @@ public:
 
 
 		FILE * fp;
-		fp = fopen("test.xml", "w");
+		fp = fopen("test2.xml", "w");
 		XMLPrinter printer(fp);
 		
 		int PlaneSeatCalc = (rowNumber * colNumber);
