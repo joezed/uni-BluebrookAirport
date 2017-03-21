@@ -11,6 +11,7 @@
 
 int main() {
 
+<<<<<<< HEAD
 	//string forename, surname, phone, email, postcode, username, password1, password2;
 	//cout << "Please enter your forename: ";
 	//cin >> forename;
@@ -52,6 +53,44 @@ int main() {
 	//}
 
 	//cout << "\n\n ACCOUNT SUCCESSFULLY CREATED!";
+=======
+	string forename, surname, phone, email, password1, password2;
+	cout << "Please enter your forename: ";
+	cin >> forename;
+
+	cout << "\nPlease enter your surname: ";
+	cin >> surname;
+
+	cout << "\nPlease enter your phone number: ";
+	cin >> phone;
+	while (phone.length() != 11)
+	{
+		cout << "\nINVALID PHONE NUMBER - NOT  11 digits: ";
+		cout << "\nPlease enter your phone number: ";
+		cin >> phone;
+	}
+
+	cout << "\nPlease enter your email address: ";
+	cin >> email;
+
+	cout << "\nPlease enter a password: ";
+	cin >> password1;
+
+	cout << "\nPlease re-enter a password: ";
+	cin >> password2;
+	while (password1 != password2)
+	{
+		cout << " INVALID - Passwords do not match" << endl;
+		cout << "\nPlease enter a password: ";
+		cin >> password1;
+		cout << "\nPlease re-enter a password: ";
+		cin >> password2;
+	}
+
+	cout << "\n\n ACCOUNT SUCCESSFULLY CREATED!";
+	Account testAccount(forename, surname, email, password1);
+	testAccount.createXML();
+>>>>>>> origin/master
 
 	////CREATE TEST PLANES
 	//Plane A02ERP("A02ERP", 60, 10, 3);
@@ -126,7 +165,13 @@ int main() {
 	//currentFlight.addBooking(userRow, userColumn);
 	//currentFlight.printSeatingChart();
 
+<<<<<<< HEAD
 	Plane J51CLS("J51CLS", 50, 4, 2);
 	Flight A00001("A00001", J51CLS, "12:02", "16:43");
 	A00001.createXML();
+=======
+	//Plane J51CLS("J51CLS", 50, 4, 2);
+	//Flight A00001("A00001", J51CLS, "12:02", "16:43");
+	//A00001.createXML();
+>>>>>>> origin/master
 }

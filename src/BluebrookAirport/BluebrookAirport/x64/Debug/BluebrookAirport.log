@@ -1,2 +1,12 @@
+<<<<<<< HEAD
 ﻿  BluebrookAirport.vcxproj -> E:\Year 2\Github Repos\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
   BluebrookAirport.vcxproj -> E:\Year 2\Github Repos\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)
+=======
+﻿  flightbooking.cpp
+  Generating Code...
+  Compiling...
+  class.cpp
+  Generating Code...
+  BluebrookAirport.vcxproj -> \\nasstudusers\3$\n0626631\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
+  BluebrookAirport.vcxproj -> \\nasstudusers\3$\n0626631\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)
+>>>>>>> origin/master
