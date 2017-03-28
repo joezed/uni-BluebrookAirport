@@ -13,45 +13,74 @@ using namespace std;
 
 int main() {
 
-	string forename, surname, phone, email, password1, password2;
-	cout << "Please enter your forename: ";
-	cin >> forename;
+	int userInput;
+	string username;
+	string password;
 
-	cout << "\nPlease enter your surname: ";
-	cin >> surname;
+	cout << "Welcome to the Bluebrook airport booking system." << endl;
+	cout << "" << endl;
+	cout << "MENU:" << endl;
+	cout << "1. Log in" << endl;
+	cout << "2. Register" << endl;
+	cout << "3. Quit" << endl;
+	cout << "" << endl;
+	cin >> userInput;
 
-	cout << "\nPlease enter your phone number: ";
-	cin >> phone;
-	while (phone.length() != 11)
-	{
-		cout << "\nINVALID PHONE NUMBER - NOT  11 digits: ";
+	if (userInput == 1) {
+		cout << "Username: ";
+		cin >> username;
+		cout << "Password: ";
+		cin >> password;
+
+		Account userAccount("Test", "User", "testuser@testemail.com", "01234567890", "password");
+	}
+
+	if (userInput == 2) {
+
+		string forename, surname, phone, email, password1, password2;
+		cout << "Please enter your forename: ";
+		cin >> forename;
+
+		cout << "\nPlease enter your surname: ";
+		cin >> surname;
+
 		cout << "\nPlease enter your phone number: ";
 		cin >> phone;
-	}
+		while (phone.length() != 11)
+		{
+			cout << "\nINVALID PHONE NUMBER - NOT  11 digits: ";
+			cout << "\nPlease enter your phone number: ";
+			cin >> phone;
+		}
 
-	cout << "\nPlease enter your email address: ";
-	cin >> email;
+		cout << "\nPlease enter your email address: ";
+		cin >> email;
 
-	cout << "\nPlease enter a password: ";
-	cin >> password1;
-
-	cout << "\nPlease re-enter a password: ";
-	cin >> password2;
-
-	while (password1 != password2)
-	{
-		cout << " INVALID - Passwords do not match" << endl;
 		cout << "\nPlease enter a password: ";
 		cin >> password1;
+
 		cout << "\nPlease re-enter a password: ";
 		cin >> password2;
+
+		while (password1 != password2)
+		{
+			cout << " INVALID - Passwords do not match" << endl;
+			cout << "\nPlease enter a password: ";
+			cin >> password1;
+			cout << "\nPlease re-enter a password: ";
+			cin >> password2;
+		}
+
+		cout << "\n\n ACCOUNT SUCCESSFULLY CREATED!";
+
+		Account userAccount(forename, surname, email, phone, password1);
+		userAccount.createXML();
+
 	}
 
-	cout << "\n\n ACCOUNT SUCCESSFULLY CREATED!";
-
-	Account testAccount(forename, surname, email, phone, password1);
-	testAccount.createXML();
-	testAccount.parseXML();
+	if (userInput == 3) {
+		return 0;
+	}
 
 
 	////CREATE TEST PLANES

@@ -1,7 +1,4 @@
-﻿  class.cpp
-  Generating Code...
-  Compiling...
-  flightbooking.cpp
-  Generating Code...
-  BluebrookAirport.vcxproj -> C:\Users\N0626631\Desktop\Github\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
-  BluebrookAirport.vcxproj -> C:\Users\N0626631\Desktop\Github\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)
+﻿  flightbooking.cpp
+c:\users\n0626631\desktop\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(72): warning C4800: 'tinyxml2::XMLError': forcing value to bool 'true' or 'false' (performance warning)
+  BluebrookAirport.vcxproj -> C:\Users\n0626631\Desktop\github\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
+  BluebrookAirport.vcxproj -> C:\Users\n0626631\Desktop\github\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)
