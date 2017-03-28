@@ -1,9 +1,9 @@
 <users>
     <user>
-        <forename>1</forename>
-        <surname>1</surname>
-        <email>1</email>
-        <phone>11111111111</phone>
-        <password>1</password>
+        <forename>sam</forename>
+        <surname>null</surname>
+        <email>null</email>
+        <phone>null</phone>
+        <password>null</password>
     </user>
 </users>

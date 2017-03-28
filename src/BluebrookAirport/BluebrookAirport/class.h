@@ -82,6 +82,30 @@ public:
 		XMLElement * pElement = pRoot->FirstChildElement("user")->FirstChildElement("forename");
 		char * forename = (char*)pElement->GetText();
 	}
+
+	string getForename() {
+		return forename;
+	}
+
+	void setForename(string name) {
+		forename = name;
+	}
+
+	void setSurname(string name) {
+		surname = name;
+	}
+
+	void setEmail(string emailAddress) {
+		email = emailAddress;
+	}
+
+	void setPhone(string number) {
+		phone = number;
+	}
+
+	void setPassword(string pass) {
+		password = pass;
+	}
 };
 
 class Plane {
