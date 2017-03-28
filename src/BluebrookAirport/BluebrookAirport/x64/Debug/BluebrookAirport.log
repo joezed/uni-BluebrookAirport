@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-﻿  BluebrookAirport.vcxproj -> E:\Year 2\Github Repos\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
-  BluebrookAirport.vcxproj -> E:\Year 2\Github Repos\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)
-=======
-﻿  flightbooking.cpp
+﻿  class.cpp
   Generating Code...
   Compiling...
-  class.cpp
+  flightbooking.cpp
   Generating Code...
-  BluebrookAirport.vcxproj -> \\nasstudusers\3$\n0626631\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
-  BluebrookAirport.vcxproj -> \\nasstudusers\3$\n0626631\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)
->>>>>>> origin/master
+  BluebrookAirport.vcxproj -> C:\Users\N0626631\Desktop\Github\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
+  BluebrookAirport.vcxproj -> C:\Users\N0626631\Desktop\Github\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)

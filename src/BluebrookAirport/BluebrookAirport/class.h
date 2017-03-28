@@ -14,7 +14,7 @@ using namespace tinyxml2;
 class Account {
 	string forename, surname, email, phone, password;
 public:
-	Account(string forename, string surname, string email, string password);
+	Account(string forename, string surname, string email, string phone, string password);
 
 	void createXML() {
 
@@ -63,6 +63,24 @@ public:
 		printer.CloseElement();
 
 		doc.Print(&printer);
+	}
+
+	void parseXML() {
+
+
+		XMLDocument doc;
+		bool loaded = doc.LoadFile("users.xml");
+
+		if (loaded) {
+			cout << "File loaded" << endl;
+		}
+		else {
+			cout << "File failed to load" << endl;
+		}
+
+		XMLElement * pRoot = doc.FirstChildElement("users");
+		XMLElement * pElement = pRoot->FirstChildElement("user")->FirstChildElement("forename");
+		char * forename = (char*)pElement->GetText();
 	}
 };
 
@@ -207,7 +225,7 @@ public:
 		FILE * fp;
 		fp = fopen(XMLDoc, "w");
 		XMLPrinter printer(fp);
-		
+
 
 		XMLDocument doc;
 		printer.OpenElement("flights");
@@ -245,27 +263,4 @@ public:
 
 		doc.Print(&printer);
 	}
-
-<<<<<<< HEAD
 };
-
-//class Account {
-//	string forename, surname, email, 
-//public:
-//	Account(string, int rows, int columns, int aisles);
-//
-//	int getRows() {
-//		return rows;
-//	}
-//
-//	int getColumns() {
-//		return columns;
-//	}
-//
-//	int getAisles() {
-//		return aisles;
-//	}
-//};
-=======
-};
->>>>>>> origin/master

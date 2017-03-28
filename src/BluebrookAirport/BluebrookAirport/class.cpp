@@ -10,10 +10,11 @@
 
 using namespace std;
 
-Account::Account(string fore, string sur, string emailAddress, string pass) {
+Account::Account(string fore, string sur, string emailAddress, string number, string pass) {
 	forename = fore;
 	surname = sur;
 	email = emailAddress;
+	phone = number;
 	password = pass;
 }
 
