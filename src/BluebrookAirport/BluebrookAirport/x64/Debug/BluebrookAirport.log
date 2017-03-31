@@ -1,9 +1,17 @@
-﻿  flightbooking.cpp
-c:\users\n0626631\desktop\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(72): warning C4800: 'tinyxml2::XMLError': forcing value to bool 'true' or 'false' (performance warning)
-  Generating Code...
-  Compiling...
-  class.cpp
-c:\users\n0626631\desktop\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(72): warning C4800: 'tinyxml2::XMLError': forcing value to bool 'true' or 'false' (performance warning)
-  Generating Code...
-  BluebrookAirport.vcxproj -> C:\Users\n0626631\Desktop\github\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
-  BluebrookAirport.vcxproj -> C:\Users\n0626631\Desktop\github\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)
+﻿Build started 31/03/2017 3:15:58 PM.
+     1>Project "C:\Users\Joe\Desktop\Comp Sci\GitHub Repos\Software-Design-Imp\src\BluebrookAirport\BluebrookAirport\BluebrookAirport.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_DEPRECATE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Debug\BluebrookAirport.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt flightbooking.cpp
+         flightbooking.cpp
+     1>c:\users\joe\desktop\comp sci\github repos\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(72): warning C4800: 'tinyxml2::XMLError' : forcing value to bool 'true' or 'false' (performance warning)
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Joe\Desktop\Comp Sci\GitHub Repos\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Joe\Desktop\Comp Sci\GitHub Repos\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Joe\Desktop\Comp Sci\GitHub Repos\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.lib" /MACHINE:X64 x64\Debug\class.obj
+         x64\Debug\flightbooking.obj
+         x64\Debug\stdafx.obj
+         x64\Debug\tinyxml2.obj
+         BluebrookAirport.vcxproj -> C:\Users\Joe\Desktop\Comp Sci\GitHub Repos\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
+     1>Done Building Project "C:\Users\Joe\Desktop\Comp Sci\GitHub Repos\Software-Design-Imp\src\BluebrookAirport\BluebrookAirport\BluebrookAirport.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.87
