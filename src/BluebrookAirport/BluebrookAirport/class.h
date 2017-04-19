@@ -14,7 +14,7 @@ using namespace tinyxml2;
 class Account {
 	string forename, surname, email, phone, password;
 public:
-	Account(string forename, string surname, string email, string phone, string password);
+	Account(string forename, string surname, string email, string password);
 
 	void createXML() {
 
@@ -63,66 +63,6 @@ public:
 		printer.CloseElement();
 
 		doc.Print(&printer);
-	}
-
-	void parseXML() {
-
-
-		XMLDocument doc;
-		bool loaded = doc.LoadFile("users.xml");
-
-		if (loaded) {
-			cout << "File loaded" << endl;
-		}
-		else {
-			cout << "File failed to load" << endl;
-		}
-
-		XMLElement * pRoot = doc.FirstChildElement("users");
-		XMLElement * pElement = pRoot->FirstChildElement("user");
-		XMLElement * pForenameElement = pElement->FirstChildElement("forename");
-		string forenameOutput = pForenameElement->GetText();
-		XMLElement * pSurnameElement = pElement->FirstChildElement("surname");
-		string surnameOutput = pSurnameElement->GetText();
-		XMLElement * pEmailElement = pElement->FirstChildElement("email");
-		string emailOutput = pEmailElement->GetText();
-		XMLElement * pPhoneElement = pElement->FirstChildElement("phone");
-		string phoneOutput = pPhoneElement->GetText();
-
-		cout << "Welcome, " + forenameOutput + " " + surnameOutput + ", your email adress is " + emailOutput + " and your phone number is " + phoneOutput + "." << endl;
-	}
-
-	void rewriteXML(string file) {
-		ifstream xmlFile(file);
-		string line;
-
-		while (getline(xmlFile, line)) {
-			cout << line << endl;
-		}
-	}
-
-	string getForename() {
-		return forename;
-	}
-
-	void setForename(string name) {
-		forename = name;
-	}
-
-	void setSurname(string name) {
-		surname = name;
-	}
-
-	void setEmail(string emailAddress) {
-		email = emailAddress;
-	}
-
-	void setPhone(string number) {
-		phone = number;
-	}
-
-	void setPassword(string pass) {
-		password = pass;
 	}
 };
 
@@ -254,6 +194,7 @@ public:
 		int rowNumber = rows;
 		int colNumber = columns;
 		string fileName = flightNumber + ".xml";
+		//price
 		//firstclass
 		//booked
 		//userid
@@ -266,7 +207,7 @@ public:
 		FILE * fp;
 		fp = fopen(XMLDoc, "w");
 		XMLPrinter printer(fp);
-
+		
 
 		XMLDocument doc;
 		printer.OpenElement("flights");
@@ -304,4 +245,5 @@ public:
 
 		doc.Print(&printer);
 	}
+
 };
