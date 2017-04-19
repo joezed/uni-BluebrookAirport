@@ -1,7 +1,2 @@
-﻿  flightbooking.cpp
-  Generating Code...
-  Compiling...
-  class.cpp
-  Generating Code...
-  BluebrookAirport.vcxproj -> \\nasstudusers\3$\n0626631\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
-  BluebrookAirport.vcxproj -> \\nasstudusers\3$\n0626631\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)
+﻿  stdafx.cpp
+CL : fatal error C1083: Cannot open compiler intermediate file: '\\nasstudusers\3$\n0626631\github\software-design-imp\src\bluebrookairport\bluebrookairport\x64\debug\bluebrookairport.pch': Permission denied
