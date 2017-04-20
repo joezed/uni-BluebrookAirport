@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <tuple>
 #include "tinyxml2.h"
 
 using namespace std;
@@ -30,66 +31,57 @@ public:
 		const char * phone = phone_temp.c_str();
 		const char * password = password_temp.c_str();
 
-		FILE * fp;
-		fp = fopen("users.xml", "w");
-		XMLPrinter printer(fp);
+		XMLDocument xmlDoc;
+		XMLNode * pRoot = xmlDoc.NewElement("Users");
+		xmlDoc.InsertFirstChild(pRoot);
 
+		XMLElement * pElement = xmlDoc.NewElement("User");
+		while (pElement != nullptr) {
+			tuple <string, string, string, string, string> data = parseXML();
+			
+			const char * eForename = get<0>(data).c_str();
+			const char * eSurname = get<1>(data).c_str();
+			const char * eEmail = get<2>(data).c_str();
+			const char * ePhone = get<3>(data).c_str();
+			const char * ePassword = get<4>(data).c_str();
 
-		XMLDocument doc;
-		printer.OpenElement("users");
-		printer.OpenElement("user");
+			pElement->SetAttribute("forename", eForename);
+			pElement->SetAttribute("surname", eSurname);
+			pElement->SetAttribute("email", eEmail);
+			pElement->SetAttribute("phone", ePhone);
+			pElement->SetAttribute("password", ePassword);
+			pRoot->InsertEndChild(pElement);
+			pElement = pElement->NextSiblingElement("User");
+		}
 
-		printer.OpenElement("forename");
-		printer.PushText(forename);
-		printer.CloseElement();
+		pElement = xmlDoc.NewElement("User");
+		pElement->SetAttribute("forename", forename);
+		pElement->SetAttribute("surname", surname);
+		pElement->SetAttribute("email", email);
+		pElement->SetAttribute("phone", phone);
+		pElement->SetAttribute("password", password);
+		pRoot->InsertEndChild(pElement);
 
-		printer.OpenElement("surname");
-		printer.PushText(surname);
-		printer.CloseElement();
+		xmlDoc.SaveFile("users.xml");
 
-		printer.OpenElement("email");
-		printer.PushText(email);
-		printer.CloseElement();
-
-		printer.OpenElement("phone");
-		printer.PushText(phone);
-		printer.CloseElement();
-
-		printer.OpenElement("password");
-		printer.PushText(password);
-		printer.CloseElement();
-
-		printer.CloseElement();
-		printer.CloseElement();
-
-		doc.Print(&printer);
 	}
 
-	void parseXML() {
+	tuple <string, string, string, string, string> parseXML() {
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("users.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
 
+		XMLElement * pElement = pRoot->FirstChildElement("User");
+		string forenameOut, surnameOut, emailOut, phoneOut, passOut;
+		forenameOut = pElement->Attribute("forename");
+		surnameOut = pElement->Attribute("surname");
+		emailOut = pElement->Attribute("email");
+		phoneOut = pElement->Attribute("phone");
+		passOut = pElement->Attribute("password");
 
-		XMLDocument doc;
-		bool loaded = doc.LoadFile("users.xml");
+		tuple <string, string, string, string, string> lineOutput(forenameOut, surnameOut, emailOut, phoneOut, passOut);
 
-		if (loaded) {
-			cout << "File loaded" << endl;
-		}
-		else {
-			cout << "File failed to load" << endl;
-		}
-
-		XMLElement * pRoot = doc.FirstChildElement("users");
-		XMLElement * pElement = pRoot->FirstChildElement("user");
-		XMLElement * pForenameElement = pElement->FirstChildElement("forename");
-		string forenameOutput = pForenameElement->GetText();
-		XMLElement * pSurnameElement = pElement->FirstChildElement("surname");
-		string surnameOutput = pSurnameElement->GetText();
-		XMLElement * pEmailElement = pElement->FirstChildElement("email");
-		string emailOutput = pEmailElement->GetText();
-		XMLElement * pPhoneElement = pElement->FirstChildElement("phone");
-		string phoneOutput = pPhoneElement->GetText();
-
-		cout << "Welcome, " + forenameOutput + " " + surnameOutput + ", your email adress is " + emailOutput + " and your phone number is " + phoneOutput + "." << endl;
+		return lineOutput;
 	}
 
 	void rewriteXML(string file) {

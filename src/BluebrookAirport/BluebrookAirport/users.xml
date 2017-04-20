@@ -1,9 +1,4 @@
-<users>
-    <user>
-        <forename>Sam</forename>
-        <surname>Crane</surname>
-        <email>Sam@Crane.net</email>
-        <phone>12312312312</phone>
-        <password>pass</password>
-    </user>
-</users>
+<Users>
+    <User forename="Sam" surname="Crane" email="sam@crane.net" phone="12341234123" password="pass"/>
+    <User forename="Sam" surname="Crane" email="slcrane97@me.com" phone="12341241234" password="pass"/>
+</Users>
