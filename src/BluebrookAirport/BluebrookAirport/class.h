@@ -7,6 +7,7 @@
 #include <string>
 #include <ctime>
 #include <tuple>
+#include <vector>
 #include "tinyxml2.h"
 
 using namespace std;
@@ -31,27 +32,32 @@ public:
 		const char * phone = phone_temp.c_str();
 		const char * password = password_temp.c_str();
 
+		vector<tuple <string, string, string, string, string>> testVector = parseXML();
+		tuple <string, string, string, string, string> data;
+
 		XMLDocument xmlDoc;
 		XMLNode * pRoot = xmlDoc.NewElement("Users");
 		xmlDoc.InsertFirstChild(pRoot);
 
 		XMLElement * pElement = xmlDoc.NewElement("User");
 		while (pElement != nullptr) {
-			tuple <string, string, string, string, string> data = parseXML();
-			
-			const char * eForename = get<0>(data).c_str();
-			const char * eSurname = get<1>(data).c_str();
-			const char * eEmail = get<2>(data).c_str();
-			const char * ePhone = get<3>(data).c_str();
-			const char * ePassword = get<4>(data).c_str();
+			for (int i = 0; i < testVector.size(); i++) {
+				data = testVector.at(i);
 
-			pElement->SetAttribute("forename", eForename);
-			pElement->SetAttribute("surname", eSurname);
-			pElement->SetAttribute("email", eEmail);
-			pElement->SetAttribute("phone", ePhone);
-			pElement->SetAttribute("password", ePassword);
-			pRoot->InsertEndChild(pElement);
-			pElement = pElement->NextSiblingElement("User");
+				const char * eForename = get<0>(data).c_str();
+				const char * eSurname = get<1>(data).c_str();
+				const char * eEmail = get<2>(data).c_str();
+				const char * ePhone = get<3>(data).c_str();
+				const char * ePassword = get<4>(data).c_str();
+
+				pElement->SetAttribute("forename", eForename);
+				pElement->SetAttribute("surname", eSurname);
+				pElement->SetAttribute("email", eEmail);
+				pElement->SetAttribute("phone", ePhone);
+				pElement->SetAttribute("password", ePassword);
+				pRoot->InsertEndChild(pElement);
+				pElement = pElement->NextSiblingElement("User");
+			}
 		}
 
 		pElement = xmlDoc.NewElement("User");
@@ -66,21 +72,25 @@ public:
 
 	}
 
-	tuple <string, string, string, string, string> parseXML() {
+	vector<tuple <string, string, string, string, string>> parseXML() {
+		vector<tuple <string, string, string, string, string>> lineOutput;
+
 		XMLDocument xmlDoc;
 		xmlDoc.LoadFile("users.xml");
 		XMLNode * pRoot = xmlDoc.FirstChild();
 
 		XMLElement * pElement = pRoot->FirstChildElement("User");
-		string forenameOut, surnameOut, emailOut, phoneOut, passOut;
-		forenameOut = pElement->Attribute("forename");
-		surnameOut = pElement->Attribute("surname");
-		emailOut = pElement->Attribute("email");
-		phoneOut = pElement->Attribute("phone");
-		passOut = pElement->Attribute("password");
-
-		tuple <string, string, string, string, string> lineOutput(forenameOut, surnameOut, emailOut, phoneOut, passOut);
-
+		while (pElement != nullptr) {
+			string forenameOut, surnameOut, emailOut, phoneOut, passOut;
+			forenameOut = pElement->Attribute("forename");
+			surnameOut = pElement->Attribute("surname");
+			emailOut = pElement->Attribute("email");
+			phoneOut = pElement->Attribute("phone");
+			passOut = pElement->Attribute("password");
+			tuple <string, string, string, string, string> output(forenameOut, surnameOut, emailOut, phoneOut, passOut);
+			lineOutput.push_back(output);
+			pElement = pElement->NextSiblingElement("User");
+		}
 		return lineOutput;
 	}
 

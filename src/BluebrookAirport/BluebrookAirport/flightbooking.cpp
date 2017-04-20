@@ -54,12 +54,12 @@ int main() {
 
 			cout << "\nPlease enter your phone number: ";
 			cin >> phone;
-			while (phone.length() != 11)
-			{
-				cout << "\nINVALID PHONE NUMBER - NOT  11 digits: ";
-				cout << "\nPlease enter your phone number: ";
-				cin >> phone;
-			}
+			//while (phone.length() != 11)
+			//{
+			//	cout << "\nINVALID PHONE NUMBER - NOT  11 digits: ";
+			//	cout << "\nPlease enter your phone number: ";
+			//	cin >> phone;
+			//}
 
 			cout << "\nPlease enter your email address: ";
 			cin >> email;
