@@ -20,6 +20,10 @@ int main() {
 
 	Account userAccount("null", "null", "null", "null", "null");
 
+	cout << userAccount.searchXML("emails", "sam@crane.net");
+	cout << userAccount.searchXML("password", "pass");
+	cout << userAccount.searchXML("phone", "sam@crane.net");
+
 	cout << "Welcome to the Bluebrook airport booking system." << endl;
 	cout << "" << endl;
 	cout << "MENU:" << endl;

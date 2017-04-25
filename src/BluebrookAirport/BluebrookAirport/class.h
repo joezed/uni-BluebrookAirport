@@ -76,10 +76,16 @@ public:
 		XMLNode * pRoot = xmlDoc.FirstChild();
 		XMLElement * pElement = pRoot->FirstChildElement("User");
 
-		while (pElement != nullptr) {
-			pElement->FirstChildElement("v")->QueryIntText(&v1);
+		const char * searchNode = node.c_str();
+
+		while ((pElement != nullptr) && (pElement->Attribute(searchNode) != nullptr)) {
+			string output = pElement->Attribute(searchNode);
+			if (value == output) {
+				return true;
+			}
 			pElement = pElement->NextSiblingElement("User");
 		}
+		return false;
 	}
 
 	vector<tuple <string, string, string, string, string>> parseXML() {
