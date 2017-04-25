@@ -40,33 +40,30 @@ public:
 		xmlDoc.InsertFirstChild(pRoot);
 
 		XMLElement * pElement = xmlDoc.NewElement("User");
-		while (pElement != nullptr) {
-			for (int i = 0; i < testVector.size(); i++) {
-				data = testVector.at(i);
+		for (int i = 0; i < testVector.size(); i++) {
+			data = testVector.at(i);
 
-				const char * eForename = get<0>(data).c_str();
-				const char * eSurname = get<1>(data).c_str();
-				const char * eEmail = get<2>(data).c_str();
-				const char * ePhone = get<3>(data).c_str();
-				const char * ePassword = get<4>(data).c_str();
+			const char * eForename = get<0>(data).c_str();
+			const char * eSurname = get<1>(data).c_str();
+			const char * eEmail = get<2>(data).c_str();
+			const char * ePhone = get<3>(data).c_str();
+			const char * ePassword = get<4>(data).c_str();
 
-				pElement->SetAttribute("forename", eForename);
-				pElement->SetAttribute("surname", eSurname);
-				pElement->SetAttribute("email", eEmail);
-				pElement->SetAttribute("phone", ePhone);
-				pElement->SetAttribute("password", ePassword);
-				pRoot->InsertEndChild(pElement);
-				pElement = pElement->NextSiblingElement("User");
-			}
+			pElement->SetAttribute("forename", eForename);
+			pElement->SetAttribute("surname", eSurname);
+			pElement->SetAttribute("email", eEmail);
+			pElement->SetAttribute("phone", ePhone);
+			pElement->SetAttribute("password", ePassword);
+			pRoot->InsertEndChild(pElement);
+
+			pElement = xmlDoc.NewElement("User");
+			pElement->SetAttribute("forename", forename);
+			pElement->SetAttribute("surname", surname);
+			pElement->SetAttribute("email", email);
+			pElement->SetAttribute("phone", phone);
+			pElement->SetAttribute("password", password);
+			pRoot->InsertEndChild(pElement);
 		}
-
-		pElement = xmlDoc.NewElement("User");
-		pElement->SetAttribute("forename", forename);
-		pElement->SetAttribute("surname", surname);
-		pElement->SetAttribute("email", email);
-		pElement->SetAttribute("phone", phone);
-		pElement->SetAttribute("password", password);
-		pRoot->InsertEndChild(pElement);
 
 		xmlDoc.SaveFile("users.xml");
 

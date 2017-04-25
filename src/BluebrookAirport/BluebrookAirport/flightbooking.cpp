@@ -17,9 +17,8 @@ int main() {
 	string username;
 	string password;
 	bool finished = false;
-	Account userAccount("null", "null", "null", "null", "null");
 
-	userAccount.parseXML();
+	Account userAccount("null", "null", "null", "null", "null");
 
 	cout << "Welcome to the Bluebrook airport booking system." << endl;
 	cout << "" << endl;
