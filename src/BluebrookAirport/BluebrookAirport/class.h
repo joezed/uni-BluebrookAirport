@@ -69,6 +69,19 @@ public:
 
 	}
 
+	bool searchXML(string node, string value) {
+
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("users.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+		XMLElement * pElement = pRoot->FirstChildElement("User");
+
+		while (pElement != nullptr) {
+			pElement->FirstChildElement("v")->QueryIntText(&v1);
+			pElement = pElement->NextSiblingElement("User");
+		}
+	}
+
 	vector<tuple <string, string, string, string, string>> parseXML() {
 		vector<tuple <string, string, string, string, string>> lineOutput;
 
@@ -89,15 +102,6 @@ public:
 			pElement = pElement->NextSiblingElement("User");
 		}
 		return lineOutput;
-	}
-
-	void rewriteXML(string file) {
-		ifstream xmlFile(file);
-		string line;
-
-		while (getline(xmlFile, line)) {
-			cout << line << endl;
-		}
 	}
 
 	string getForename() {
