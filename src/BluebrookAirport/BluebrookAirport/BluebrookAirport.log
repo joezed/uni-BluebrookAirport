@@ -1,8 +1,5 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(367,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
-  class.cpp
-  Generating Code...
-  Compiling...
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   flightbooking.cpp
-  Generating Code...
   BluebrookAirport.vcxproj -> H:\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\BluebrookAirport.exe
   BluebrookAirport.vcxproj -> H:\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\BluebrookAirport.pdb (Full PDB)

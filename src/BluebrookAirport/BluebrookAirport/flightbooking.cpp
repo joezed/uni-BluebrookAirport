@@ -14,15 +14,11 @@ using namespace std;
 int main() {
 
 	int userInput = 0;
-	string username;
+	string email;
 	string password;
 	bool finished = false;
 
 	Account userAccount("null", "null", "null", "null", "null");
-
-	cout << userAccount.searchXML("emails", "sam@crane.net");
-	cout << userAccount.searchXML("password", "pass");
-	cout << userAccount.searchXML("phone", "sam@crane.net");
 
 	cout << "Welcome to the Bluebrook airport booking system." << endl;
 	cout << "" << endl;
@@ -38,12 +34,18 @@ int main() {
 		cin >> userInput;
 
 		if (userInput == 1) {
-			cout << "Username: ";
-			cin >> username;
+			cout << "Email: ";
+			cin >> email;
 			cout << "Password: ";
 			cin >> password;
 
-			userAccount.setForename(username);
+			while (userAccount.searchXML("email", email) == false || userAccount.searchXML("password", password) == false) {
+				cout << "\nINVALID LOG IN";
+				cout << "\nEmail: ";
+				cin >> email;
+				cout << "Password: ";
+				cin >> password;
+			}
 			finished = true;
 		}
 		else if (userInput == 2) {
@@ -57,15 +59,20 @@ int main() {
 
 			cout << "\nPlease enter your phone number: ";
 			cin >> phone;
-			//while (phone.length() != 11)
-			//{
-			//	cout << "\nINVALID PHONE NUMBER - NOT  11 digits: ";
-			//	cout << "\nPlease enter your phone number: ";
-			//	cin >> phone;
-			//}
+			while (phone.length() != 11)
+			{
+				cout << "\nINVALID PHONE NUMBER - NOT  11 DIGITS";
+				cout << "\nPlease enter your phone number: ";
+				cin >> phone;
+			}
 
 			cout << "\nPlease enter your email address: ";
 			cin >> email;
+			while (userAccount.searchXML("email", email) == true) {
+				cout << "\nINVALID EMAIL - ALREADY IN USE";
+				cout << "\nPlease enter your email address: ";
+				cin >> email;
+			}
 
 			cout << "\nPlease enter a password: ";
 			cin >> password1;
