@@ -6,6 +6,8 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <tuple>
+#include <vector>
 #include "tinyxml2.h"
 
 using namespace std;
@@ -18,6 +20,8 @@ public:
 
 	void createXML() {
 
+		bool uniqueID = false;
+		int id;
 		string forename_temp = forename;
 		string surname_temp = surname;
 		string email_temp = email;
@@ -30,57 +34,96 @@ public:
 		const char * phone = phone_temp.c_str();
 		const char * password = password_temp.c_str();
 
-		FILE * fp;
-		fp = fopen("users.xml", "w");
-		XMLPrinter printer(fp);
+		vector<tuple <string, string, string, string, string, string>> testVector = parseXML();
+		tuple <string, string, string, string, string, string> data;
 
+		XMLDocument xmlDoc;
+		XMLNode * pRoot = xmlDoc.NewElement("Users");
+		xmlDoc.InsertFirstChild(pRoot);
 
-		XMLDocument doc;
-		printer.OpenElement("users");
-		printer.OpenElement("user");
+		XMLElement * pElement = xmlDoc.NewElement("User");
+		for (int i = 0; i < testVector.size(); i++) {
+			data = testVector.at(i);
 
-		printer.OpenElement("forename");
-		printer.PushText(forename);
-		printer.CloseElement();
+			const char * eID = get<0>(data).c_str();
+			const char * eForename = get<1>(data).c_str();
+			const char * eSurname = get<2>(data).c_str();
+			const char * eEmail = get<3>(data).c_str();
+			const char * ePhone = get<4>(data).c_str();
+			const char * ePassword = get<5>(data).c_str();
 
-		printer.OpenElement("surname");
-		printer.PushText(surname);
-		printer.CloseElement();
+			pElement->SetAttribute("id", eID);
+			pElement->SetAttribute("forename", eForename);
+			pElement->SetAttribute("surname", eSurname);
+			pElement->SetAttribute("email", eEmail);
+			pElement->SetAttribute("phone", ePhone);
+			pElement->SetAttribute("password", ePassword);
+			pRoot->InsertEndChild(pElement);
 
-		printer.OpenElement("email");
-		printer.PushText(email);
-		printer.CloseElement();
+			int j = 1;
+			while (uniqueID == false) {
+				string userID = to_string(j);
+				if (searchXML("id", userID) == false) {
+					id = j;
+					uniqueID = true;
+				}
+				j++;
+			}
 
-		printer.OpenElement("phone");
-		printer.PushText(phone);
-		printer.CloseElement();
+			pElement = xmlDoc.NewElement("User");
+			pElement->SetAttribute("id", id);
+			pElement->SetAttribute("forename", forename);
+			pElement->SetAttribute("surname", surname);
+			pElement->SetAttribute("email", email);
+			pElement->SetAttribute("phone", phone);
+			pElement->SetAttribute("password", password);
+			pRoot->InsertEndChild(pElement);
+		}
 
-		printer.OpenElement("password");
-		printer.PushText(password);
-		printer.CloseElement();
+		xmlDoc.SaveFile("users.xml");
 
-		printer.CloseElement();
-		printer.CloseElement();
-
-		doc.Print(&printer);
 	}
 
-	void parseXML() {
+	bool searchXML(string node, string value) {
 
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("users.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+		XMLElement * pElement = pRoot->FirstChildElement("User");
 
-		XMLDocument doc;
-		bool loaded = doc.LoadFile("users.xml");
+		const char * searchNode = node.c_str();
 
-		if (loaded) {
-			cout << "File loaded" << endl;
+		while ((pElement != nullptr) && (pElement->Attribute(searchNode) != nullptr)) {
+			string output = pElement->Attribute(searchNode);
+			if (value == output) {
+				return true;
+			}
+			pElement = pElement->NextSiblingElement("User");
 		}
-		else {
-			cout << "File failed to load" << endl;
-		}
+		return false;
+	}
 
-		XMLElement * pRoot = doc.FirstChildElement("users");
-		XMLElement * pElement = pRoot->FirstChildElement("user")->FirstChildElement("forename");
-		char * forename = (char*)pElement->GetText();
+	vector<tuple <string, string, string, string, string, string>> parseXML() {
+		vector<tuple <string, string, string, string, string, string>> lineOutput;
+
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("users.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+
+		XMLElement * pElement = pRoot->FirstChildElement("User");
+		while (pElement != nullptr) {
+			string IDOut, forenameOut, surnameOut, emailOut, phoneOut, passOut;
+			IDOut = pElement->Attribute("id");
+			forenameOut = pElement->Attribute("forename");
+			surnameOut = pElement->Attribute("surname");
+			emailOut = pElement->Attribute("email");
+			phoneOut = pElement->Attribute("phone");
+			passOut = pElement->Attribute("password");
+			tuple <string, string, string, string, string, string> output(IDOut, forenameOut, surnameOut, emailOut, phoneOut, passOut);
+			lineOutput.push_back(output);
+			pElement = pElement->NextSiblingElement("User");
+		}
+		return lineOutput;
 	}
 
 	string getForename() {
@@ -114,6 +157,10 @@ class Plane {
 public:
 	Plane(string planeID, int rows, int columns, int aisles);
 
+	string getID() {
+		return planeID;
+	}
+
 	int getRows() {
 		return rows;
 	}
@@ -134,6 +181,73 @@ public:
 	Flight(string flightID, Plane planeDetails, string departureTime, string arrivalTime);
 	string flightID;
 	int rows, columns, aisles;
+
+	void createXML() {
+
+		string flightID_temp = flightID;
+		string planeID_temp = planeDetails.getID();
+		string departureTime_temp = departureTime;
+		string arrivalTime_temp = arrivalTime;
+
+		const char * flightID = flightID_temp.c_str();
+		const char * planeID = planeID_temp.c_str();
+		const char * departureTime = departureTime_temp.c_str();
+		const char * arrivalTime = arrivalTime_temp.c_str();
+
+		vector<tuple <string, string, string, string>> testVector = parseXML();
+		tuple <string, string, string, string> data;
+
+		XMLDocument xmlDoc;
+		XMLNode * pRoot = xmlDoc.NewElement("Flights");
+		xmlDoc.InsertFirstChild(pRoot);
+
+		XMLElement * pElement = xmlDoc.NewElement("Flight");
+		for (int i = 0; i < testVector.size(); i++) {
+			data = testVector.at(i);
+
+			const char * eFlightID = get<0>(data).c_str();
+			const char * ePlaneID = get<1>(data).c_str();
+			const char * eDepartureTime = get<2>(data).c_str();
+			const char * eArrivalTime = get<3>(data).c_str();
+
+			pElement->SetAttribute("flightID", eFlightID);
+			pElement->SetAttribute("planeID", ePlaneID);
+			pElement->SetAttribute("departure", eDepartureTime);
+			pElement->SetAttribute("arrival", eArrivalTime);
+			pRoot->InsertEndChild(pElement);
+
+			pElement = xmlDoc.NewElement("Flight");
+			pElement->SetAttribute("flightID", flightID);
+			pElement->SetAttribute("planeID", planeID);
+			pElement->SetAttribute("departure", departureTime);
+			pElement->SetAttribute("arrival", arrivalTime);
+			pRoot->InsertEndChild(pElement);
+		}
+
+		xmlDoc.SaveFile("flights.xml");
+
+	}
+
+	vector<tuple <string, string, string, string>> parseXML() {
+		vector<tuple <string, string, string, string>> lineOutput;
+
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("flights.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+
+		XMLElement * pElement = pRoot->FirstChildElement("Flight");
+		while (pElement != nullptr) {
+			string flightIDOut, planeIDOut, departureOut, arrivalOut;
+			flightIDOut = pElement->Attribute("flightID");
+			planeIDOut = pElement->Attribute("planeID");
+			departureOut = pElement->Attribute("departure");
+			arrivalOut = pElement->Attribute("arrival");
+			tuple <string, string, string, string> output(flightIDOut, planeIDOut, departureOut, arrivalOut);
+			lineOutput.push_back(output);
+			pElement = pElement->NextSiblingElement("Flight");
+		}
+		return lineOutput;
+	}
 
 	//Generate a new seating chart file
 	void generateSeatingChart() {
@@ -228,63 +342,5 @@ public:
 			newFile.close();
 			remove((flightID + "-temp.txt").c_str());
 		}
-	}
-
-	void createXML() {
-
-		string flightNumber = flightID;
-		int rowNumber = rows;
-		int colNumber = columns;
-		string fileName = flightNumber + ".xml";
-		//price
-		//firstclass
-		//booked
-		//userid
-
-		const char * flightID = flightNumber.c_str();
-		const char * XMLDoc = fileName.c_str();
-		//const char * row = rowNumber.c_str();
-		//const char * col = colNumber.c_str();
-
-		FILE * fp;
-		fp = fopen(XMLDoc, "w");
-		XMLPrinter printer(fp);
-
-
-		XMLDocument doc;
-		printer.OpenElement("flights");
-		printer.OpenElement("flight");
-		printer.PushAttribute("id", flightID);
-		printer.OpenElement("seat");
-
-		printer.OpenElement("rows");
-		printer.PushText("(Row number)");
-		printer.CloseElement();
-
-		printer.OpenElement("cols");
-		printer.PushText("(Col number)");
-		printer.CloseElement();
-
-		printer.OpenElement("price");
-		printer.PushText("(Price)");
-		printer.CloseElement();
-
-		printer.OpenElement("firstclass");
-		printer.PushText("(True/False)");
-		printer.CloseElement();
-
-		printer.OpenElement("booked");
-		printer.PushText("(True/False)");
-		printer.CloseElement();
-
-		printer.OpenElement("userid");
-		printer.PushText("(User ID)");
-		printer.CloseElement();
-
-		printer.CloseElement();
-		printer.CloseElement();
-		printer.CloseElement();
-
-		doc.Print(&printer);
 	}
 };
