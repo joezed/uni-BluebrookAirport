@@ -1,3 +1,6 @@
 <Flights>
-	<Flight flightID="1" planeID="A15SCL" departure="05:12" arrival="07:19"\>
+    <Flight flightID="A00001" planeID="J51CLS" departure="12:02" arrival="16:43"/>
+    <Flight flightID="A00002" planeID="A02ERP" departure="06:49" arrival="09:19"/>
+    <Flight flightID="A00003" planeID="R73OQL" departure="14:23" arrival="16:22"/>
+    <Flight flightID="A00004" planeID="H78VFS" departure="18:21" arrival="19:14"/>
 </Flights>

@@ -1,3 +1,4 @@
 <Users>
-	<User id="1" forename="Sam" surname="Crane" phone="07411364620" email="slcrane97@icloud.com" password="password"\>
+    <User id="1" forename="Sam" surname="Crane" email="sam@crane.com" phone="07411364620" password="pass"/>
+    <User id="2" forename="Test" surname="User" email="test@example.net" phone="12341231234" password="1234"/>
 </Users>

@@ -18,22 +18,22 @@ int main() {
 	string password;
 	bool finished = false;
 
-	//CREATE TEST PLANES
-	Plane A02ERP("A02ERP", 60, 10, 3);
-	Plane R73OQL("R73OQL", 60, 10, 3);
-	Plane J51CLS("J51CLS", 50, 4, 2);
-	Plane H78VFS("H78VFS", 50, 6, 2);
+	////CREATE TEST PLANES
+	//Plane A02ERP("A02ERP", 60, 10, 3);
+	//Plane R73OQL("R73OQL", 60, 10, 3);
+	//Plane J51CLS("J51CLS", 50, 4, 2);
+	//Plane H78VFS("H78VFS", 50, 6, 2);
 
-	//CREATE TEST FLIGHTS
-	Flight A00001("A00001", J51CLS, "12:02", "16:43");
-	Flight A00002("A00002", A02ERP, "06:49", "09:19");
-	Flight A00003("A00003", R73OQL, "14:23", "16:22");
-	Flight A00004("A00004", H78VFS, "18:21", "19:14");
+	////CREATE TEST FLIGHTS
+	//Flight A00001("A00001", J51CLS, "12:02", "16:43");
+	//Flight A00002("A00002", A02ERP, "06:49", "09:19");
+	//Flight A00003("A00003", R73OQL, "14:23", "16:22");
+	//Flight A00004("A00004", H78VFS, "18:21", "19:14");
 
-	A00001.createXML();
-	A00002.createXML();
-	A00003.createXML();
-	A00004.createXML();
+	//A00001.createXML();
+	//A00002.createXML();
+	//A00003.createXML();
+	//A00004.createXML();
 
 	Account userAccount("null", "null", "null", "null", "null");
 
