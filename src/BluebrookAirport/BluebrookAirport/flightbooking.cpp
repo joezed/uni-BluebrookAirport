@@ -17,6 +17,7 @@ int main() {
 	string email;
 	string password;
 	bool finished = false;
+	bool isStaff = false;
 
 	////CREATE TEST PLANES
 	//Plane A02ERP("A02ERP", 60, 10, 3);
@@ -35,7 +36,7 @@ int main() {
 	//A00003.createXML();
 	//A00004.createXML();
 
-	Account userAccount("null", "null", "null", "null", "null");
+	Account userAccount(0, "null", "null", "null", "null", "null", "null");
 
 	cout << "Welcome to the Bluebrook airport booking system." << endl;
 	cout << "" << endl;
@@ -56,12 +57,15 @@ int main() {
 			cout << "Password: ";
 			cin >> password;
 
-			while (userAccount.searchXML("email", email) == false || userAccount.searchXML("password", password) == false) {
+			while (userAccount.compareXML("email", email, "password", password) == false) {
 				cout << "\nINVALID LOG IN";
 				cout << "\nEmail: ";
 				cin >> email;
 				cout << "Password: ";
 				cin >> password;
+				if (userAccount.compareXML("email", email, "auth", "staff")) {
+					isStaff = true;
+				}
 			}
 			finished = true;
 		}
@@ -125,14 +129,29 @@ int main() {
 		}
 	}
 
-	cout << "Welcome, " + userAccount.getForename() + "." << endl;
-	cout << "" << endl;
-	cout << "MENU:" << endl;
-	cout << "1. Book flight" << endl;
-	cout << "2. Check existing bookings" << endl;
-	cout << "3. Change user details" << endl;
-	cout << "4. Log out" << endl;
-	cout << "" << endl;
+	if (isStaff == true) {
+		cout << "Welcome, " + userAccount.getForename() + "." << endl;
+		cout << "" << endl;
+		cout << "MENU:" << endl;
+		cout << "1. Create flight" << endl;
+		cout << "2. Edit flight" << endl;
+		cout << "3. Delete flight" << endl;
+		cout << "4. Create staff account" << endl;
+		cout << "5. Log out" << endl;
+		cout << "" << endl;
+
+	} else {
+		cout << "Welcome, " + userAccount.getForename() + "." << endl;
+		cout << "" << endl;
+		cout << "MENU:" << endl;
+		cout << "1. View flight list" << endl;
+		cout << "2. Book flight" << endl;
+		cout << "3. Check existing bookings" << endl;
+		cout << "4. Change user details" << endl;
+		cout << "5. Log out" << endl;
+		cout << "" << endl;
+
+	}
 
 	////CREATE TEST PLANES
 	//Plane A02ERP("A02ERP", 60, 10, 3);

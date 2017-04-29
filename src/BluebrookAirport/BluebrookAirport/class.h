@@ -14,9 +14,9 @@ using namespace std;
 using namespace tinyxml2;
 
 class Account {
-	string forename, surname, email, phone, password;
+	int id; string forename, surname, email, phone, password, authority;
 public:
-	Account(string forename, string surname, string email, string phone, string password);
+	Account(int id, string forename, string surname, string email, string phone, string password, string authority);
 
 	void createXML() {
 
@@ -27,15 +27,17 @@ public:
 		string email_temp = email;
 		string phone_temp = phone;
 		string password_temp = password;
+		string auth_temp = authority;
 
 		const char * forename = forename_temp.c_str();
 		const char * surname = surname_temp.c_str();
 		const char * email = email_temp.c_str();
 		const char * phone = phone_temp.c_str();
 		const char * password = password_temp.c_str();
+		const char * auth = auth_temp.c_str();
 
-		vector<tuple <string, string, string, string, string, string>> testVector = parseXML();
-		tuple <string, string, string, string, string, string> data;
+		vector<tuple <string, string, string, string, string, string, string>> testVector = parseXML();
+		tuple <string, string, string, string, string, string, string> data;
 
 		XMLDocument xmlDoc;
 		XMLNode * pRoot = xmlDoc.NewElement("Users");
@@ -51,6 +53,7 @@ public:
 			const char * eEmail = get<3>(data).c_str();
 			const char * ePhone = get<4>(data).c_str();
 			const char * ePassword = get<5>(data).c_str();
+			const char * eAuth = get<6>(data).c_str();
 
 			pElement->SetAttribute("id", eID);
 			pElement->SetAttribute("forename", eForename);
@@ -58,6 +61,7 @@ public:
 			pElement->SetAttribute("email", eEmail);
 			pElement->SetAttribute("phone", ePhone);
 			pElement->SetAttribute("password", ePassword);
+			pElement->SetAttribute("auth", eAuth);
 			pRoot->InsertEndChild(pElement);
 
 			int j = 1;
@@ -77,6 +81,7 @@ public:
 			pElement->SetAttribute("email", email);
 			pElement->SetAttribute("phone", phone);
 			pElement->SetAttribute("password", password);
+			pElement->SetAttribute("auth", auth);
 			pRoot->InsertEndChild(pElement);
 		}
 
@@ -103,8 +108,31 @@ public:
 		return false;
 	}
 
-	vector<tuple <string, string, string, string, string, string>> parseXML() {
-		vector<tuple <string, string, string, string, string, string>> lineOutput;
+	bool compareXML(string node1, string value1, string node2, string value2) {
+
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("users.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+		XMLElement * pElement = pRoot->FirstChildElement("User");
+
+		const char * searchNode1 = node1.c_str();
+		const char * searchNode2 = node2.c_str();
+
+		while ((pElement != nullptr) && (pElement->Attribute(searchNode1) != nullptr) && (pElement->Attribute(searchNode2) != nullptr)) {
+			string output1 = pElement->Attribute(searchNode1);
+			if (value1 == output1) {
+				string output2 = pElement->Attribute(searchNode2);
+				if (value2 == output2) {
+					return true;
+				}
+			}
+			pElement = pElement->NextSiblingElement("User");
+		}
+		return false;
+	}
+
+	vector<tuple <string, string, string, string, string, string, string>> parseXML() {
+		vector<tuple <string, string, string, string, string, string, string>> lineOutput;
 
 		XMLDocument xmlDoc;
 		xmlDoc.LoadFile("users.xml");
@@ -112,14 +140,15 @@ public:
 
 		XMLElement * pElement = pRoot->FirstChildElement("User");
 		while (pElement != nullptr) {
-			string IDOut, forenameOut, surnameOut, emailOut, phoneOut, passOut;
+			string IDOut, forenameOut, surnameOut, emailOut, phoneOut, passOut, authOut;
 			IDOut = pElement->Attribute("id");
 			forenameOut = pElement->Attribute("forename");
 			surnameOut = pElement->Attribute("surname");
 			emailOut = pElement->Attribute("email");
 			phoneOut = pElement->Attribute("phone");
 			passOut = pElement->Attribute("password");
-			tuple <string, string, string, string, string, string> output(IDOut, forenameOut, surnameOut, emailOut, phoneOut, passOut);
+			authOut = pElement->Attribute("auth");
+			tuple <string, string, string, string, string, string, string> output(IDOut, forenameOut, surnameOut, emailOut, phoneOut, passOut, authOut);
 			lineOutput.push_back(output);
 			pElement = pElement->NextSiblingElement("User");
 		}
@@ -148,6 +177,10 @@ public:
 
 	void setPassword(string pass) {
 		password = pass;
+	}
+
+	void setAuth(string auth) {
+		authority = auth;
 	}
 };
 

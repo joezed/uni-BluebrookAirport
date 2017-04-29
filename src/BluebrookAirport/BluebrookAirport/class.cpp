@@ -10,12 +10,14 @@
 
 using namespace std;
 
-Account::Account(string fore, string sur, string emailAddress, string number, string pass) {
+Account::Account(int id, string fore, string sur, string emailAddress, string number, string pass, string auth) {
 	forename = fore;
 	surname = sur;
 	email = emailAddress;
 	phone = number;
 	password = pass;
+	authority = auth;
+
 }
 
 Plane::Plane(string ID = "000000", int r = 0, int c = 0, int a = 0) {
