@@ -5,6 +5,7 @@
 #include <fstream>
 #include <istream>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 #include <ctime>
@@ -17,7 +18,7 @@ int main() {
 	string email;
 	string password;
 	bool finished = false;
-	bool isStaff = false;
+	string auth = "user";
 
 	////CREATE TEST PLANES
 	//Plane A02ERP("A02ERP", 60, 10, 3);
@@ -37,6 +38,8 @@ int main() {
 	//A00004.createXML();
 
 	Account userAccount(0, "null", "null", "null", "null", "null", "null");
+	Plane A02ERP("A02ERP", 60, 10, 3);
+	Flight A00001("A00001", A02ERP, "12:02", "16:43");
 
 	cout << "Welcome to the Bluebrook airport booking system." << endl;
 	cout << "" << endl;
@@ -63,8 +66,11 @@ int main() {
 				cin >> email;
 				cout << "Password: ";
 				cin >> password;
-				if (userAccount.compareXML("email", email, "auth", "staff")) {
-					isStaff = true;
+				if (userAccount.compareXML("email", email, "auth", "admin")) {
+					auth = "admin";
+				}
+				else if (userAccount.compareXML("email", email, "auth", "staff")) {
+					auth = "staff";
 				}
 			}
 			finished = true;
@@ -129,18 +135,59 @@ int main() {
 		}
 	}
 
-	if (isStaff == true) {
+	finished = false;
+
+	if (auth == "admin") {
 		cout << "Welcome, " + userAccount.getForename() + "." << endl;
 		cout << "" << endl;
 		cout << "MENU:" << endl;
-		cout << "1. Create flight" << endl;
-		cout << "2. Edit flight" << endl;
-		cout << "3. Delete flight" << endl;
-		cout << "4. Create staff account" << endl;
+		cout << "1. View flight" << endl;
+		cout << "2. Create flight" << endl;
+		cout << "3. Edit flight" << endl;
+		cout << "4. Delete flight" << endl;
+		cout << "5. View customer booking" << endl;
+		cout << "6. Edit customer booking" << endl;
+		cout << "7. Delete customer booking" << endl;
+		cout << "8. Create staff account" << endl;
+		cout << "9. Log out" << endl;
+		cout << "" << endl;
+
+		while (finished == false) {
+
+			cin >> userInput;
+
+			if (userInput == 1) {
+				cout << "Enter the flight number of the flight you want to view" << endl;
+				cin >> userInput;
+				stringstream ss;
+				ss << userInput;
+				string flightNo = ss.str();
+				while (!A00001.searchXML("flightID", flightNo)) {
+					cout << "Invalid flight number." << endl;
+					cin >> userInput;
+					stringstream ss;
+					ss << userInput;
+					string flightNo = ss.str();
+				}
+				//PRINT FROM XML HERE
+				
+			}
+		}
+	}
+	else if (auth == "staff") {
+		cout << "Welcome, " + userAccount.getForename() + "." << endl;
+		cout << "" << endl;
+		cout << "MENU:" << endl;
+		cout << "1. View flight list" << endl;
+		cout << "2. Book flight" << endl;
+		cout << "3. Check existing bookings" << endl;
+		cout << "4. Change user details" << endl;
 		cout << "5. Log out" << endl;
 		cout << "" << endl;
 
-	} else {
+	}
+
+	else {
 		cout << "Welcome, " + userAccount.getForename() + "." << endl;
 		cout << "" << endl;
 		cout << "MENU:" << endl;

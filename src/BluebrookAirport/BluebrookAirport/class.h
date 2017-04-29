@@ -282,6 +282,26 @@ public:
 		return lineOutput;
 	}
 
+	bool searchXML(string node, string value) {
+
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("flights.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+		XMLElement * pElement = pRoot->FirstChildElement("Flight");
+
+		const char * searchNode = node.c_str();
+
+		while ((pElement != nullptr) && (pElement->Attribute(searchNode) != nullptr)) {
+			string output = pElement->Attribute(searchNode);
+			if (value == output) {
+				return true;
+			}
+			pElement = pElement->NextSiblingElement("Flight");
+		}
+		return false;
+	}
+
+
 	//Generate a new seating chart file
 	void generateSeatingChart() {
 		ofstream flightFile;
