@@ -50,29 +50,29 @@ int main()
 	int timeSec = 1 + ltm->tm_sec;
 	int TIME1 = ((timeHour) << (timeMin) << (timeSec));
 
-							//char* time1_temp = itoa(1 + ltm->tm_hour);
-								//string time1 = string(time1_temp);
-								//+ ": "+ (1 + ltm->tm_min) << (1 + ltm->tm_sec);
-								// print various components of tm structure.
+																//char* time1_temp = itoa(1 + ltm->tm_hour);
+																//string time1 = string(time1_temp);
+																//+ ": "+ (1 + ltm->tm_min) << (1 + ltm->tm_sec);
+																// print various components of tm structure.
 	/*cout << "Year" << 1900 + ltm->tm_year << endl;
 	cout << "Month: " << 1 + ltm->tm_mon << endl;
 	cout << "Day: " << ltm->tm_mday << endl;*/
-								//cout << "THE TIME IS:" << time1 << endl;
+																//cout << "THE TIME IS:" << time1 << endl;
 	/*cout << "Time: " << 1 + ltm->tm_hour << ":";
 	cout << 1 + ltm->tm_min << ":";
 	cout << 1 + ltm->tm_sec << endl;*/
 	cout << "THE TIME IS:" << TIME1 << endl;
 	
 
-	// convert now to string form
-	//char* dt = ctime(&now);
+																// convert now to string form
+																//char* dt = ctime(&now);
 
-	//cout << "The local date and time is: " << dt << endl;
+																//cout << "The local date and time is: " << dt << endl;
 
-	//// convert now to tm struct for UTC
-	//tm *gmtm = gmtime(&now);
-	//dt = asctime(gmtm);
-	//cout << "The UTC date and time is:" << dt << endl;
+																//// convert now to tm struct for UTC
+																//tm *gmtm = gmtime(&now);
+																//dt = asctime(gmtm);
+																//cout << "The UTC date and time is:" << dt << endl;
 
 	return 0;
 }
