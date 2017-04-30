@@ -20,6 +20,13 @@ Account::Account(int id, string fore, string sur, string emailAddress, string nu
 
 }
 
+Destination::Destination(string destinationNumber, string place, int flightTime, int distance) {
+	destinationID = destinationNumber;
+	destination = place;
+	avgFlightTime = flightTime;
+	flightDistance = distance;
+}
+
 Plane::Plane(string ID = "000000", int r = 0, int c = 0, int a = 0) {
 	planeID = ID;
 	rows = r;
@@ -27,11 +34,11 @@ Plane::Plane(string ID = "000000", int r = 0, int c = 0, int a = 0) {
 	aisles = a;
 }
 
-Flight::Flight(string flightNumber, Plane planeInfo, string departure, string arrival) {
+Flight::Flight(string flightNumber, Plane planeInfo, Destination destinationInfo, int departure) {
 	flightID = flightNumber;
 	planeDetails = planeInfo;
 	departureTime = departure;
-	arrivalTime = arrival;
+	arrivalTime = departure + destinationInfo.getFlightTime();
 	rows = planeDetails.getRows();
 	columns = planeDetails.getColumns();
 	aisles = planeDetails.getAisles();

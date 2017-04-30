@@ -1,0 +1,16 @@
+<Destinations>
+    <Destination id="1" name="Glasgow" avgflighttimemins ="70" miledistance="237"/>
+	<Destination id="1" name="Glasgow" avgflighttimemins ="70" miledistance="237"/>
+	<Destination id="2" name="London" avgflighttimemins ="31" miledistance="109"/>
+	<Destination id="3" name="Paris" avgflighttimemins ="100" miledistance="322"/>
+	<Destination id="4" name="Madrid" avgflighttimemins ="180" miledistance="874"/>
+	<Destination id="5" name="Barcelona" avgflighttimemins ="152" miledistance="814"/>
+	<Destination id="6" name="Berlin" avgflighttimemins ="151" miledistance="609"/>
+	<Destination id="7" name="Bucharest" avgflighttimemins ="231" miledistance="1364"/>
+	<Destination id="8" name="New York" avgflighttimemins ="473" miledistance="3393"/>
+	<Destination id="9" name="Atlanta" avgflighttimemins ="538" miledistance="4134"/>
+	<Destination id="10" name="Rome" avgflighttimemins ="193" miledistance="993"/>
+	<Destination id="11" name="Cairo" avgflighttimemins ="202" miledistance="2270"/>
+	<Destination id="12" name="Dublin" avgflighttimemins ="58" miledistance="213"/>
+	<Destination id="13" name="Stockholm" avgflighttimemins ="168" miledistance="856"/>
+</Destinations>

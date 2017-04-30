@@ -169,8 +169,6 @@ int main() {
 					ss << userInput;
 					string flightNo = ss.str();
 				}
-				//PRINT FROM XML HERE
-				
 			}
 		}
 	}

@@ -184,6 +184,28 @@ public:
 	}
 };
 
+class Destination {
+	string destinationID, destination; int avgFlightTime, flightDistance;
+public:
+	Destination(string destinationID, string destination, int avgFlightTime, int flightDistance);
+
+	string getID() {
+		return destinationID;
+	}
+
+	string getDestination() {
+		return destination;
+	}
+
+	int getFlightTime() {
+		return avgFlightTime;
+	}
+
+	int getDistance() {
+		return flightDistance;
+	}
+};
+
 class Plane {
 	string planeID;
 	int rows, columns, aisles;
@@ -205,13 +227,15 @@ public:
 	int getAisles() {
 		return aisles;
 	}
+
+
 };
 
 class Flight {
 	Plane planeDetails;
 	string departureTime, arrivalTime;
 public:
-	Flight(string flightID, Plane planeDetails, string departureTime, string arrivalTime);
+	Flight(string flightID, Plane planeDetails, Destination destinationDetails, int departureTime);
 	string flightID;
 	int rows, columns, aisles;
 

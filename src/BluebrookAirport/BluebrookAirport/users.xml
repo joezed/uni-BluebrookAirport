@@ -1,5 +1,5 @@
 <Users>
-    <User id="1" forename="Sam" surname="Crane" email="sam@crane.com" phone="07411364620" password="pass" auth="Admin"/>
+    <User id="1" forename="Sam" surname="Crane" email="sam@crane.com" phone="07411364620" password="pass" auth="admin"/>
     <User id="2" forename="Test" surname="User" email="test@example.net" phone="12341231234" password="1234" auth="user"/>
     <User id="3" forename="Joe" surname="Smith" email="joesmith@hotmail.com" phone="07123493202" password="password" auth="user"/>
     <User id="4" forename="admin" surname="admin" email=admin" phone="00000000000" password="admin" auth="admin"/>
