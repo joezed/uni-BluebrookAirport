@@ -40,9 +40,9 @@ int main() {
 	//A00004.createXML();
 
 	Account userAccount(0, "null", "null", "null", "null", "null", "null");
-	Plane A02ERP("A02ERP", 60, 10, 3);
+	Plane tempPlane("1", 50, 6, 2, "standby", 5000);
 	Destination testDestination("1", "Glasgow", 70, 237);
-	Flight A00001("A00001", A02ERP, testDestination, 456);
+	Flight A00001("0", tempPlane, testDestination, "456", "526");
 
 	cout << "Welcome to the Bluebrook airport booking system." << endl;
 	cout << "" << endl;
@@ -150,7 +150,7 @@ int main() {
 		cout << "MENU:" << endl;
 		cout << "1. View flight" << endl;
 		cout << "2. Create flight" << endl;
-		cout << "3. Edit flight" << endl;
+		//cout << "3. Edit flight" << endl;
 		cout << "4. Delete flight" << endl;
 		cout << "5. View customer booking" << endl;
 		cout << "6. Edit customer booking" << endl;
@@ -178,6 +178,45 @@ int main() {
 				cout << "Destination: " + A00001.getXML("flightID", flightNo, "destination") << endl;
 				cout << "Departure Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "departure"))) << endl;
 				cout << "Arrival Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "arrival"))) << endl;
+			}
+			else if (userInput == 2) {
+				string planeID;
+				string destination;
+				string departure;
+				int departureHour;
+				int departureMinute;
+
+				cout << "Enter plane ID: ";
+				cin >> planeID;
+				while (!A00001.searchXML("planeID", planeID)) {
+					cout << "That plane doesn't exist." << endl;
+					cout << "Enter plane ID: ";
+					cin >> planeID;
+				}
+				cout << "Enter destination: ";
+				cin >> destination;
+				while (!testDestination.searchXML("name", destination)) {
+					cout << "That destination doesn't exist." << endl;
+					cout << "Enter destination: ";
+					cin >> destination;
+				}
+				cout << "Enter departure hour: ";
+				cin >> departureHour;
+
+				cout << "Enter departure minute: ";
+				cin >> departureMinute;
+
+				departure = (departureHour * 60) + departureMinute;
+				tuple <string, string, string, string, string> data = tempPlane.getPlaneInfo(planeID);
+
+				tempPlane.setID(stoi(planeID));
+				tempPlane.setRows(stoi(get<0>(data)));
+				tempPlane.setColumns(stoi(get<1>(data)));
+				tempPlane.setAisles(stoi(get<2>(data)));
+				tempPlane.setStatus(stoi(get<3>(data)));
+				tempPlane.setMileRange(stoi(get<4>(data)));
+				string newFlightID = to_string(A00001.getLastID() + 1);
+				Flight createdFlight(newFlightID, tempPlane, testDestination, departure, departure);
 			}
 		}
 	}

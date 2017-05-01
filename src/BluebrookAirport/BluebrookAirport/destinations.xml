@@ -1,5 +1,4 @@
 <Destinations>
-    <Destination id="1" name="Glasgow" avgflighttimemins ="70" miledistance="237"/>
 	<Destination id="1" name="Glasgow" avgflighttimemins ="70" miledistance="237"/>
 	<Destination id="2" name="London" avgflighttimemins ="31" miledistance="109"/>
 	<Destination id="3" name="Paris" avgflighttimemins ="100" miledistance="322"/>

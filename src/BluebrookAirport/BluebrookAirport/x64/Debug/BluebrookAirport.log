@@ -1,4 +1,4 @@
 ﻿  flightbooking.cpp
-c:\users\slcra\documents\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(345): warning C4715: 'Flight::getXML': not all control paths return a value
+c:\users\slcra\documents\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(364): warning C4715: 'Flight::getXML': not all control paths return a value
   BluebrookAirport.vcxproj -> C:\Users\slcra\Documents\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
   BluebrookAirport.vcxproj -> C:\Users\slcra\Documents\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)

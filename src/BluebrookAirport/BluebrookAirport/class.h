@@ -189,6 +189,25 @@ class Destination {
 public:
 	Destination(string destinationID, string destination, int avgFlightTime, int flightDistance);
 
+	bool searchXML(string node, string value) {
+
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("destinations.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+		XMLElement * pElement = pRoot->FirstChildElement("Destination");
+
+		const char * searchNode = node.c_str();
+
+		while ((pElement != nullptr) && (pElement->Attribute(searchNode) != nullptr)) {
+			string output = pElement->Attribute(searchNode);
+			if (value == output) {
+				return true;
+			}
+			pElement = pElement->NextSiblingElement("Destination");
+		}
+		return false;
+	}
+
 	string getID() {
 		return destinationID;
 	}
@@ -207,10 +226,31 @@ public:
 };
 
 class Plane {
-	string planeID;
-	int rows, columns, aisles;
+	string planeID, status;
+	int rows, columns, aisles, milerange;
 public:
-	Plane(string planeID, int rows, int columns, int aisles);
+	Plane(string planeID, int rows, int columns, int aisles, string status, int milerange);
+
+	tuple <string, string, string, string, string> getPlaneInfo(string planeID) {
+
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("planes.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+
+		XMLElement * pElement = pRoot->FirstChildElement("Plane");
+		while ((pElement != nullptr) && (pElement->Attribute("id") != nullptr)) {
+			if (planeID == pElement->Attribute("id")) {
+				string rowsOut, columnsOut, aislesOut, statusOut, milerangeOut;
+				rowsOut = pElement->Attribute("rows");
+				columnsOut = pElement->Attribute("columns");
+				aislesOut = pElement->Attribute("aisle");
+				statusOut = pElement->Attribute("status");
+				milerangeOut = pElement->Attribute("milerange");
+				return make_tuple(rowsOut, columnsOut, aislesOut, statusOut, milerangeOut);
+			}
+			pElement = pElement->NextSiblingElement("Flight");
+		}
+	}
 
 	string getID() {
 		return planeID;
@@ -228,6 +268,30 @@ public:
 		return aisles;
 	}
 
+	void setID(int id) {
+		planeID = id;
+	}
+
+	void setRows(int r) {
+		rows = r;
+	}
+
+	void setColumns(int c) {
+		columns = c;
+	}
+
+	void setAisles(int a) {
+		aisles = a;
+	}
+
+	void setStatus(int s) {
+		status = s;
+	}
+
+	void setMileRange(int range) {
+		milerange = range;
+	}
+
 
 };
 
@@ -235,9 +299,28 @@ class Flight {
 	Plane planeDetails;
 	string departureTime, arrivalTime;
 public:
-	Flight(string flightID, Plane planeDetails, Destination destinationDetails, int departureTime);
+	Flight(string flightID, Plane planeDetails, Destination destinationDetails, string departureTime, string arrivalTime);
 	string flightID;
 	int rows, columns, aisles;
+
+	int getLastID() {
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("flights.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+
+		XMLElement * pElement = pRoot->FirstChildElement("Flight");
+		int highestID = 1;
+
+		while ((pElement != nullptr) && (pElement->Attribute("flightID") != nullptr)) {
+			string output = pElement->Attribute("flightID");
+			if (stoi(output) > highestID) {
+				highestID = stoi(output);
+			}
+			pElement = pElement->NextSiblingElement("Flight");
+		}
+		return highestID;
+	}
+
 
 	void createXML() {
 
