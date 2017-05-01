@@ -38,8 +38,9 @@ int main() {
 	//A00004.createXML();
 
 	Account userAccount(0, "null", "null", "null", "null", "null", "null");
-	Plane A02ERP("A02ERP", 60, 10, 3);
-	Flight A00001("A00001", A02ERP, "12:02", "16:43");
+	Plane A02ERP("A02ERP", 60, 10, 3);/*
+	Destination testDestination("1", "Glasgow", 70, 237);
+	Flight A00001("A00001", A02ERP, testDestination, 456);*/
 
 	cout << "Welcome to the Bluebrook airport booking system." << endl;
 	cout << "" << endl;
@@ -66,13 +67,15 @@ int main() {
 				cin >> email;
 				cout << "Password: ";
 				cin >> password;
-				if (userAccount.compareXML("email", email, "auth", "admin")) {
-					auth = "admin";
-				}
-				else if (userAccount.compareXML("email", email, "auth", "staff")) {
-					auth = "staff";
-				}
 			}
+
+			if (userAccount.compareXML("email", email, "auth", "admin")) {
+				auth = "admin";
+			}
+			else if (userAccount.compareXML("email", email, "auth", "staff")) {
+				auth = "staff";
+			}
+
 			finished = true;
 		}
 		else if (userInput == 2) {
@@ -123,6 +126,7 @@ int main() {
 			userAccount.setEmail(email);
 			userAccount.setPhone(phone);
 			userAccount.setPassword(password1);
+			userAccount.setAuth("user");
 			userAccount.createXML();
 			finished = true;
 
@@ -152,7 +156,7 @@ int main() {
 		cout << "9. Log out" << endl;
 		cout << "" << endl;
 
-		while (finished == false) {
+		/*while (finished == false) {
 
 			cin >> userInput;
 
@@ -170,7 +174,7 @@ int main() {
 					string flightNo = ss.str();
 				}
 			}
-		}
+		}*/
 	}
 	else if (auth == "staff") {
 		cout << "Welcome, " + userAccount.getForename() + "." << endl;
