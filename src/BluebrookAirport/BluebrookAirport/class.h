@@ -340,8 +340,8 @@ public:
 				output = pElement->Attribute(searchNode2);
 				return output;
 			}
+			pElement = pElement->NextSiblingElement("Flight");
 		}
-		pElement = pElement->NextSiblingElement("Flight");
 	}
 
 

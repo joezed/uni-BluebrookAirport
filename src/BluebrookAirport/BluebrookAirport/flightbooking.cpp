@@ -288,6 +288,9 @@ int main() {
 string formatTime(int time) {
 	string hours = to_string(time / 60);
 	string minutes = to_string(time % 60);
+	if (hours.length() == 1) {
+		hours = "0" + hours;
+	}
 	if (minutes.length() == 1) {
 		minutes = "0" + minutes;
 	}
