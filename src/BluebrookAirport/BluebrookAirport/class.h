@@ -85,7 +85,7 @@ public:
 			pRoot->InsertEndChild(pElement);
 		}
 
-		xmlDoc.SaveFile("users.xml");
+		xmlDoc.SaveFile("DataFiles\\users.xml");
 
 	}
 
