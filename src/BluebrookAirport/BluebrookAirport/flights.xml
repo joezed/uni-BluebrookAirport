@@ -1,6 +1,6 @@
 <Flights>
-    <Flight flightID="A00001" planeID="J51CLS" departure="722" arrival="1003"/>
-    <Flight flightID="A00002" planeID="A02ERP" departure="409" arrival="559"/>
-    <Flight flightID="A00003" planeID="R73OQL" departure="863" arrival="982"/>
-    <Flight flightID="A00004" planeID="H78VFS" departure="1121" arrival="1154"/>
+    <Flight flightID="1" planeID="J51CLS" destination="Glasgow" departure="722" arrival="1003"/>
+    <Flight flightID="2" planeID="A02ERP" destination="Glasgow" departure="409" arrival="559"/>
+    <Flight flightID="3" planeID="R73OQL" destination="Glasgow" departure="863" arrival="982"/>
+    <Flight flightID="4" planeID="H78VFS" destination="Glasgow" departure="1121" arrival="1154"/>
 </Flights>

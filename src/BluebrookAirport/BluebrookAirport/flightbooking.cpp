@@ -12,6 +12,8 @@
 
 using namespace std;
 
+string formatTime(int time);
+
 int main() {
 
 	int userInput = 0;
@@ -38,9 +40,9 @@ int main() {
 	//A00004.createXML();
 
 	Account userAccount(0, "null", "null", "null", "null", "null", "null");
-	Plane A02ERP("A02ERP", 60, 10, 3);/*
+	Plane A02ERP("A02ERP", 60, 10, 3);
 	Destination testDestination("1", "Glasgow", 70, 237);
-	Flight A00001("A00001", A02ERP, testDestination, 456);*/
+	Flight A00001("A00001", A02ERP, testDestination, 456);
 
 	cout << "Welcome to the Bluebrook airport booking system." << endl;
 	cout << "" << endl;
@@ -140,6 +142,7 @@ int main() {
 	}
 
 	finished = false;
+	string flightNo;
 
 	if (auth == "admin") {
 		cout << "Welcome, " + userAccount.getForename() + "." << endl;
@@ -156,25 +159,27 @@ int main() {
 		cout << "9. Log out" << endl;
 		cout << "" << endl;
 
-		/*while (finished == false) {
+		while (finished == false) {
 
 			cin >> userInput;
 
 			if (userInput == 1) {
 				cout << "Enter the flight number of the flight you want to view" << endl;
-				cin >> userInput;
-				stringstream ss;
-				ss << userInput;
-				string flightNo = ss.str();
+				cin >> flightNo;
+				
 				while (!A00001.searchXML("flightID", flightNo)) {
 					cout << "Invalid flight number." << endl;
-					cin >> userInput;
-					stringstream ss;
-					ss << userInput;
-					string flightNo = ss.str();
+					cout << "Enter the flight number of the flight you want to view" << endl;
+					cin >> flightNo;
 				}
+
+				cout << "Flight Number: " + flightNo << endl;
+				cout << "Plane Number: " + A00001.getXML("flightID", flightNo, "planeID") << endl;
+				cout << "Destination: " + A00001.getXML("flightID", flightNo, "destination") << endl;
+				cout << "Departure Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "departure"))) << endl;
+				cout << "Arrival Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "arrival"))) << endl;
 			}
-		}*/
+		}
 	}
 	else if (auth == "staff") {
 		cout << "Welcome, " + userAccount.getForename() + "." << endl;
@@ -278,4 +283,13 @@ int main() {
 	//Plane J51CLS("J51CLS", 50, 4, 2);
 	//Flight A00001("A00001", J51CLS, "12:02", "16:43");
 	//A00001.createXML();
+}
+
+string formatTime(int time) {
+	string hours = to_string(time / 60);
+	string minutes = to_string(time % 60);
+	if (minutes.length() == 1) {
+		minutes = "0" + minutes;
+	}
+	return hours + ":" + minutes;
 }

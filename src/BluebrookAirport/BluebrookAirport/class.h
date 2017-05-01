@@ -325,6 +325,25 @@ public:
 		return false;
 	}
 
+	string getXML(string node1, string value1, string node2) {
+
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("flights.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+		XMLElement * pElement = pRoot->FirstChildElement("Flight");
+		const char * searchNode1 = node1.c_str();
+		const char * searchNode2 = node2.c_str();
+		string output;
+
+		while ((pElement != nullptr) && (pElement->Attribute(searchNode1) != nullptr) && (pElement->Attribute(searchNode2) != nullptr)) {
+			if (value1 == pElement->Attribute(searchNode1)) {
+				output = pElement->Attribute(searchNode2);
+				return output;
+			}
+		}
+		pElement = pElement->NextSiblingElement("Flight");
+	}
+
 
 	//Generate a new seating chart file
 	void generateSeatingChart() {
