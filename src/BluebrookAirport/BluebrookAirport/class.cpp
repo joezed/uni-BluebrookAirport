@@ -27,7 +27,7 @@ Destination::Destination(string destinationNumber, string place, int flightTime,
 	flightDistance = distance;
 }
 
-Plane::Plane(string ID = "000000", int r = 0, int c = 0, int a = 0, string s ="standby", int range = 0) {
+Plane::Plane(string ID = "0", int r = 0, int c = 0, int a = 0, string s ="standby", int range = 0) {
 	planeID = ID;
 	rows = r;
 	columns = c;
@@ -37,11 +37,11 @@ Plane::Plane(string ID = "000000", int r = 0, int c = 0, int a = 0, string s ="s
 	
 }
 
-Flight::Flight(string flightNumber, Plane planeInfo, Destination destinationInfo, string departure, string arrival) {
+Flight::Flight(string flightNumber, Plane planeInfo, Destination destinationInfo, int departure, int arrival) {
 	flightID = flightNumber;
 	planeDetails = planeInfo;
 	departureTime = departure;
-	arrivalTime = stoi(departure) + destinationInfo.getFlightTime();
+	arrivalTime = departure + destinationInfo.getFlightTime();
 	rows = planeDetails.getRows();
 	columns = planeDetails.getColumns();
 	aisles = planeDetails.getAisles();

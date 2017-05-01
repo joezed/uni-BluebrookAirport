@@ -42,7 +42,7 @@ int main() {
 	Account userAccount(0, "null", "null", "null", "null", "null", "null");
 	Plane tempPlane("1", 50, 6, 2, "standby", 5000);
 	Destination testDestination("1", "Glasgow", 70, 237);
-	Flight A00001("0", tempPlane, testDestination, "456", "526");
+	Flight A00001("0", tempPlane, testDestination, 456, 526);
 
 	cout << "Welcome to the Bluebrook airport booking system." << endl;
 	cout << "" << endl;
@@ -182,13 +182,13 @@ int main() {
 			else if (userInput == 2) {
 				string planeID;
 				string destination;
-				string departure;
+				int departure;
 				int departureHour;
 				int departureMinute;
 
 				cout << "Enter plane ID: ";
 				cin >> planeID;
-				while (!A00001.searchXML("planeID", planeID)) {
+				while (!tempPlane.searchXML("id", planeID)) {
 					cout << "That plane doesn't exist." << endl;
 					cout << "Enter plane ID: ";
 					cin >> planeID;
@@ -209,14 +209,15 @@ int main() {
 				departure = (departureHour * 60) + departureMinute;
 				tuple <string, string, string, string, string> data = tempPlane.getPlaneInfo(planeID);
 
-				tempPlane.setID(stoi(planeID));
+				tempPlane.setID(planeID);
 				tempPlane.setRows(stoi(get<0>(data)));
 				tempPlane.setColumns(stoi(get<1>(data)));
 				tempPlane.setAisles(stoi(get<2>(data)));
-				tempPlane.setStatus(stoi(get<3>(data)));
+				tempPlane.setStatus(get<3>(data));
 				tempPlane.setMileRange(stoi(get<4>(data)));
 				string newFlightID = to_string(A00001.getLastID() + 1);
 				Flight createdFlight(newFlightID, tempPlane, testDestination, departure, departure);
+				createdFlight.createXML();
 			}
 		}
 	}

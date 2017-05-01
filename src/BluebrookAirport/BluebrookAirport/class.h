@@ -252,6 +252,25 @@ public:
 		}
 	}
 
+	bool searchXML(string node, string value) {
+
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("planes.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+		XMLElement * pElement = pRoot->FirstChildElement("Plane");
+
+		const char * searchNode = node.c_str();
+
+		while ((pElement != nullptr) && (pElement->Attribute(searchNode) != nullptr)) {
+			string output = pElement->Attribute(searchNode);
+			if (value == output) {
+				return true;
+			}
+			pElement = pElement->NextSiblingElement("Plane");
+		}
+		return false;
+	}
+
 	string getID() {
 		return planeID;
 	}
@@ -268,7 +287,7 @@ public:
 		return aisles;
 	}
 
-	void setID(int id) {
+	void setID(string id) {
 		planeID = id;
 	}
 
@@ -284,7 +303,7 @@ public:
 		aisles = a;
 	}
 
-	void setStatus(int s) {
+	void setStatus(string s) {
 		status = s;
 	}
 
@@ -297,9 +316,9 @@ public:
 
 class Flight {
 	Plane planeDetails;
-	string departureTime, arrivalTime;
+	int departureTime, arrivalTime;
 public:
-	Flight(string flightID, Plane planeDetails, Destination destinationDetails, string departureTime, string arrivalTime);
+	Flight(string flightID, Plane planeDetails, Destination destinationDetails, int departureTime, int arrivalTime);
 	string flightID;
 	int rows, columns, aisles;
 
@@ -326,8 +345,8 @@ public:
 
 		string flightID_temp = flightID;
 		string planeID_temp = planeDetails.getID();
-		string departureTime_temp = departureTime;
-		string arrivalTime_temp = arrivalTime;
+		string departureTime_temp = to_string(departureTime);
+		string arrivalTime_temp = to_string(arrivalTime);
 
 		const char * flightID = flightID_temp.c_str();
 		const char * planeID = planeID_temp.c_str();
