@@ -151,12 +151,12 @@ int main() {
 		cout << "1. View flight" << endl;
 		cout << "2. Create flight" << endl;
 		//cout << "3. Edit flight" << endl;
-		cout << "4. Delete flight" << endl;
-		cout << "5. View customer booking" << endl;
-		cout << "6. Edit customer booking" << endl;
-		cout << "7. Delete customer booking" << endl;
-		cout << "8. Create staff account" << endl;
-		cout << "9. Log out" << endl;
+		//cout << "4. Delete flight" << endl;
+		//cout << "5. View customer booking" << endl;
+		//cout << "6. Edit customer booking" << endl;
+		//cout << "7. Delete customer booking" << endl;
+		//cout << "8. Create staff account" << endl;
+		//cout << "9. Log out" << endl;
 		cout << "" << endl;
 
 		while (finished == false) {
@@ -222,15 +222,15 @@ int main() {
 		}
 	}
 	else if (auth == "staff") {
-		cout << "Welcome, " + userAccount.getForename() + "." << endl;
-		cout << "" << endl;
-		cout << "MENU:" << endl;
-		cout << "1. View flight list" << endl;
-		cout << "2. Book flight" << endl;
-		cout << "3. Check existing bookings" << endl;
-		cout << "4. Change user details" << endl;
-		cout << "5. Log out" << endl;
-		cout << "" << endl;
+		//cout << "Welcome, " + userAccount.getForename() + "." << endl;
+		//cout << "" << endl;
+		//cout << "MENU:" << endl;
+		//cout << "1. View flight list" << endl;
+		//cout << "2. Book flight" << endl;
+		//cout << "3. Check existing bookings" << endl;
+		//cout << "4. Change user details" << endl;
+		//cout << "5. Log out" << endl;
+		//cout << "" << endl;
 
 	}
 
@@ -238,12 +238,31 @@ int main() {
 		cout << "Welcome, " + userAccount.getForename() + "." << endl;
 		cout << "" << endl;
 		cout << "MENU:" << endl;
-		cout << "1. View flight list" << endl;
+		//cout << "1. View flight list" << endl;
 		cout << "2. Book flight" << endl;
-		cout << "3. Check existing bookings" << endl;
-		cout << "4. Change user details" << endl;
-		cout << "5. Log out" << endl;
+		//cout << "3. Check existing bookings" << endl;
+		//cout << "4. Change user details" << endl;
+		//cout << "5. Log out" << endl;
 		cout << "" << endl;
+
+		while (finished == false) {
+
+			cin >> userInput;
+
+			if (userInput == 1) {
+				return 0;
+			}
+
+			else if (userInput == 2) {
+				cout << "Enter the flight number of the flight you want to book:" << endl;
+				
+				cin >> flightNo;
+
+				while (!A00001.searchXML("flightID", flightNo)) {
+					cout << "That flight doesn't exist." << endl;
+				}
+			}
+		}
 
 	}
 
