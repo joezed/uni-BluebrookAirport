@@ -199,7 +199,7 @@ public:
 		while ((pElement != nullptr) && (pElement->Attribute(node) != nullptr)) {
 			if (value == pElement->Attribute(node)) {
 				string nameOut, avgFlightTimeOut, distanceOut;
-				nameOut = pElement->Attribute(node);
+				nameOut = pElement->Attribute("name");
 				avgFlightTimeOut = pElement->Attribute("avgflighttimemins");
 				distanceOut = pElement->Attribute("miledistance");
 				return make_tuple(nameOut, avgFlightTimeOut, distanceOut);
@@ -358,6 +358,27 @@ public:
 	Flight(string flightID, Plane planeDetails, Destination destinationDetails, int departureTime, int arrivalTime);
 	string flightID;
 	int rows, columns, aisles;
+
+	tuple <string, string, string, string, string> getFlightInfo(const char * node, string value) {
+
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("flights.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+
+		XMLElement * pElement = pRoot->FirstChildElement("Flight");
+		while ((pElement != nullptr) && (pElement->Attribute(node) != nullptr)) {
+			if (value == pElement->Attribute(node)) {
+				string flightIDOut, planeIDOut, destinationOut, departureOut, arrivalOut;
+				flightIDOut = pElement->Attribute("flightID");
+				planeIDOut = pElement->Attribute("planeID");
+				destinationOut = pElement->Attribute("destination");
+				departureOut = pElement->Attribute("departure");
+				arrivalOut = pElement->Attribute("arrival");
+				return make_tuple(flightIDOut, planeIDOut, destinationOut, departureOut, arrivalOut);
+			}
+			pElement = pElement->NextSiblingElement("Flight");
+		}
+	}
 
 	int getLastID() {
 		XMLDocument xmlDoc;

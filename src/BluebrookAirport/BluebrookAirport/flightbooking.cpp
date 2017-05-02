@@ -257,22 +257,16 @@ int main() {
 
 			if (userInput == 1) {
 
-				vector<int> A = { 6,10,13,5,8,3,2,25,4,11 };
-				//A00001.getFlightTimes()
+				vector<int> A = A00001.getFlightTimes();
+				tuple <string, string, string, string, string> flightData;
 				int p = 0;
-				int q = 10;
-
-				cout << "======Original=======" << endl;
-				for (auto e : A)
-					cout << e << " ";
-				cout << endl;
-
+				int q = A.size();
 				quickSort(A, p, q);
-
-				cout << "======Sorted=======" << endl;
-				for (auto e : A)
-					cout << e << " ";
-				cout << endl;
+				//cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + "\t\t" + get<3>(flightData) + "\t\t" + get<4>(flightData) << endl;
+				for (auto e : A) {
+					flightData = A00001.getFlightInfo("departure", to_string(e));
+					cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + "\t\t" + formatTime(stoi(get<3>(flightData))) + "\t\t" + formatTime(stoi(get<4>(flightData))) << endl;
+				}
 			}
 
 			else if (userInput == 2) {

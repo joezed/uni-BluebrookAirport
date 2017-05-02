@@ -1,6 +1,8 @@
 ﻿  flightbooking.cpp
-\\nasstudusers\3$\n0626631\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(575): warning C4715: 'Flight::getXML': not all control paths return a value
-\\nasstudusers\3$\n0626631\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(289): warning C4715: 'Plane::getPlaneInfo': not all control paths return a value
+\\nasstudusers\3$\n0626631\github\software-design-imp\src\bluebrookairport\bluebrookairport\flightbooking.cpp(263): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+\\nasstudusers\3$\n0626631\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(596): warning C4715: 'Flight::getXML': not all control paths return a value
 \\nasstudusers\3$\n0626631\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(209): warning C4715: 'Destination::getDestinationInfo': not all control paths return a value
-  BluebrookAirport.vcxproj -> \\nasstudusers\3$\n0626631\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
-  BluebrookAirport.vcxproj -> \\nasstudusers\3$\n0626631\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)
+\\nasstudusers\3$\n0626631\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(289): warning C4715: 'Plane::getPlaneInfo': not all control paths return a value
+\\nasstudusers\3$\n0626631\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(381): warning C4715: 'Flight::getFlightInfo': not all control paths return a value
+  BluebrookAirport.vcxproj -> \\nasstudusers\3$\N0626631\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
+  BluebrookAirport.vcxproj -> \\nasstudusers\3$\N0626631\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)
