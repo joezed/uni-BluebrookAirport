@@ -189,17 +189,17 @@ class Destination {
 public:
 	Destination(string destinationID, string destination, int avgFlightTime, int flightDistance);
 
-	tuple <string, string, string> getDestinationInfo(string destination) {
+	tuple <string, string, string> getDestinationInfo(const char * node, string value) {
 
 		XMLDocument xmlDoc;
 		xmlDoc.LoadFile("destinations.xml");
 		XMLNode * pRoot = xmlDoc.FirstChild();
 
 		XMLElement * pElement = pRoot->FirstChildElement("Destination");
-		while ((pElement != nullptr) && (pElement->Attribute("name") != nullptr)) {
-			if (destination == pElement->Attribute("name")) {
+		while ((pElement != nullptr) && (pElement->Attribute(node) != nullptr)) {
+			if (value == pElement->Attribute(node)) {
 				string nameOut, avgFlightTimeOut, distanceOut;
-				nameOut = pElement->Attribute("name");
+				nameOut = pElement->Attribute(node);
 				avgFlightTimeOut = pElement->Attribute("avgflighttimemins");
 				distanceOut = pElement->Attribute("miledistance");
 				return make_tuple(nameOut, avgFlightTimeOut, distanceOut);
@@ -266,22 +266,23 @@ class Plane {
 public:
 	Plane(string planeID, int rows, int columns, int aisles, string status, int milerange);
 
-	tuple <string, string, string, string, string> getPlaneInfo(string planeID) {
+	tuple <string, string, string, string, string, string> getPlaneInfo(const char * node, string value) {
 
 		XMLDocument xmlDoc;
 		xmlDoc.LoadFile("planes.xml");
 		XMLNode * pRoot = xmlDoc.FirstChild();
 
 		XMLElement * pElement = pRoot->FirstChildElement("Plane");
-		while ((pElement != nullptr) && (pElement->Attribute("id") != nullptr)) {
-			if (planeID == pElement->Attribute("id")) {
-				string rowsOut, columnsOut, aislesOut, statusOut, milerangeOut;
+		while ((pElement != nullptr) && (pElement->Attribute(node) != nullptr)) {
+			if (value == pElement->Attribute(node)) {
+				string idOut, rowsOut, columnsOut, aislesOut, statusOut, milerangeOut;
+				idOut = pElement->Attribute("id");
 				rowsOut = pElement->Attribute("rows");
 				columnsOut = pElement->Attribute("columns");
 				aislesOut = pElement->Attribute("aisle");
 				statusOut = pElement->Attribute("status");
 				milerangeOut = pElement->Attribute("milerange");
-				return make_tuple(rowsOut, columnsOut, aislesOut, statusOut, milerangeOut);
+				return make_tuple(idOut, rowsOut, columnsOut, aislesOut, statusOut, milerangeOut);
 			}
 			pElement = pElement->NextSiblingElement("Plane");
 		}
@@ -374,6 +375,10 @@ public:
 			pElement = pElement->NextSiblingElement("Flight");
 		}
 		return highestID;
+	}
+
+	string getID(){
+		return flightID;
 	}
 
 	void bookSeat(int reference, string user, string flight, string row, string column) {

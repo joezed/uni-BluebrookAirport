@@ -207,15 +207,15 @@ int main() {
 				cin >> departureMinute;
 
 				departure = (departureHour * 60) + departureMinute;
-				tuple <string, string, string, string, string> planeData = tempPlane.getPlaneInfo(planeID);
-				tuple <string, string, string> destinationData = testDestination.getDestinationInfo(destination);
+				tuple <string, string, string, string, string, string> planeData = tempPlane.getPlaneInfo("id", planeID);
+				tuple <string, string, string> destinationData = testDestination.getDestinationInfo("name", destination);
 
-				tempPlane.setID(planeID);
-				tempPlane.setRows(stoi(get<0>(planeData)));
-				tempPlane.setColumns(stoi(get<1>(planeData)));
-				tempPlane.setAisles(stoi(get<2>(planeData)));
-				tempPlane.setStatus(get<3>(planeData));
-				tempPlane.setMileRange(stoi(get<4>(planeData)));
+				tempPlane.setID(get<0>(planeData));
+				tempPlane.setRows(stoi(get<1>(planeData)));
+				tempPlane.setColumns(stoi(get<2>(planeData)));
+				tempPlane.setAisles(stoi(get<3>(planeData)));
+				tempPlane.setStatus(get<4>(planeData));
+				tempPlane.setMileRange(stoi(get<5>(planeData)));
 				testDestination.setDestination(get<0>(destinationData));
 				testDestination.setFlightTime(stoi(get<1>(destinationData)));
 				testDestination.setDistance(stoi(get<2>(destinationData)));
@@ -242,7 +242,7 @@ int main() {
 		cout << "Welcome, " + userAccount.getForename() + "." << endl;
 		cout << "" << endl;
 		cout << "MENU:" << endl;
-		//cout << "1. View flight list" << endl;
+		cout << "1. View flight list" << endl;
 		cout << "2. Book flight" << endl;
 		//cout << "3. Check existing bookings" << endl;
 		//cout << "4. Change user details" << endl;
@@ -258,6 +258,9 @@ int main() {
 			}
 
 			else if (userInput == 2) {
+				string row;
+				string column;
+
 				cout << "Enter the flight number of the flight you want to book:" << endl;
 				
 				cin >> flightNo;
@@ -274,10 +277,26 @@ int main() {
 				cout << "Departure Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "departure"))) << endl;
 				cout << "Arrival Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "arrival"))) << endl;
 
-				tuple <string, string, string, string, string> planeData = tempPlane.getPlaneInfo(planeID);
+				cout << "Enter the row of the seat you want:" << endl;
+				cin >> row;
+				cout << "Enter the column of the seat you want:" << endl;
+				cin >> column;
 
-				Flight createdFlight(newFlightID, tempPlane, testDestination, departure, departure);
-				createdFlight.bookSeat();
+				tuple <string, string, string, string, string, string> planeData = tempPlane.getPlaneInfo("id", A00001.getXML("flightID", flightNo, "planeID"));
+				tuple <string, string, string> destinationData = testDestination.getDestinationInfo("name", A00001.getXML("flightID", flightNo, "destination"));
+				tempPlane.setID(get<0>(planeData));
+				tempPlane.setRows(stoi(get<1>(planeData)));
+				tempPlane.setColumns(stoi(get<2>(planeData)));
+				tempPlane.setAisles(stoi(get<3>(planeData)));
+				tempPlane.setStatus(get<4>(planeData));
+				tempPlane.setMileRange(stoi(get<5>(planeData)));
+				testDestination.setDestination(get<0>(destinationData));
+				testDestination.setFlightTime(stoi(get<1>(destinationData)));
+				testDestination.setDistance(stoi(get<2>(destinationData)));
+				int departure = stoi(A00001.getXML("flightID", flightNo, "departure"));
+				int arrival = departure + stoi(get<1>(destinationData));
+				Flight createdFlight("1", tempPlane, testDestination, departure, arrival);
+				createdFlight.bookSeat(1, "1", createdFlight.getID(), row, column);
 			}
 		}
 

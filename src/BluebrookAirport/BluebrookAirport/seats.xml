@@ -1,3 +1,4 @@
-<Seats>
-    <Seat reference="1" user="1" flight="1" row ="1" column="1"/>
-</Seats>
+<Flights>
+    <Flight reference="1" user="1" flight="1" row="1" column="1"/>
+    <Flight reference="1" user="1" flight="1" row="2" column="3"/>
+</Flights>
