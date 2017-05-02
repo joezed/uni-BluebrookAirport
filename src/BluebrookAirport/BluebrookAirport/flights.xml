@@ -29,4 +29,5 @@
     <Flight flightID="28" planeID="1" destination="Dublin" departure="1128" arrival="1154"/>
     <Flight flightID="29" planeID="8" destination="Berlin" departure="1223" arrival="1342"/>
     <Flight flightID="30" planeID="4" destination="Milan" departure="356" arrival="802"/>
+    <Flight flightID="31" planeID="1" destination="Prague" departure="733" arrival="885"/>
 </Flights>

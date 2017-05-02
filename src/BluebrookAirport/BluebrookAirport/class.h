@@ -85,7 +85,7 @@ public:
 			pRoot->InsertEndChild(pElement);
 		}
 
-		xmlDoc.SaveFile("DataFiles\\users.xml");
+		xmlDoc.SaveFile("users.xml");
 
 	}
 
@@ -181,6 +181,10 @@ public:
 
 	void setAuth(string auth) {
 		authority = auth;
+	}
+
+	string getEmail() {
+		return email;
 	}
 };
 

@@ -62,11 +62,11 @@ int main() {
 	cout << "" << endl;
 
 
-//---------------------------------------------------------------------------------------------------------------------------
-// Name: LOG IN
-// Description: User enters email and password, which is validated if they are found in the XML file
-//              If Successful user proceeds through the system
-//----------------------------------------------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------------------------------------------
+	// Name: LOG IN
+	// Description: User enters email and password, which is validated if they are found in the XML file
+	//              If Successful user proceeds through the system
+	//----------------------------------------------------------------------------------------------------------------------------
 
 
 	while (finished == false) {
@@ -98,10 +98,10 @@ int main() {
 		}
 
 
-//---------------------------------------------------------------------------------------------------------------------------
-// Name: CREATE ACCOUNT
-// Description: User enters details to be saved in XML file
-//----------------------------------------------------------------------------------------------------------------------------
+		//---------------------------------------------------------------------------------------------------------------------------
+		// Name: CREATE ACCOUNT
+		// Description: User enters details to be saved in XML file
+		//----------------------------------------------------------------------------------------------------------------------------
 
 		else if (userInput == 2) {
 
@@ -157,10 +157,10 @@ int main() {
 
 		}
 
-//---------------------------------------------------------------------------------------------------------------------------
-// Name: EXIT
-// Description: user exits the system when ‘3’ is entered on the main menu
-//----------------------------------------------------------------------------------------------------------------------------
+		//---------------------------------------------------------------------------------------------------------------------------
+		// Name: EXIT
+		// Description: user exits the system when ‘3’ is entered on the main menu
+		//----------------------------------------------------------------------------------------------------------------------------
 
 		else if (userInput == 3) {
 			return 0;
@@ -173,13 +173,13 @@ int main() {
 	finished = false;
 	string flightNo;
 
-//---------------------------------------------------------------------------------------------------------------------------
-// Name: ADMIN MENU
-// Description: if user log entered, admin menu appears with additional admin specific features 
-//----------------------------------------------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------------------------------------------
+	// Name: ADMIN MENU
+	// Description: if user log entered, admin menu appears with additional admin specific features 
+	//----------------------------------------------------------------------------------------------------------------------------
 
 	if (auth == "admin") {
-		cout << "Welcome, " + userAccount.getForename() + "." << endl;
+		cout << "Welcome, " + email + "." << endl;
 		cout << "" << endl;
 		cout << "MENU:" << endl;
 		cout << "1. View flight" << endl;
@@ -187,14 +187,14 @@ int main() {
 		cout << "3. Log out" << endl;
 		cout << "" << endl;
 
-		while (finished == false) 
-		
-//---------------------------------------------------------------------------------------------------------------------------
-// Name: VIEW FLIGHTS
-// Description: User enters flight ID, XML file is searches for flight/displays its data
-//----------------------------------------------------------------------------------------------------------------------------
+		while (finished == false)
 
-		
+			//---------------------------------------------------------------------------------------------------------------------------
+			// Name: VIEW FLIGHTS
+			// Description: User enters flight ID, XML file is searches for flight/displays its data
+			//----------------------------------------------------------------------------------------------------------------------------
+
+
 		{
 
 			cin >> userInput;
@@ -217,10 +217,10 @@ int main() {
 				cout << "Arrival Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "arrival"))) << endl;
 			}
 
-//---------------------------------------------------------------------------------------------------------------------------
-// Name: ADD FLIGHT
-// Description: Admin is able add a new flight to the XML flights file
-//----------------------------------------------------------------------------------------------------------------------------
+			//---------------------------------------------------------------------------------------------------------------------------
+			// Name: ADD FLIGHT
+			// Description: Admin is able add a new flight to the XML flights file
+			//----------------------------------------------------------------------------------------------------------------------------
 
 			else if (userInput == 2) {
 				string planeID;
@@ -286,10 +286,10 @@ int main() {
 		}
 	}
 
-//---------------------------------------------------------------------------------------------------------------------------
-// Name: STAFF MENU
-// Description: if user log in entered is a staff log in staff specific menus displays
-//----------------------------------------------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------------------------------------------
+	// Name: STAFF MENU
+	// Description: if user log in entered is a staff log in staff specific menus displays
+	//----------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -307,7 +307,7 @@ int main() {
 	}
 
 	else {
-		cout << "Welcome, " + userAccount.getForename() + "." << endl;
+		cout << "Welcome, " + userAccount.getEmail() + "." << endl;
 		cout << "" << endl;
 		cout << "MENU:" << endl;
 		cout << "1. View flight list" << endl;
@@ -410,10 +410,10 @@ int main() {
 				}
 			}
 
-//---------------------------------------------------------------------------------------------------------------------------
-// Name: BOOK A FLIGHT
-// Description:
-//----------------------------------------------------------------------------------------------------------------------------
+			//---------------------------------------------------------------------------------------------------------------------------
+			// Name: BOOK A FLIGHT
+			// Description:
+			//----------------------------------------------------------------------------------------------------------------------------
 
 
 			else if (userInput == 2) {
@@ -442,33 +442,42 @@ int main() {
 					cout << "Enter the column of the seat you want:" << endl;
 					cin >> column;
 
-					if (A00001.isSeatTaken(flightNo, row, column)) {
+					while(A00001.isSeatTaken(flightNo, row, column)) {
 						cout << "That seat is taken. Choose another?" << endl;
 						cout << "1. Yes" << endl;
 						cout << "2. No" << endl;
 						cin >> userInput;
+						if (userInput == 1) {
+							cout << "Enter the row of the seat you want:" << endl;
+							cin >> row;
+							cout << "Enter the column of the seat you want:" << endl;
+							cin >> column;
+						}
 						if (userInput == 2) {
 							finished = true;
 						}
+						finished = true;
 					}
-				}
 
-				tuple <string, string, string, string, string, string> planeData = tempPlane.getPlaneInfo("id", A00001.getXML("flightID", flightNo, "planeID"));
-				tuple <string, string, string> destinationData = testDestination.getDestinationInfo("name", A00001.getXML("flightID", flightNo, "destination"));
-				tempPlane.setID(get<0>(planeData));
-				tempPlane.setRows(stoi(get<1>(planeData)));
-				tempPlane.setColumns(stoi(get<2>(planeData)));
-				tempPlane.setAisles(stoi(get<3>(planeData)));
-				tempPlane.setStatus(get<4>(planeData));
-				tempPlane.setMileRange(stoi(get<5>(planeData)));
-				testDestination.setDestination(get<0>(destinationData));
-				testDestination.setFlightTime(stoi(get<1>(destinationData)));
-				testDestination.setDistance(stoi(get<2>(destinationData)));
-				int departure = stoi(A00001.getXML("flightID", flightNo, "departure"));
-				int arrival = departure + stoi(get<1>(destinationData));
-				Flight createdFlight("1", tempPlane, testDestination, departure, arrival);
-				createdFlight.bookSeat(1, "1", createdFlight.getID(), row, column);
+					tuple <string, string, string, string, string, string> planeData = tempPlane.getPlaneInfo("id", A00001.getXML("flightID", flightNo, "planeID"));
+					tuple <string, string, string> destinationData = testDestination.getDestinationInfo("name", A00001.getXML("flightID", flightNo, "destination"));
+					tempPlane.setID(get<0>(planeData));
+					tempPlane.setRows(stoi(get<1>(planeData)));
+					tempPlane.setColumns(stoi(get<2>(planeData)));
+					tempPlane.setAisles(stoi(get<3>(planeData)));
+					tempPlane.setStatus(get<4>(planeData));
+					tempPlane.setMileRange(stoi(get<5>(planeData)));
+					testDestination.setDestination(get<0>(destinationData));
+					testDestination.setFlightTime(stoi(get<1>(destinationData)));
+					testDestination.setDistance(stoi(get<2>(destinationData)));
+					int departure = stoi(A00001.getXML("flightID", flightNo, "departure"));
+					int arrival = departure + stoi(get<1>(destinationData));
+					Flight createdFlight("1", tempPlane, testDestination, departure, arrival);
+					createdFlight.bookSeat(1, "1", createdFlight.getID(), row, column);
+				}
 			}
+
+
 			else if (userInput == 3) {
 				return 0;
 			}

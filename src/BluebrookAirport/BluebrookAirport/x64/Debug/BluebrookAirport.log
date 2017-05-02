@@ -1,8 +1,11 @@
-﻿  flightbooking.cpp
-c:\users\paul\documents\github\software-design-imp\src\bluebrookairport\bluebrookairport\flightbooking.cpp(328): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\paul\documents\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(696): warning C4715: 'Flight::getXML': not all control paths return a value
-c:\users\paul\documents\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(313): warning C4715: 'Plane::getPlaneInfo': not all control paths return a value
-c:\users\paul\documents\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(233): warning C4715: 'Destination::getDestinationInfo': not all control paths return a value
-c:\users\paul\documents\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(405): warning C4715: 'Flight::getFlightInfo': not all control paths return a value
-  BluebrookAirport.vcxproj -> C:\Users\Paul\Documents\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
-  BluebrookAirport.vcxproj -> C:\Users\Paul\Documents\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)
+﻿  stdafx.cpp
+  flightbooking.cpp
+c:\users\slcra\documents\github\software-design-imp\src\bluebrookairport\bluebrookairport\flightbooking.cpp(328): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\slcra\documents\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(700): warning C4715: 'Flight::getXML': not all control paths return a value
+c:\users\slcra\documents\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(317): warning C4715: 'Plane::getPlaneInfo': not all control paths return a value
+c:\users\slcra\documents\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(237): warning C4715: 'Destination::getDestinationInfo': not all control paths return a value
+c:\users\slcra\documents\github\software-design-imp\src\bluebrookairport\bluebrookairport\class.h(409): warning C4715: 'Flight::getFlightInfo': not all control paths return a value
+  class.cpp
+  tinyxml2.cpp
+  BluebrookAirport.vcxproj -> C:\Users\slcra\Documents\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.exe
+  BluebrookAirport.vcxproj -> C:\Users\slcra\Documents\GitHub\Software-Design-Imp\src\BluebrookAirport\x64\Debug\BluebrookAirport.pdb (Full PDB)
