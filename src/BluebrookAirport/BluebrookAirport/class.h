@@ -377,280 +377,296 @@ public:
 		return highestID;
 	}
 
-	string getID(){
+	string getID() {
 		return flightID;
 	}
 
-	void bookSeat(int reference, string user, string flight, string row, string column) {
-
-		const char * cUser = user.c_str();
-		const char * cFlight = flight.c_str();
-		const char * cRow = row.c_str();
-		const char * cColumn = column.c_str();
-
-		vector<tuple <string, string, string, string, string>> testVector = parseSeat();
-		tuple <string, string, string, string, string> data;
-
-		XMLDocument xmlDoc;
-		XMLNode * pRoot = xmlDoc.NewElement("Flights");
-		xmlDoc.InsertFirstChild(pRoot);
-
-		XMLElement * pElement = xmlDoc.NewElement("Flight");
-		for (int i = 0; i < testVector.size(); i++) {
-			data = testVector.at(i);
-
-			const char * eReference = get<0>(data).c_str();
-			const char * eUser = get<1>(data).c_str();
-			const char * eFlight = get<2>(data).c_str();
-			const char * eRow = get<3>(data).c_str();
-			const char * eColumn = get<4>(data).c_str();
-
-			pElement->SetAttribute("reference", eReference);
-			pElement->SetAttribute("user", eUser);
-			pElement->SetAttribute("flight", eFlight);
-			pElement->SetAttribute("row", eRow);
-			pElement->SetAttribute("column", eColumn);
-			pRoot->InsertEndChild(pElement);
-
-			pElement = xmlDoc.NewElement("Flight");
-			pElement->SetAttribute("reference", reference);
-			pElement->SetAttribute("user", cUser);
-			pElement->SetAttribute("flight", cFlight);
-			pElement->SetAttribute("row", cRow);
-			pElement->SetAttribute("column", cColumn);
-			pRoot->InsertEndChild(pElement);
-		}
-
-		xmlDoc.SaveFile("seats.xml");
-
-	}
-
-	vector<tuple <string, string, string, string, string>> parseSeat() {
-		vector<tuple <string, string, string, string, string>> lineOutput;
-
-		XMLDocument xmlDoc;
-		xmlDoc.LoadFile("seats.xml");
-		XMLNode * pRoot = xmlDoc.FirstChild();
-
-		XMLElement * pElement = pRoot->FirstChildElement("Seat");
-		while (pElement != nullptr) {
-			string referenceOut, userOut, flightOut, rowOut, columnOut;
-			referenceOut = pElement->Attribute("reference");
-			userOut = pElement->Attribute("user");
-			flightOut = pElement->Attribute("flight");
-			rowOut = pElement->Attribute("row");
-			columnOut = pElement->Attribute("column");
-			tuple <string, string, string, string, string> output(referenceOut, userOut, flightOut, rowOut, columnOut);
-			lineOutput.push_back(output);
-			pElement = pElement->NextSiblingElement("Seat");
-		}
-		return lineOutput;
-	}
-
-	void createXML() {
-
-		string flightID_temp = flightID;
-		string planeID_temp = planeDetails.getID();
-		string destination_temp = destinationDetails.getDestination();
-		string departureTime_temp = to_string(departureTime);
-		string arrivalTime_temp = to_string(arrivalTime);
-
-		const char * flightID = flightID_temp.c_str();
-		const char * planeID = planeID_temp.c_str();
-		const char * destination = destination_temp.c_str();
-		const char * departureTime = departureTime_temp.c_str();
-		const char * arrivalTime = arrivalTime_temp.c_str();
-
-		vector<tuple <string, string, string, string, string>> testVector = parseXML();
-		tuple <string, string, string, string, string> data;
-
-		XMLDocument xmlDoc;
-		XMLNode * pRoot = xmlDoc.NewElement("Flights");
-		xmlDoc.InsertFirstChild(pRoot);
-
-		XMLElement * pElement = xmlDoc.NewElement("Flight");
-		for (int i = 0; i < testVector.size(); i++) {
-			data = testVector.at(i);
-
-			const char * eFlightID = get<0>(data).c_str();
-			const char * ePlaneID = get<1>(data).c_str();
-			const char * eDestination = get<2>(data).c_str();
-			const char * eDepartureTime = get<3>(data).c_str();
-			const char * eArrivalTime = get<4>(data).c_str();
-
-			pElement->SetAttribute("flightID", eFlightID);
-			pElement->SetAttribute("planeID", ePlaneID);
-			pElement->SetAttribute("destination", eDestination);
-			pElement->SetAttribute("departure", eDepartureTime);
-			pElement->SetAttribute("arrival", eArrivalTime);
-			pRoot->InsertEndChild(pElement);
-
-			pElement = xmlDoc.NewElement("Flight");
-			pElement->SetAttribute("flightID", flightID);
-			pElement->SetAttribute("planeID", planeID);
-			pElement->SetAttribute("destination", destination);
-			pElement->SetAttribute("departure", departureTime);
-			pElement->SetAttribute("arrival", arrivalTime);
-			pRoot->InsertEndChild(pElement);
-		}
-
-		xmlDoc.SaveFile("flights.xml");
-
-	}
-
-	vector<tuple <string, string, string, string, string>> parseXML() {
-		vector<tuple <string, string, string, string, string>> lineOutput;
-
+	vector<int> getFlightTimes() {
+		vector<int> timeOutput;
 		XMLDocument xmlDoc;
 		xmlDoc.LoadFile("flights.xml");
 		XMLNode * pRoot = xmlDoc.FirstChild();
 
 		XMLElement * pElement = pRoot->FirstChildElement("Flight");
-		while (pElement != nullptr) {
-			string flightIDOut, planeIDOut, destinationOut, departureOut, arrivalOut;
-			flightIDOut = pElement->Attribute("flightID");
-			planeIDOut = pElement->Attribute("planeID");
-			destinationOut = pElement->Attribute("destination");
-			departureOut = pElement->Attribute("departure");
-			arrivalOut = pElement->Attribute("arrival");
-			tuple <string, string, string, string, string> output(flightIDOut, planeIDOut, destinationOut, departureOut, arrivalOut);
-			lineOutput.push_back(output);
+
+		while ((pElement != nullptr) && (pElement->Attribute("departure") != nullptr)) {
+			string output = pElement->Attribute("departure");
+			timeOutput.push_back(stoi(output));
 			pElement = pElement->NextSiblingElement("Flight");
 		}
-		return lineOutput;
+		return timeOutput;
 	}
 
-	bool searchXML(string node, string value) {
+void bookSeat(int reference, string user, string flight, string row, string column) {
 
-		XMLDocument xmlDoc;
-		xmlDoc.LoadFile("flights.xml");
-		XMLNode * pRoot = xmlDoc.FirstChild();
-		XMLElement * pElement = pRoot->FirstChildElement("Flight");
+	const char * cUser = user.c_str();
+	const char * cFlight = flight.c_str();
+	const char * cRow = row.c_str();
+	const char * cColumn = column.c_str();
 
-		const char * searchNode = node.c_str();
+	vector<tuple <string, string, string, string, string>> testVector = parseSeat();
+	tuple <string, string, string, string, string> data;
 
-		while ((pElement != nullptr) && (pElement->Attribute(searchNode) != nullptr)) {
-			string output = pElement->Attribute(searchNode);
-			if (value == output) {
-				return true;
+	XMLDocument xmlDoc;
+	XMLNode * pRoot = xmlDoc.NewElement("Flights");
+	xmlDoc.InsertFirstChild(pRoot);
+
+	XMLElement * pElement = xmlDoc.NewElement("Flight");
+	for (int i = 0; i < testVector.size(); i++) {
+		data = testVector.at(i);
+
+		const char * eReference = get<0>(data).c_str();
+		const char * eUser = get<1>(data).c_str();
+		const char * eFlight = get<2>(data).c_str();
+		const char * eRow = get<3>(data).c_str();
+		const char * eColumn = get<4>(data).c_str();
+
+		pElement->SetAttribute("reference", eReference);
+		pElement->SetAttribute("user", eUser);
+		pElement->SetAttribute("flight", eFlight);
+		pElement->SetAttribute("row", eRow);
+		pElement->SetAttribute("column", eColumn);
+		pRoot->InsertEndChild(pElement);
+
+		pElement = xmlDoc.NewElement("Flight");
+		pElement->SetAttribute("reference", reference);
+		pElement->SetAttribute("user", cUser);
+		pElement->SetAttribute("flight", cFlight);
+		pElement->SetAttribute("row", cRow);
+		pElement->SetAttribute("column", cColumn);
+		pRoot->InsertEndChild(pElement);
+	}
+
+	xmlDoc.SaveFile("seats.xml");
+
+}
+
+vector<tuple <string, string, string, string, string>> parseSeat() {
+	vector<tuple <string, string, string, string, string>> lineOutput;
+
+	XMLDocument xmlDoc;
+	xmlDoc.LoadFile("seats.xml");
+	XMLNode * pRoot = xmlDoc.FirstChild();
+
+	XMLElement * pElement = pRoot->FirstChildElement("Seat");
+	while (pElement != nullptr) {
+		string referenceOut, userOut, flightOut, rowOut, columnOut;
+		referenceOut = pElement->Attribute("reference");
+		userOut = pElement->Attribute("user");
+		flightOut = pElement->Attribute("flight");
+		rowOut = pElement->Attribute("row");
+		columnOut = pElement->Attribute("column");
+		tuple <string, string, string, string, string> output(referenceOut, userOut, flightOut, rowOut, columnOut);
+		lineOutput.push_back(output);
+		pElement = pElement->NextSiblingElement("Seat");
+	}
+	return lineOutput;
+}
+
+void createXML() {
+
+	string flightID_temp = flightID;
+	string planeID_temp = planeDetails.getID();
+	string destination_temp = destinationDetails.getDestination();
+	string departureTime_temp = to_string(departureTime);
+	string arrivalTime_temp = to_string(arrivalTime);
+
+	const char * flightID = flightID_temp.c_str();
+	const char * planeID = planeID_temp.c_str();
+	const char * destination = destination_temp.c_str();
+	const char * departureTime = departureTime_temp.c_str();
+	const char * arrivalTime = arrivalTime_temp.c_str();
+
+	vector<tuple <string, string, string, string, string>> testVector = parseXML();
+	tuple <string, string, string, string, string> data;
+
+	XMLDocument xmlDoc;
+	XMLNode * pRoot = xmlDoc.NewElement("Flights");
+	xmlDoc.InsertFirstChild(pRoot);
+
+	XMLElement * pElement = xmlDoc.NewElement("Flight");
+	for (int i = 0; i < testVector.size(); i++) {
+		data = testVector.at(i);
+
+		const char * eFlightID = get<0>(data).c_str();
+		const char * ePlaneID = get<1>(data).c_str();
+		const char * eDestination = get<2>(data).c_str();
+		const char * eDepartureTime = get<3>(data).c_str();
+		const char * eArrivalTime = get<4>(data).c_str();
+
+		pElement->SetAttribute("flightID", eFlightID);
+		pElement->SetAttribute("planeID", ePlaneID);
+		pElement->SetAttribute("destination", eDestination);
+		pElement->SetAttribute("departure", eDepartureTime);
+		pElement->SetAttribute("arrival", eArrivalTime);
+		pRoot->InsertEndChild(pElement);
+
+		pElement = xmlDoc.NewElement("Flight");
+		pElement->SetAttribute("flightID", flightID);
+		pElement->SetAttribute("planeID", planeID);
+		pElement->SetAttribute("destination", destination);
+		pElement->SetAttribute("departure", departureTime);
+		pElement->SetAttribute("arrival", arrivalTime);
+		pRoot->InsertEndChild(pElement);
+	}
+
+	xmlDoc.SaveFile("flights.xml");
+
+}
+
+vector<tuple <string, string, string, string, string>> parseXML() {
+	vector<tuple <string, string, string, string, string>> lineOutput;
+
+	XMLDocument xmlDoc;
+	xmlDoc.LoadFile("flights.xml");
+	XMLNode * pRoot = xmlDoc.FirstChild();
+
+	XMLElement * pElement = pRoot->FirstChildElement("Flight");
+	while (pElement != nullptr) {
+		string flightIDOut, planeIDOut, destinationOut, departureOut, arrivalOut;
+		flightIDOut = pElement->Attribute("flightID");
+		planeIDOut = pElement->Attribute("planeID");
+		destinationOut = pElement->Attribute("destination");
+		departureOut = pElement->Attribute("departure");
+		arrivalOut = pElement->Attribute("arrival");
+		tuple <string, string, string, string, string> output(flightIDOut, planeIDOut, destinationOut, departureOut, arrivalOut);
+		lineOutput.push_back(output);
+		pElement = pElement->NextSiblingElement("Flight");
+	}
+	return lineOutput;
+}
+
+bool searchXML(string node, string value) {
+
+	XMLDocument xmlDoc;
+	xmlDoc.LoadFile("flights.xml");
+	XMLNode * pRoot = xmlDoc.FirstChild();
+	XMLElement * pElement = pRoot->FirstChildElement("Flight");
+
+	const char * searchNode = node.c_str();
+
+	while ((pElement != nullptr) && (pElement->Attribute(searchNode) != nullptr)) {
+		string output = pElement->Attribute(searchNode);
+		if (value == output) {
+			return true;
+		}
+		pElement = pElement->NextSiblingElement("Flight");
+	}
+	return false;
+}
+
+string getXML(string node1, string value1, string node2) {
+
+	XMLDocument xmlDoc;
+	xmlDoc.LoadFile("flights.xml");
+	XMLNode * pRoot = xmlDoc.FirstChild();
+	XMLElement * pElement = pRoot->FirstChildElement("Flight");
+	const char * searchNode1 = node1.c_str();
+	const char * searchNode2 = node2.c_str();
+	string output;
+
+	while ((pElement != nullptr) && (pElement->Attribute(searchNode1) != nullptr) && (pElement->Attribute(searchNode2) != nullptr)) {
+		if (value1 == pElement->Attribute(searchNode1)) {
+			output = pElement->Attribute(searchNode2);
+			return output;
+		}
+		pElement = pElement->NextSiblingElement("Flight");
+	}
+}
+
+
+//Generate a new seating chart file
+void generateSeatingChart() {
+	ofstream flightFile;
+	flightFile.open(flightID + ".txt");
+	for (int i = 0; i < (rows * columns) + 1; i++) {
+		flightFile << "O" << endl;
+	}
+	flightFile.close();
+}
+
+//Print an existing seating chart
+void printSeatingChart() {
+	string emptyCheck;
+	string tempString;
+	string seatingChart;
+
+	ifstream flightFile;
+	flightFile.open(flightID + ".txt");
+
+	getline(flightFile, emptyCheck);
+
+	if (emptyCheck == "") {
+		generateSeatingChart();
+	}
+
+	while (flightFile.is_open()) {
+		for (int i = 0; i < columns; i++) {
+			for (int j = 0; j < rows; j++) {
+				getline(flightFile, tempString);
+				seatingChart += tempString;
 			}
-			pElement = pElement->NextSiblingElement("Flight");
-		}
-		return false;
-	}
-
-	string getXML(string node1, string value1, string node2) {
-
-		XMLDocument xmlDoc;
-		xmlDoc.LoadFile("flights.xml");
-		XMLNode * pRoot = xmlDoc.FirstChild();
-		XMLElement * pElement = pRoot->FirstChildElement("Flight");
-		const char * searchNode1 = node1.c_str();
-		const char * searchNode2 = node2.c_str();
-		string output;
-
-		while ((pElement != nullptr) && (pElement->Attribute(searchNode1) != nullptr) && (pElement->Attribute(searchNode2) != nullptr)) {
-			if (value1 == pElement->Attribute(searchNode1)) {
-				output = pElement->Attribute(searchNode2);
-				return output;
+			seatingChart += "\n";
+			if (i == aisles - 1 || i == columns - aisles - 1) {
+				seatingChart += "\n";
 			}
-			pElement = pElement->NextSiblingElement("Flight");
-		}
-	}
-
-
-	//Generate a new seating chart file
-	void generateSeatingChart() {
-		ofstream flightFile;
-		flightFile.open(flightID + ".txt");
-		for (int i = 0; i < (rows * columns) + 1; i++) {
-			flightFile << "O" << endl;
 		}
 		flightFile.close();
 	}
+	cout << seatingChart << endl;
+}
 
-	//Print an existing seating chart
-	void printSeatingChart() {
-		string emptyCheck;
-		string tempString;
-		string seatingChart;
+//Checks to see if a seat is already booked
+bool checkSeat(int row, int column) {
+	string seatValue;
+	int seatID = ((((column - 1) * rows) + row));
 
-		ifstream flightFile;
-		flightFile.open(flightID + ".txt");
-
-		getline(flightFile, emptyCheck);
-
-		if (emptyCheck == "") {
-			generateSeatingChart();
+	ifstream flightFile;
+	flightFile.open(flightID + ".txt");
+	for (int i = 0; i < seatID + 1; i++) {
+		getline(flightFile, seatValue);
+		if (i == seatID && seatValue == "X") {
+			return false;
 		}
-
-		while (flightFile.is_open()) {
-			for (int i = 0; i < columns; i++) {
-				for (int j = 0; j < rows; j++) {
-					getline(flightFile, tempString);
-					seatingChart += tempString;
-				}
-				seatingChart += "\n";
-				if (i == aisles - 1 || i == columns - aisles - 1) {
-					seatingChart += "\n";
-				}
-			}
-			flightFile.close();
-		}
-		cout << seatingChart << endl;
 	}
+	return true;
+}
 
-	//Checks to see if a seat is already booked
-	bool checkSeat(int row, int column) {
-		string seatValue;
-		int seatID = ((((column - 1) * rows) + row));
+//Adds a booked seat to the booking chart of a flight
+void addBooking(int row, int column) {
+	int seatID = ((((column - 1) * rows) + row));
+	string seatValue;
+	ifstream inputFlightFile;
+	ofstream outputFlightFile;
+	inputFlightFile.open(flightID + ".txt");
+	outputFlightFile.open(flightID + "-temp.txt");
 
-		ifstream flightFile;
-		flightFile.open(flightID + ".txt");
-		for (int i = 0; i < seatID + 1; i++) {
-			getline(flightFile, seatValue);
-			if (i == seatID && seatValue == "X") {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	//Adds a booked seat to the booking chart of a flight
-	void addBooking(int row, int column) {
-		int seatID = ((((column - 1) * rows) + row));
-		string seatValue;
-		ifstream inputFlightFile;
-		ofstream outputFlightFile;
-		inputFlightFile.open(flightID + ".txt");
-		outputFlightFile.open(flightID + "-temp.txt");
-
-		while (inputFlightFile.is_open()) {
-			for (int i = 0; i < (rows * columns) + 1; i++) {
-				getline(inputFlightFile, seatValue);
-				if (i != seatID) {
-					if (seatValue == "O") {
-						outputFlightFile << "O\n";
-					}
-					else if (seatValue == "X") {
-						outputFlightFile << "X\n";
-					}
+	while (inputFlightFile.is_open()) {
+		for (int i = 0; i < (rows * columns) + 1; i++) {
+			getline(inputFlightFile, seatValue);
+			if (i != seatID) {
+				if (seatValue == "O") {
+					outputFlightFile << "O\n";
 				}
-				else {
+				else if (seatValue == "X") {
 					outputFlightFile << "X\n";
 				}
 			}
-			inputFlightFile.close();
-			outputFlightFile.close();
-
-			ifstream  newFile(flightID + "-temp.txt", ios::binary);
-			ofstream  oldFile(flightID + ".txt", ios::binary);
-
-			oldFile << newFile.rdbuf();
-
-			oldFile.close();
-			newFile.close();
-			remove((flightID + "-temp.txt").c_str());
+			else {
+				outputFlightFile << "X\n";
+			}
 		}
+		inputFlightFile.close();
+		outputFlightFile.close();
+
+		ifstream  newFile(flightID + "-temp.txt", ios::binary);
+		ofstream  oldFile(flightID + ".txt", ios::binary);
+
+		oldFile << newFile.rdbuf();
+
+		oldFile.close();
+		newFile.close();
+		remove((flightID + "-temp.txt").c_str());
 	}
+}
 };
