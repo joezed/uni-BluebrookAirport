@@ -30,6 +30,7 @@ int main() {
 	string password;
 	bool finished = false;
 	string auth = "user";
+	bool newuser = false;
 
 	////CREATE TEST PLANES
 	//Plane A02ERP("A02ERP", 60, 10, 3);
@@ -153,6 +154,7 @@ int main() {
 			userAccount.setPassword(password1);
 			userAccount.setAuth("user");
 			userAccount.createXML();
+			newuser = true;
 			finished = true;
 
 		}
@@ -307,264 +309,271 @@ int main() {
 	}
 
 	else {
-		cout << "Welcome, " + userAccount.getEmail() + "." << endl;
-		cout << "" << endl;
-		cout << "MENU:" << endl;
-		cout << "1. View flight list" << endl;
-		cout << "2. Book flight" << endl;
-		cout << "3. Log out" << endl;
-		cout << "" << endl;
+		string welcome;
+		if (newuser == true) {
+			welcome = userAccount.getEmail();
+		}
+		else {
+			welcome = email;
+		}
+	cout << "Welcome, " + welcome + "." << endl;
+	}
+	cout << "" << endl;
+	cout << "MENU:" << endl;
+	cout << "1. View flight list" << endl;
+	cout << "2. Book flight" << endl;
+	cout << "3. Log out" << endl;
+	cout << "" << endl;
 
-		while (finished == false) {
+	while (finished == false) {
 
-			cin >> userInput;
+		cin >> userInput;
 
-			if (userInput == 1) {
-				int offset = 0;
-				int push_front_pos = 0;
-				int push_back_pos = 10;
-				vector<int> A = A00001.getFlightTimes();
-				int p = 0;
-				int q = A.size();
-				quickSort(A, p, q);
-				//vector A is sorted
-				deque<int> queue;
-				for (int i = 0; i < 10; i++) {
-					queue.push_back(A.at(i));
+		if (userInput == 1) {
+			int offset = 0;
+			int push_front_pos = 0;
+			int push_back_pos = 10;
+			vector<int> A = A00001.getFlightTimes();
+			int p = 0;
+			int q = A.size();
+			quickSort(A, p, q);
+			//vector A is sorted
+			deque<int> queue;
+			for (int i = 0; i < 10; i++) {
+				queue.push_back(A.at(i));
+			}
+			//deque is filled with first 10 values of A
+
+			int c = 0;
+
+
+			system("CLS");
+			tuple <string, string, string, string, string> flightData;
+			cout << "TODAYS FLIGHTS" << endl;
+			cout << "FlightID        Destination                     Departure Time          Expected Arrival Time" << endl;
+			for (auto e : queue) {
+				flightData = A00001.getFlightInfo("departure", to_string(e));
+				string tabspacing = "\t\t\t\t";
+				if (get<2>(flightData).length() > 8) {
+					tabspacing = "\t\t\t";
 				}
-				//deque is filled with first 10 values of A
+				cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + tabspacing + formatTime(stoi(get<3>(flightData))) + "\t\t\t" + formatTime(stoi(get<4>(flightData))) << endl;
+				cout << "" << flush;
+			}
+			cout << "USE ARROW KEYS TO MOVE THROUGH BOOKINGS AND PRESS ESCAPE TO EXIT" << endl;
 
-				int c = 0;
+			bool cont = true;
+			while (cont == true) {
+				switch ((c = _getch())) {
+				case KEY_UP:
+					if (offset - 1 >= 0) {
+						system("CLS");
+						push_front_pos -= 1;
+						push_back_pos -= 1;
+						offset -= 1;
+						queue.pop_back();
+						queue.push_front(A.at(push_front_pos));
 
-
-				system("CLS");
-				tuple <string, string, string, string, string> flightData;
-				cout << "TODAYS FLIGHTS" << endl;
-				cout << "FlightID        Destination                     Departure Time          Expected Arrival Time" << endl;
-				for (auto e : queue) {
-					flightData = A00001.getFlightInfo("departure", to_string(e));
-					string tabspacing = "\t\t\t\t";
-					if (get<2>(flightData).length() > 8) {
-						tabspacing = "\t\t\t";
-					}
-					cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + tabspacing + formatTime(stoi(get<3>(flightData))) + "\t\t\t" + formatTime(stoi(get<4>(flightData))) << endl;
-					cout << "" << flush;
-				}
-				cout << "USE ARROW KEYS TO MOVE THROUGH BOOKINGS AND PRESS ESCAPE TO EXIT" << endl;
-
-				bool cont = true;
-				while (cont == true) {
-					switch ((c = _getch())) {
-					case KEY_UP:
-						if (offset - 1 >= 0) {
-							system("CLS");
-							push_front_pos -= 1;
-							push_back_pos -= 1;
-							offset -= 1;
-							queue.pop_back();
-							queue.push_front(A.at(push_front_pos));
-
-							tuple <string, string, string, string, string> flightData;
-							cout << "TODAYS FLIGHTS" << endl;
-							cout << "FlightID        Destination                     Departure Time          Expected Arrival Time" << endl;
-							for (auto e : queue) {
-								flightData = A00001.getFlightInfo("departure", to_string(e));
-								string tabspacing = "\t\t\t\t";
-								if (get<2>(flightData).length() > 8) {
-									tabspacing = "\t\t\t";
-								}
-								cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + tabspacing + formatTime(stoi(get<3>(flightData))) + "\t\t\t" + formatTime(stoi(get<4>(flightData))) << endl;
-								cout << "" << flush;
+						tuple <string, string, string, string, string> flightData;
+						cout << "TODAYS FLIGHTS" << endl;
+						cout << "FlightID        Destination                     Departure Time          Expected Arrival Time" << endl;
+						for (auto e : queue) {
+							flightData = A00001.getFlightInfo("departure", to_string(e));
+							string tabspacing = "\t\t\t\t";
+							if (get<2>(flightData).length() > 8) {
+								tabspacing = "\t\t\t";
 							}
-							cout << "USE ARROW KEYS TO MOVE THROUGH BOOKINGS AND PRESS ESCAPE TO EXIT" << endl;
+							cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + tabspacing + formatTime(stoi(get<3>(flightData))) + "\t\t\t" + formatTime(stoi(get<4>(flightData))) << endl;
+							cout << "" << flush;
 						}
-						break;
-					case KEY_DOWN:
-						if (offset + 1 < A.size() - 10) {
-							system("CLS");
-							push_front_pos += 1;
-							push_back_pos += 1;
-							offset += 1;
-							queue.pop_front();
-							queue.push_back(A.at(push_back_pos));
+						cout << "USE ARROW KEYS TO MOVE THROUGH BOOKINGS AND PRESS ESCAPE TO EXIT" << endl;
+					}
+					break;
+				case KEY_DOWN:
+					if (offset + 1 < A.size() - 10) {
+						system("CLS");
+						push_front_pos += 1;
+						push_back_pos += 1;
+						offset += 1;
+						queue.pop_front();
+						queue.push_back(A.at(push_back_pos));
 
-							tuple <string, string, string, string, string> flightData;
-							cout << "TODAYS FLIGHTS" << endl;
-							cout << "FlightID        Destination                     Departure Time          Expected Arrival Time" << endl;
-							for (auto e : queue) {
-								flightData = A00001.getFlightInfo("departure", to_string(e));
-								string tabspacing = "\t\t\t\t";
-								if (get<2>(flightData).length() > 8) {
-									tabspacing = "\t\t\t";
-								}
-								cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + tabspacing + formatTime(stoi(get<3>(flightData))) + "\t\t\t" + formatTime(stoi(get<4>(flightData))) << endl;
-								cout << "" << flush;
+						tuple <string, string, string, string, string> flightData;
+						cout << "TODAYS FLIGHTS" << endl;
+						cout << "FlightID        Destination                     Departure Time          Expected Arrival Time" << endl;
+						for (auto e : queue) {
+							flightData = A00001.getFlightInfo("departure", to_string(e));
+							string tabspacing = "\t\t\t\t";
+							if (get<2>(flightData).length() > 8) {
+								tabspacing = "\t\t\t";
 							}
-							cout << "USE ARROW KEYS TO MOVE THROUGH BOOKINGS AND PRESS ESCAPE TO EXIT" << endl;
+							cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + tabspacing + formatTime(stoi(get<3>(flightData))) + "\t\t\t" + formatTime(stoi(get<4>(flightData))) << endl;
+							cout << "" << flush;
 						}
-						break;
-					case ESC:
-						cont = false;
-						break;
+						cout << "USE ARROW KEYS TO MOVE THROUGH BOOKINGS AND PRESS ESCAPE TO EXIT" << endl;
 					}
+					break;
+				case ESC:
+					cont = false;
+					break;
 				}
-			}
-
-			//---------------------------------------------------------------------------------------------------------------------------
-			// Name: BOOK A FLIGHT
-			// Description:
-			//----------------------------------------------------------------------------------------------------------------------------
-
-
-			else if (userInput == 2) {
-				string row;
-				string column;
-
-				cout << "Enter the flight number of the flight you want to book:" << endl;
-
-				cin >> flightNo;
-
-				while (!A00001.searchXML("flightID", flightNo)) {
-					cout << "That flight doesn't exist." << endl;
-					cout << "Enter the flight number of the flight you want to book:" << endl;
-					cin >> flightNo;
-				}
-
-				cout << "Flight Number: " + flightNo << endl;
-				cout << "Plane Number: " + A00001.getXML("flightID", flightNo, "planeID") << endl;
-				cout << "Destination: " + A00001.getXML("flightID", flightNo, "destination") << endl;
-				cout << "Departure Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "departure"))) << endl;
-				cout << "Arrival Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "arrival"))) << endl;
-				finished = false;
-				while (finished == false) {
-					cout << "Enter the row of the seat you want:" << endl;
-					cin >> row;
-					cout << "Enter the column of the seat you want:" << endl;
-					cin >> column;
-
-					while(A00001.isSeatTaken(flightNo, row, column)) {
-						cout << "That seat is taken. Choose another?" << endl;
-						cout << "1. Yes" << endl;
-						cout << "2. No" << endl;
-						cin >> userInput;
-						if (userInput == 1) {
-							cout << "Enter the row of the seat you want:" << endl;
-							cin >> row;
-							cout << "Enter the column of the seat you want:" << endl;
-							cin >> column;
-						}
-						if (userInput == 2) {
-							finished = true;
-						}
-						finished = true;
-					}
-
-					tuple <string, string, string, string, string, string> planeData = tempPlane.getPlaneInfo("id", A00001.getXML("flightID", flightNo, "planeID"));
-					tuple <string, string, string> destinationData = testDestination.getDestinationInfo("name", A00001.getXML("flightID", flightNo, "destination"));
-					tempPlane.setID(get<0>(planeData));
-					tempPlane.setRows(stoi(get<1>(planeData)));
-					tempPlane.setColumns(stoi(get<2>(planeData)));
-					tempPlane.setAisles(stoi(get<3>(planeData)));
-					tempPlane.setStatus(get<4>(planeData));
-					tempPlane.setMileRange(stoi(get<5>(planeData)));
-					testDestination.setDestination(get<0>(destinationData));
-					testDestination.setFlightTime(stoi(get<1>(destinationData)));
-					testDestination.setDistance(stoi(get<2>(destinationData)));
-					int departure = stoi(A00001.getXML("flightID", flightNo, "departure"));
-					int arrival = departure + stoi(get<1>(destinationData));
-					Flight createdFlight("1", tempPlane, testDestination, departure, arrival);
-					createdFlight.bookSeat(1, "1", createdFlight.getID(), row, column);
-				}
-			}
-
-
-			else if (userInput == 3) {
-				return 0;
-			}
-			else {
-				cout << "Please enter a valid number" << endl;
 			}
 		}
 
+		//---------------------------------------------------------------------------------------------------------------------------
+		// Name: BOOK A FLIGHT
+		// Description:
+		//----------------------------------------------------------------------------------------------------------------------------
+
+
+		else if (userInput == 2) {
+			string row;
+			string column;
+
+			cout << "Enter the flight number of the flight you want to book:" << endl;
+
+			cin >> flightNo;
+
+			while (!A00001.searchXML("flightID", flightNo)) {
+				cout << "That flight doesn't exist." << endl;
+				cout << "Enter the flight number of the flight you want to book:" << endl;
+				cin >> flightNo;
+			}
+
+			cout << "Flight Number: " + flightNo << endl;
+			cout << "Plane Number: " + A00001.getXML("flightID", flightNo, "planeID") << endl;
+			cout << "Destination: " + A00001.getXML("flightID", flightNo, "destination") << endl;
+			cout << "Departure Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "departure"))) << endl;
+			cout << "Arrival Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "arrival"))) << endl;
+			finished = false;
+			while (finished == false) {
+				cout << "Enter the row of the seat you want:" << endl;
+				cin >> row;
+				cout << "Enter the column of the seat you want:" << endl;
+				cin >> column;
+
+				while (A00001.isSeatTaken(flightNo, row, column)) {
+					cout << "That seat is taken. Choose another?" << endl;
+					cout << "1. Yes" << endl;
+					cout << "2. No" << endl;
+					cin >> userInput;
+					if (userInput == 1) {
+						cout << "Enter the row of the seat you want:" << endl;
+						cin >> row;
+						cout << "Enter the column of the seat you want:" << endl;
+						cin >> column;
+					}
+					if (userInput == 2) {
+						finished = true;
+					}
+					finished = true;
+				}
+
+				tuple <string, string, string, string, string, string> planeData = tempPlane.getPlaneInfo("id", A00001.getXML("flightID", flightNo, "planeID"));
+				tuple <string, string, string> destinationData = testDestination.getDestinationInfo("name", A00001.getXML("flightID", flightNo, "destination"));
+				tempPlane.setID(get<0>(planeData));
+				tempPlane.setRows(stoi(get<1>(planeData)));
+				tempPlane.setColumns(stoi(get<2>(planeData)));
+				tempPlane.setAisles(stoi(get<3>(planeData)));
+				tempPlane.setStatus(get<4>(planeData));
+				tempPlane.setMileRange(stoi(get<5>(planeData)));
+				testDestination.setDestination(get<0>(destinationData));
+				testDestination.setFlightTime(stoi(get<1>(destinationData)));
+				testDestination.setDistance(stoi(get<2>(destinationData)));
+				int departure = stoi(A00001.getXML("flightID", flightNo, "departure"));
+				int arrival = departure + stoi(get<1>(destinationData));
+				Flight createdFlight("1", tempPlane, testDestination, departure, arrival);
+				createdFlight.bookSeat(1, "1", createdFlight.getID(), row, column);
+			}
+		}
+
+
+		else if (userInput == 3) {
+			return 0;
+		}
+		else {
+			cout << "Please enter a valid number" << endl;
+		}
 	}
 
-	////CREATE TEST PLANES
-	//Plane A02ERP("A02ERP", 60, 10, 3);
-	//Plane R73OQL("R73OQL", 60, 10, 3);
-	//Plane J51CLS("J51CLS", 50, 4, 2);
-	//Plane H78VFS("H78VFS", 50, 6, 2);
-
-	////CREATE TEST FLIGHTS
-	//Flight A00001("A00001", J51CLS, "12:02", "16:43");
-	//Flight A00002("A00002", A02ERP, "06:49", "09:19");
-	//Flight A00003("A00003", R73OQL, "14:23", "16:22");
-	//Flight A00004("A00004", H78VFS, "18:21", "19:14");
-
-	////RESET SEATING CHARTS
-	////A00001.generateSeatingChart();
-	////A00002.generateSeatingChart();
-	////A00003.generateSeatingChart();
-	////A00004.generateSeatingChart();
-
-	//vector<Flight> availableFlights;
-	//availableFlights.push_back(A00001);
-	//availableFlights.push_back(A00002);
-	//availableFlights.push_back(A00003);
-	//availableFlights.push_back(A00004);
-	//
-
-	//string userFlightSelection;
-	//Flight currentFlight = A00001;
-	//int userRow;
-	//int userColumn;
-	//bool searchingForFlight = true;
-	//bool selectingSeat = true;
-	//int i = 0;
-
-	//while (searchingForFlight) {
-	//	cout << "What is the ID of the flight you would like to book?" << endl;
-	//	cin >> userFlightSelection;
-	//	for (i = 0; i < availableFlights.size(); i++) {
-	//		if (userFlightSelection == availableFlights[i].flightID) {
-	//			Flight currentFlight = availableFlights[i];
-	//			searchingForFlight = false;
-	//			break;
-	//		}
-	//	}
-	//	if (searchingForFlight) {
-	//		cout << "That flight does not exist." << endl;
-	//	}
-	//}
-
-	//while (selectingSeat) {
-	//	cout << "Which seat would you like?" << endl;
-	//	cout << "" << endl;
-	//	currentFlight.printSeatingChart();
-	//	cout << string("Row number (1 - ") + to_string(availableFlights[i].rows) + "): ";
-	//	cin >> userRow;
-	//	cout << string("Column number (1 - ") + to_string(availableFlights[i].columns) + "): ";
-	//	cin >> userColumn;
-	//	if (userRow >= 1 && userRow <= availableFlights[i].rows && userColumn >= 1 && userColumn <= availableFlights[i].columns && currentFlight.checkSeat(userRow, userColumn)) {
-	//		break;
-	//	}
-	//	else if (userRow > availableFlights[i].rows || userRow < 1) {
-	//		cout << "Row does not exist." << endl;
-	//	}
-	//	else if (userRow > availableFlights[i].columns || userColumn < 1) {
-	//		cout << "Column does not exist." << endl;
-	//	}
-	//	else if (!currentFlight.checkSeat(userRow, userColumn)) {
-	//		cout << "Seat is already booked." << endl;
-	//	}
-	//}
-
-	//currentFlight.addBooking(userRow, userColumn);
-	//currentFlight.printSeatingChart();
-	//
-	//Plane J51CLS("J51CLS", 50, 4, 2);
-	//Flight A00001("A00001", J51CLS, "12:02", "16:43");
-	//A00001.createXML();
 }
+
+////CREATE TEST PLANES
+//Plane A02ERP("A02ERP", 60, 10, 3);
+//Plane R73OQL("R73OQL", 60, 10, 3);
+//Plane J51CLS("J51CLS", 50, 4, 2);
+//Plane H78VFS("H78VFS", 50, 6, 2);
+
+////CREATE TEST FLIGHTS
+//Flight A00001("A00001", J51CLS, "12:02", "16:43");
+//Flight A00002("A00002", A02ERP, "06:49", "09:19");
+//Flight A00003("A00003", R73OQL, "14:23", "16:22");
+//Flight A00004("A00004", H78VFS, "18:21", "19:14");
+
+////RESET SEATING CHARTS
+////A00001.generateSeatingChart();
+////A00002.generateSeatingChart();
+////A00003.generateSeatingChart();
+////A00004.generateSeatingChart();
+
+//vector<Flight> availableFlights;
+//availableFlights.push_back(A00001);
+//availableFlights.push_back(A00002);
+//availableFlights.push_back(A00003);
+//availableFlights.push_back(A00004);
+//
+
+//string userFlightSelection;
+//Flight currentFlight = A00001;
+//int userRow;
+//int userColumn;
+//bool searchingForFlight = true;
+//bool selectingSeat = true;
+//int i = 0;
+
+//while (searchingForFlight) {
+//	cout << "What is the ID of the flight you would like to book?" << endl;
+//	cin >> userFlightSelection;
+//	for (i = 0; i < availableFlights.size(); i++) {
+//		if (userFlightSelection == availableFlights[i].flightID) {
+//			Flight currentFlight = availableFlights[i];
+//			searchingForFlight = false;
+//			break;
+//		}
+//	}
+//	if (searchingForFlight) {
+//		cout << "That flight does not exist." << endl;
+//	}
+//}
+
+//while (selectingSeat) {
+//	cout << "Which seat would you like?" << endl;
+//	cout << "" << endl;
+//	currentFlight.printSeatingChart();
+//	cout << string("Row number (1 - ") + to_string(availableFlights[i].rows) + "): ";
+//	cin >> userRow;
+//	cout << string("Column number (1 - ") + to_string(availableFlights[i].columns) + "): ";
+//	cin >> userColumn;
+//	if (userRow >= 1 && userRow <= availableFlights[i].rows && userColumn >= 1 && userColumn <= availableFlights[i].columns && currentFlight.checkSeat(userRow, userColumn)) {
+//		break;
+//	}
+//	else if (userRow > availableFlights[i].rows || userRow < 1) {
+//		cout << "Row does not exist." << endl;
+//	}
+//	else if (userRow > availableFlights[i].columns || userColumn < 1) {
+//		cout << "Column does not exist." << endl;
+//	}
+//	else if (!currentFlight.checkSeat(userRow, userColumn)) {
+//		cout << "Seat is already booked." << endl;
+//	}
+//}
+
+//currentFlight.addBooking(userRow, userColumn);
+//currentFlight.printSeatingChart();
+//
+//Plane J51CLS("J51CLS", 50, 4, 2);
+//Flight A00001("A00001", J51CLS, "12:02", "16:43");
+//A00001.createXML();
 
 //---------------------------------------------------------------------------------------------------------------------------
 // Name: FORMAT TIME
