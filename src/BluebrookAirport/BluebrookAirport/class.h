@@ -207,7 +207,7 @@ public:
 			pElement = pElement->NextSiblingElement("Destination");
 		}
 	}
-	
+
 	bool searchXML(string node, string value) {
 
 		XMLDocument xmlDoc;
@@ -376,6 +376,71 @@ public:
 		return highestID;
 	}
 
+	void bookSeat(int reference, string user, string flight, string row, string column) {
+
+		const char * cUser = user.c_str();
+		const char * cFlight = flight.c_str();
+		const char * cRow = row.c_str();
+		const char * cColumn = column.c_str();
+
+		vector<tuple <string, string, string, string, string>> testVector = parseSeat();
+		tuple <string, string, string, string, string> data;
+
+		XMLDocument xmlDoc;
+		XMLNode * pRoot = xmlDoc.NewElement("Flights");
+		xmlDoc.InsertFirstChild(pRoot);
+
+		XMLElement * pElement = xmlDoc.NewElement("Flight");
+		for (int i = 0; i < testVector.size(); i++) {
+			data = testVector.at(i);
+
+			const char * eReference = get<0>(data).c_str();
+			const char * eUser = get<1>(data).c_str();
+			const char * eFlight = get<2>(data).c_str();
+			const char * eRow = get<3>(data).c_str();
+			const char * eColumn = get<4>(data).c_str();
+
+			pElement->SetAttribute("reference", eReference);
+			pElement->SetAttribute("user", eUser);
+			pElement->SetAttribute("flight", eFlight);
+			pElement->SetAttribute("row", eRow);
+			pElement->SetAttribute("column", eColumn);
+			pRoot->InsertEndChild(pElement);
+
+			pElement = xmlDoc.NewElement("Flight");
+			pElement->SetAttribute("reference", reference);
+			pElement->SetAttribute("user", cUser);
+			pElement->SetAttribute("flight", cFlight);
+			pElement->SetAttribute("row", cRow);
+			pElement->SetAttribute("column", cColumn);
+			pRoot->InsertEndChild(pElement);
+		}
+
+		xmlDoc.SaveFile("seats.xml");
+
+	}
+
+	vector<tuple <string, string, string, string, string>> parseSeat() {
+		vector<tuple <string, string, string, string, string>> lineOutput;
+
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("seats.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+
+		XMLElement * pElement = pRoot->FirstChildElement("Seat");
+		while (pElement != nullptr) {
+			string referenceOut, userOut, flightOut, rowOut, columnOut;
+			referenceOut = pElement->Attribute("reference");
+			userOut = pElement->Attribute("user");
+			flightOut = pElement->Attribute("flight");
+			rowOut = pElement->Attribute("row");
+			columnOut = pElement->Attribute("column");
+			tuple <string, string, string, string, string> output(referenceOut, userOut, flightOut, rowOut, columnOut);
+			lineOutput.push_back(output);
+			pElement = pElement->NextSiblingElement("Seat");
+		}
+		return lineOutput;
+	}
 
 	void createXML() {
 

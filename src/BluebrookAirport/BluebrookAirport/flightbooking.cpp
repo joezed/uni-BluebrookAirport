@@ -264,7 +264,20 @@ int main() {
 
 				while (!A00001.searchXML("flightID", flightNo)) {
 					cout << "That flight doesn't exist." << endl;
+					cout << "Enter the flight number of the flight you want to book:" << endl;
+					cin >> flightNo;
 				}
+
+				cout << "Flight Number: " + flightNo << endl;
+				cout << "Plane Number: " + A00001.getXML("flightID", flightNo, "planeID") << endl;
+				cout << "Destination: " + A00001.getXML("flightID", flightNo, "destination") << endl;
+				cout << "Departure Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "departure"))) << endl;
+				cout << "Arrival Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "arrival"))) << endl;
+
+				tuple <string, string, string, string, string> planeData = tempPlane.getPlaneInfo(planeID);
+
+				Flight createdFlight(newFlightID, tempPlane, testDestination, departure, departure);
+				createdFlight.bookSeat();
 			}
 		}
 
