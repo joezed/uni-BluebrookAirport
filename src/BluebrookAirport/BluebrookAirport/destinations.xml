@@ -6,7 +6,7 @@
 	<Destination id="5" name="Barcelona" avgflighttimemins ="152" miledistance="814"/>
 	<Destination id="6" name="Berlin" avgflighttimemins ="151" miledistance="609"/>
 	<Destination id="7" name="Bucharest" avgflighttimemins ="231" miledistance="1364"/>
-	<Destination id="8" name="New York" avgflighttimemins ="473" miledistance="3393"/>
+	<Destination id="8" name="Brooklyn" avgflighttimemins ="473" miledistance="3393"/>
 	<Destination id="9" name="Atlanta" avgflighttimemins ="538" miledistance="4134"/>
 	<Destination id="10" name="Rome" avgflighttimemins ="193" miledistance="993"/>
 	<Destination id="11" name="Cairo" avgflighttimemins ="202" miledistance="2270"/>

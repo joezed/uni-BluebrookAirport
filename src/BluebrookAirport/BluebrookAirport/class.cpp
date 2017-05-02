@@ -20,7 +20,7 @@ Account::Account(int id, string fore, string sur, string emailAddress, string nu
 
 }
 
-Destination::Destination(string destinationNumber, string place, int flightTime, int distance) {
+Destination::Destination(string destinationNumber = "0", string place = "null", int flightTime = 0, int distance = 0) {
 	destinationID = destinationNumber;
 	destination = place;
 	avgFlightTime = flightTime;

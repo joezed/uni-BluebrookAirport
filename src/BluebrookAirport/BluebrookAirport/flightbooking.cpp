@@ -207,14 +207,18 @@ int main() {
 				cin >> departureMinute;
 
 				departure = (departureHour * 60) + departureMinute;
-				tuple <string, string, string, string, string> data = tempPlane.getPlaneInfo(planeID);
+				tuple <string, string, string, string, string> planeData = tempPlane.getPlaneInfo(planeID);
+				tuple <string, string, string> destinationData = testDestination.getDestinationInfo(destination);
 
 				tempPlane.setID(planeID);
-				tempPlane.setRows(stoi(get<0>(data)));
-				tempPlane.setColumns(stoi(get<1>(data)));
-				tempPlane.setAisles(stoi(get<2>(data)));
-				tempPlane.setStatus(get<3>(data));
-				tempPlane.setMileRange(stoi(get<4>(data)));
+				tempPlane.setRows(stoi(get<0>(planeData)));
+				tempPlane.setColumns(stoi(get<1>(planeData)));
+				tempPlane.setAisles(stoi(get<2>(planeData)));
+				tempPlane.setStatus(get<3>(planeData));
+				tempPlane.setMileRange(stoi(get<4>(planeData)));
+				testDestination.setDestination(get<0>(destinationData));
+				testDestination.setFlightTime(stoi(get<1>(destinationData)));
+				testDestination.setDistance(stoi(get<2>(destinationData)));
 				string newFlightID = to_string(A00001.getLastID() + 1);
 				Flight createdFlight(newFlightID, tempPlane, testDestination, departure, departure);
 				createdFlight.createXML();

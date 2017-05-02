@@ -189,6 +189,25 @@ class Destination {
 public:
 	Destination(string destinationID, string destination, int avgFlightTime, int flightDistance);
 
+	tuple <string, string, string> getDestinationInfo(string destination) {
+
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("destinations.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+
+		XMLElement * pElement = pRoot->FirstChildElement("Destination");
+		while ((pElement != nullptr) && (pElement->Attribute("name") != nullptr)) {
+			if (destination == pElement->Attribute("name")) {
+				string nameOut, avgFlightTimeOut, distanceOut;
+				nameOut = pElement->Attribute("name");
+				avgFlightTimeOut = pElement->Attribute("avgflighttimemins");
+				distanceOut = pElement->Attribute("miledistance");
+				return make_tuple(nameOut, avgFlightTimeOut, distanceOut);
+			}
+			pElement = pElement->NextSiblingElement("Destination");
+		}
+	}
+	
 	bool searchXML(string node, string value) {
 
 		XMLDocument xmlDoc;
@@ -223,6 +242,22 @@ public:
 	int getDistance() {
 		return flightDistance;
 	}
+
+	void setID(string id) {
+		destinationID = id;
+	}
+
+	void setDestination(string dest) {
+		destination = dest;
+	}
+
+	void setFlightTime(int time) {
+		avgFlightTime = time;
+	}
+
+	void setDistance(int dist) {
+		flightDistance = dist;
+	}
 };
 
 class Plane {
@@ -248,7 +283,7 @@ public:
 				milerangeOut = pElement->Attribute("milerange");
 				return make_tuple(rowsOut, columnsOut, aislesOut, statusOut, milerangeOut);
 			}
-			pElement = pElement->NextSiblingElement("Flight");
+			pElement = pElement->NextSiblingElement("Plane");
 		}
 	}
 
@@ -316,6 +351,7 @@ public:
 
 class Flight {
 	Plane planeDetails;
+	Destination destinationDetails;
 	int departureTime, arrivalTime;
 public:
 	Flight(string flightID, Plane planeDetails, Destination destinationDetails, int departureTime, int arrivalTime);
@@ -345,16 +381,18 @@ public:
 
 		string flightID_temp = flightID;
 		string planeID_temp = planeDetails.getID();
+		string destination_temp = destinationDetails.getDestination();
 		string departureTime_temp = to_string(departureTime);
 		string arrivalTime_temp = to_string(arrivalTime);
 
 		const char * flightID = flightID_temp.c_str();
 		const char * planeID = planeID_temp.c_str();
+		const char * destination = destination_temp.c_str();
 		const char * departureTime = departureTime_temp.c_str();
 		const char * arrivalTime = arrivalTime_temp.c_str();
 
-		vector<tuple <string, string, string, string>> testVector = parseXML();
-		tuple <string, string, string, string> data;
+		vector<tuple <string, string, string, string, string>> testVector = parseXML();
+		tuple <string, string, string, string, string> data;
 
 		XMLDocument xmlDoc;
 		XMLNode * pRoot = xmlDoc.NewElement("Flights");
@@ -366,11 +404,13 @@ public:
 
 			const char * eFlightID = get<0>(data).c_str();
 			const char * ePlaneID = get<1>(data).c_str();
-			const char * eDepartureTime = get<2>(data).c_str();
-			const char * eArrivalTime = get<3>(data).c_str();
+			const char * eDestination = get<2>(data).c_str();
+			const char * eDepartureTime = get<3>(data).c_str();
+			const char * eArrivalTime = get<4>(data).c_str();
 
 			pElement->SetAttribute("flightID", eFlightID);
 			pElement->SetAttribute("planeID", ePlaneID);
+			pElement->SetAttribute("destination", eDestination);
 			pElement->SetAttribute("departure", eDepartureTime);
 			pElement->SetAttribute("arrival", eArrivalTime);
 			pRoot->InsertEndChild(pElement);
@@ -378,6 +418,7 @@ public:
 			pElement = xmlDoc.NewElement("Flight");
 			pElement->SetAttribute("flightID", flightID);
 			pElement->SetAttribute("planeID", planeID);
+			pElement->SetAttribute("destination", destination);
 			pElement->SetAttribute("departure", departureTime);
 			pElement->SetAttribute("arrival", arrivalTime);
 			pRoot->InsertEndChild(pElement);
@@ -387,8 +428,8 @@ public:
 
 	}
 
-	vector<tuple <string, string, string, string>> parseXML() {
-		vector<tuple <string, string, string, string>> lineOutput;
+	vector<tuple <string, string, string, string, string>> parseXML() {
+		vector<tuple <string, string, string, string, string>> lineOutput;
 
 		XMLDocument xmlDoc;
 		xmlDoc.LoadFile("flights.xml");
@@ -396,12 +437,13 @@ public:
 
 		XMLElement * pElement = pRoot->FirstChildElement("Flight");
 		while (pElement != nullptr) {
-			string flightIDOut, planeIDOut, departureOut, arrivalOut;
+			string flightIDOut, planeIDOut, destinationOut, departureOut, arrivalOut;
 			flightIDOut = pElement->Attribute("flightID");
 			planeIDOut = pElement->Attribute("planeID");
+			destinationOut = pElement->Attribute("destination");
 			departureOut = pElement->Attribute("departure");
 			arrivalOut = pElement->Attribute("arrival");
-			tuple <string, string, string, string> output(flightIDOut, planeIDOut, departureOut, arrivalOut);
+			tuple <string, string, string, string, string> output(flightIDOut, planeIDOut, destinationOut, departureOut, arrivalOut);
 			lineOutput.push_back(output);
 			pElement = pElement->NextSiblingElement("Flight");
 		}

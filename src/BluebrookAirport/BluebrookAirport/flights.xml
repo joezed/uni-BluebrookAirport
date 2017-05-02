@@ -1,7 +1,8 @@
 <Flights>
-    <Flight flightID="1" planeID="2" departure="722" arrival="1003"/>
-    <Flight flightID="2" planeID="5" departure="409" arrival="559"/>
-    <Flight flightID="3" planeID="3" departure="863" arrival="982"/>
-    <Flight flightID="4" planeID="2" departure="1121" arrival="1154"/>
-    <Flight flightID="5" planeID="9" departure="1272" arrival="1342"/>
+    <Flight flightID="1" planeID="2" destination="Glasgow" departure="722" arrival="1003"/>
+    <Flight flightID="2" planeID="5" destination="Glasgow" departure="409" arrival="559"/>
+    <Flight flightID="3" planeID="3" destination="Glasgow" departure="863" arrival="982"/>
+    <Flight flightID="4" planeID="2" destination="Glasgow" departure="1121" arrival="1154"/>
+    <Flight flightID="5" planeID="9" destination="Glasgow" departure="1272" arrival="1342"/>
+    <Flight flightID="6" planeID="1" destination="Glasgow" departure="732" arrival="802"/>
 </Flights>
