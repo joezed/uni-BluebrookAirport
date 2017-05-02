@@ -1,8 +1,12 @@
 <Flights>
-    <Flight flightID="1" planeID="2" destination="Glasgow" departure="722" arrival="1003"/>
-    <Flight flightID="2" planeID="5" destination="Glasgow" departure="409" arrival="559"/>
-    <Flight flightID="3" planeID="3" destination="Glasgow" departure="863" arrival="982"/>
-    <Flight flightID="4" planeID="2" destination="Glasgow" departure="1121" arrival="1154"/>
-    <Flight flightID="5" planeID="9" destination="Glasgow" departure="1272" arrival="1342"/>
-    <Flight flightID="6" planeID="1" destination="Glasgow" departure="732" arrival="802"/>
+    <Flight flightID="1" planeID="2" destination="Rome" departure="722" arrival="1003"/>
+    <Flight flightID="2" planeID="5" destination="Paris" departure="409" arrival="559"/>
+    <Flight flightID="3" planeID="3" destination="Madrid" departure="863" arrival="982"/>
+    <Flight flightID="4" planeID="2" destination="Dublin" departure="1121" arrival="1154"/>
+    <Flight flightID="5" planeID="9" destination="Berlin" departure="1272" arrival="1342"/>
+    <Flight flightID="6" planeID="1" destination="Barcelona" departure="732" arrival="802"/>
+    <Flight flightID="7" planeID="3" destination="null" departure="1091" arrival="1191"/>
+    <Flight flightID="8" planeID="1" destination="null" departure="1152" arrival="1345"/>
+    <Flight flightID="9" planeID="1" destination="null" departure="733" arrival="926"/>
+    <Flight flightID="10" planeID="1" destination="test" departure="61" arrival="254"/>
 </Flights>

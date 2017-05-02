@@ -211,6 +211,7 @@ int main() {
 				departure = (departureHour * 60) + departureMinute;
 				tuple <string, string, string, string, string, string> planeData = tempPlane.getPlaneInfo("id", planeID);
 				tuple <string, string, string> destinationData = testDestination.getDestinationInfo("name", destination);
+				Destination tempDestination("a", "a", 1, 1);
 
 				tempPlane.setID(get<0>(planeData));
 				tempPlane.setRows(stoi(get<1>(planeData)));
@@ -218,11 +219,12 @@ int main() {
 				tempPlane.setAisles(stoi(get<3>(planeData)));
 				tempPlane.setStatus(get<4>(planeData));
 				tempPlane.setMileRange(stoi(get<5>(planeData)));
-				testDestination.setDestination(get<0>(destinationData));
-				testDestination.setFlightTime(stoi(get<1>(destinationData)));
-				testDestination.setDistance(stoi(get<2>(destinationData)));
+				tempDestination.setDestination(get<0>(destinationData));
+				tempDestination.setFlightTime(stoi(get<1>(destinationData)));
+				tempDestination.setDistance(stoi(get<2>(destinationData)));
 				string newFlightID = to_string(A00001.getLastID() + 1);
-				Flight createdFlight(newFlightID, tempPlane, testDestination, departure, departure);
+				Flight createdFlight(newFlightID, tempPlane, tempDestination, departure, departure);
+				cout << createdFlight.getDest().getDestination() << endl;
 				createdFlight.createXML();
 			}
 		}
@@ -262,10 +264,14 @@ int main() {
 				int p = 0;
 				int q = A.size();
 				quickSort(A, p, q);
-				//cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + "\t\t" + get<3>(flightData) + "\t\t" + get<4>(flightData) << endl;
+				cout << "FlightID        Destination                     Departure Time          Expected Arrival Time" << endl;
 				for (auto e : A) {
 					flightData = A00001.getFlightInfo("departure", to_string(e));
-					cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + "\t\t" + formatTime(stoi(get<3>(flightData))) + "\t\t" + formatTime(stoi(get<4>(flightData))) << endl;
+					string tabspacing = "\t\t\t\t";
+					if (get<2>(flightData).length() > 8) {
+						tabspacing = "\t\t\t";
+					}
+					cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + tabspacing + formatTime(stoi(get<3>(flightData))) + "\t\t\t" + formatTime(stoi(get<4>(flightData))) << endl;
 				}
 			}
 
