@@ -62,6 +62,13 @@ int main() {
 	cout << "" << endl;
 
 
+//---------------------------------------------------------------------------------------------------------------------------
+// Name: LOG IN
+// Description: User enters email and password, which is validated if they are found in the XML file
+//              If Successful user proceeds through the system
+//----------------------------------------------------------------------------------------------------------------------------
+
+
 	while (finished == false) {
 
 		cin >> userInput;
@@ -89,6 +96,13 @@ int main() {
 
 			finished = true;
 		}
+
+
+//---------------------------------------------------------------------------------------------------------------------------
+// Name: CREATE ACCOUNT
+// Description: User enters details to be saved in XML file
+//----------------------------------------------------------------------------------------------------------------------------
+
 		else if (userInput == 2) {
 
 			string forename, surname, phone, email, password1, password2;
@@ -142,6 +156,12 @@ int main() {
 			finished = true;
 
 		}
+
+//---------------------------------------------------------------------------------------------------------------------------
+// Name: EXIT
+// Description: user exits the system when ‘3’ is entered on the main menu
+//----------------------------------------------------------------------------------------------------------------------------
+
 		else if (userInput == 3) {
 			return 0;
 		}
@@ -153,6 +173,11 @@ int main() {
 	finished = false;
 	string flightNo;
 
+//---------------------------------------------------------------------------------------------------------------------------
+// Name: ADMIN MENU
+// Description: if user log entered, admin menu appears with additional admin specific features 
+//----------------------------------------------------------------------------------------------------------------------------
+
 	if (auth == "admin") {
 		cout << "Welcome, " + userAccount.getForename() + "." << endl;
 		cout << "" << endl;
@@ -162,9 +187,18 @@ int main() {
 		cout << "3. Log out" << endl;
 		cout << "" << endl;
 
-		while (finished == false) {
+		while (finished == false) 
+		
+//---------------------------------------------------------------------------------------------------------------------------
+// Name: VIEW FLIGHTS
+// Description: User enters flight ID, XML file is searches for flight/displays its data
+//----------------------------------------------------------------------------------------------------------------------------
+
+		
+		{
 
 			cin >> userInput;
+
 
 			if (userInput == 1) {
 				cout << "Enter the flight number of the flight you want to view" << endl;
@@ -182,6 +216,12 @@ int main() {
 				cout << "Departure Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "departure"))) << endl;
 				cout << "Arrival Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "arrival"))) << endl;
 			}
+
+//---------------------------------------------------------------------------------------------------------------------------
+// Name: ADD FLIGHT
+// Description: Admin is able add a new flight to the XML flights file
+//----------------------------------------------------------------------------------------------------------------------------
+
 			else if (userInput == 2) {
 				string planeID;
 				string destination;
@@ -245,6 +285,14 @@ int main() {
 			}
 		}
 	}
+
+//---------------------------------------------------------------------------------------------------------------------------
+// Name: STAFF MENU
+// Description: if user log in entered is a staff log in staff specific menus displays
+//----------------------------------------------------------------------------------------------------------------------------
+
+
+
 	else if (auth == "staff") {
 		//cout << "Welcome, " + userAccount.getForename() + "." << endl;
 		//cout << "" << endl;
@@ -361,6 +409,12 @@ int main() {
 					}
 				}
 			}
+
+//---------------------------------------------------------------------------------------------------------------------------
+// Name: BOOK A FLIGHT
+// Description:
+//----------------------------------------------------------------------------------------------------------------------------
+
 
 			else if (userInput == 2) {
 				string row;
@@ -503,6 +557,12 @@ int main() {
 	//A00001.createXML();
 }
 
+//---------------------------------------------------------------------------------------------------------------------------
+// Name: FORMAT TIME
+// Description:
+//----------------------------------------------------------------------------------------------------------------------------
+
+
 string formatTime(int time) {
 	string hours = to_string(time / 60);
 	string minutes = to_string(time % 60);
@@ -515,6 +575,12 @@ string formatTime(int time) {
 	return hours + ":" + minutes;
 }
 
+//---------------------------------------------------------------------------------------------------------------------------
+// Name: QUICK SORTING ALGORITHM 
+// Description:
+//----------------------------------------------------------------------------------------------------------------------------
+
+
 void quickSort(vector<int>& A, int p, int q)
 {
 	int r;
@@ -525,6 +591,12 @@ void quickSort(vector<int>& A, int p, int q)
 		quickSort(A, r + 1, q);
 	}
 }
+
+
+//---------------------------------------------------------------------------------------------------------------------------
+// Name: PARTITION 
+// Description:
+//----------------------------------------------------------------------------------------------------------------------------
 
 
 int partition(vector<int>& A, int p, int q)
