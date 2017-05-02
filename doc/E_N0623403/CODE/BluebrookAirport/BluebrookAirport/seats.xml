@@ -1,0 +1,13 @@
+<Seats>
+    <Seat reference="1" user="1" flight="1" row="2" column="3"/>
+    <Seat reference="1" user="1" flight="1" row="g" column="g"/>
+    <Seat reference="1" user="1" flight="1" row="g" column="g"/>
+    <Seat reference="1" user="1" flight="1" row="g" column="g"/>
+    <Seat reference="1" user="1" flight="1" row="g" column="g"/>
+    <Seat reference="1" user="1" flight="1" row="2" column="3"/>
+    <Seat reference="1" user="1" flight="1" row="2" column="3"/>
+    <Seat reference="1" user="1" flight="1" row="3" column="4"/>
+    <Seat reference="1" user="1" flight="1" row="5" column="5"/>
+    <Seat reference="1" user="1" flight="1" row="5" column="5"/>
+    <Seat reference="1" user="1" flight="1" row="5" column="5"/>
+</Seats>

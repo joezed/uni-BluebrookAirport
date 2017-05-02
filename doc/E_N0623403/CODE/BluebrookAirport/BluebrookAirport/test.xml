@@ -1,0 +1,12 @@
+<flights>
+    <flight id="A00001">
+        <seat>
+            <rows>(Row number)</rows>
+            <cols>(Col number)</cols>
+            <price>(Price)</price>
+            <firstclass>(True/False)</firstclass>
+            <booked>(True/False)</booked>
+            <userid>(User ID)</userid>
+        </seat>
+    </flight>
+</flights>

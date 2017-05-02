@@ -1,0 +1,12 @@
+<Planes>
+	<Plane id="1" rows="60" columns="10" aisle="3" status="standby" milerange="4500"/>
+	<Plane id="2" rows="60" columns="10" aisle="3" status="standby" milerange="4500"/>
+	<Plane id="3" rows="60" columns="10" aisle="3" status="standby" milerange="4500"/>
+	<Plane id="4" rows="60" columns="10" aisle="3" status="standby" milerange="4500"/>
+	<Plane id="5" rows="50" columns="4" aisle="2" status="standby" milerange="1000"/>
+	<Plane id="6" rows="50" columns="4" aisle="2" status="standby" milerange="1000"/>
+	<Plane id="7" rows="50" columns="6" aisle="2" status="standby" milerange="1400"/>
+	<Plane id="8" rows="50" columns="6" aisle="2" status="standby" milerange="1400"/>
+	<Plane id="9" rows="50" columns="6" aisle="2" status="standby" milerange="1400"/>
+	<Plane id="10" rows="50" columns="12" aisle="3" status="standby" milerange="4000"/>
+</Planes>

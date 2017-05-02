@@ -1,0 +1,33 @@
+<Flights>
+    <Flight flightID="1" planeID="2" destination="Rome" departure="722" arrival="1003"/>
+    <Flight flightID="2" planeID="5" destination="Paris" departure="409" arrival="559"/>
+    <Flight flightID="3" planeID="3" destination="Madrid" departure="863" arrival="982"/>
+    <Flight flightID="4" planeID="2" destination="Dublin" departure="1121" arrival="1154"/>
+    <Flight flightID="5" planeID="9" destination="Berlin" departure="1272" arrival="1342"/>
+    <Flight flightID="6" planeID="1" destination="Prague" departure="732" arrival="802"/>
+    <Flight flightID="7" planeID="2" destination="Atlanta" departure="534" arrival="1003"/>
+    <Flight flightID="8" planeID="5" destination="Cairo" departure="836" arrival="559"/>
+    <Flight flightID="9" planeID="3" destination="Cairo" departure="972" arrival="982"/>
+    <Flight flightID="10" planeID="4" destination="Glasgow" departure="12" arrival="1154"/>
+    <Flight flightID="11" planeID="7" destination="Berlin" departure="15" arrival="1342"/>
+    <Flight flightID="12" planeID="6" destination="Prague" departure="631" arrival="802"/>
+    <Flight flightID="13" planeID="1" destination="Rome" departure="736" arrival="1003"/>
+    <Flight flightID="14" planeID="8" destination="Paris" departure="111" arrival="559"/>
+    <Flight flightID="15" planeID="7" destination="Madrid" departure="64" arrival="982"/>
+    <Flight flightID="16" planeID="6" destination="Dublin" departure="879" arrival="1154"/>
+    <Flight flightID="17" planeID="9" destination="Glasgow" departure="990" arrival="1342"/>
+    <Flight flightID="18" planeID="1" destination="Prague" departure="101" arrival="802"/>
+    <Flight flightID="19" planeID="3" destination="Monaco" departure="711" arrival="1003"/>
+    <Flight flightID="20" planeID="5" destination="Paris" departure="400" arrival="559"/>
+    <Flight flightID="21" planeID="8" destination="Monaco" departure="860" arrival="982"/>
+    <Flight flightID="22" planeID="6" destination="Milan" departure="1120" arrival="1154"/>
+    <Flight flightID="23" planeID="4" destination="Berlin" departure="1270" arrival="1342"/>
+    <Flight flightID="24" planeID="6" destination="Prague" departure="738" arrival="802"/>
+    <Flight flightID="25" planeID="9" destination="Rome" departure="728" arrival="1003"/>
+    <Flight flightID="26" planeID="3" destination="Paris" departure="408" arrival="559"/>
+    <Flight flightID="27" planeID="3" destination="Madrid" departure="868" arrival="982"/>
+    <Flight flightID="28" planeID="1" destination="Dublin" departure="1128" arrival="1154"/>
+    <Flight flightID="29" planeID="8" destination="Berlin" departure="1223" arrival="1342"/>
+    <Flight flightID="30" planeID="4" destination="Milan" departure="356" arrival="802"/>
+    <Flight flightID="31" planeID="1" destination="Prague" departure="733" arrival="885"/>
+</Flights>
