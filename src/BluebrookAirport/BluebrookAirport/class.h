@@ -184,6 +184,30 @@ public:
 	}
 };
 
+class Admin : public Account {
+	string authority = "admin";
+public:
+
+};
+
+class Staff : public Account {
+	string authority = "staff";
+	vector<string> duties;
+public:
+	vector<string> getDuties() {
+		return duties;
+	}
+};
+
+class User : public Account {
+	string authority = "user";
+	vector<int> bookings;
+public:
+	vector<int> getBookings() {
+		return (bookings);
+	}
+};
+
 class Destination {
 	string destinationID, destination; int avgFlightTime, flightDistance;
 public:
@@ -418,6 +442,31 @@ public:
 		return timeOutput;
 	}
 
+	bool isSeatTaken(string flightNo, string row, string column) {
+
+		XMLDocument xmlDoc;
+		xmlDoc.LoadFile("seats.xml");
+		XMLNode * pRoot = xmlDoc.FirstChild();
+		XMLElement * pElement = pRoot->FirstChildElement("Seat");
+
+		const char * searchNode1 = "row";
+		const char * searchNode2 = "column";
+
+		while ((pElement != nullptr) && (pElement->Attribute(searchNode1) != nullptr) && (pElement->Attribute(searchNode2) != nullptr) && (pElement->Attribute(searchNode1) != nullptr)) {
+			if (flightNo == pElement->Attribute("flight")) {
+				string output1 = pElement->Attribute(searchNode1);
+				if (row == output1) {
+					string output2 = pElement->Attribute(searchNode2);
+					if (column == output2) {
+						return true;
+					}
+				}
+			}
+			pElement = pElement->NextSiblingElement("Seat");
+		}
+		return false;
+	}
+
 	void bookSeat(int reference, string user, string flight, string row, string column) {
 
 		const char * cUser = user.c_str();
@@ -429,10 +478,10 @@ public:
 		tuple <string, string, string, string, string> data;
 
 		XMLDocument xmlDoc;
-		XMLNode * pRoot = xmlDoc.NewElement("Flights");
+		XMLNode * pRoot = xmlDoc.NewElement("Seats");
 		xmlDoc.InsertFirstChild(pRoot);
 
-		XMLElement * pElement = xmlDoc.NewElement("Flight");
+		XMLElement * pElement = xmlDoc.NewElement("Seat");
 		for (int i = 0; i < testVector.size(); i++) {
 			data = testVector.at(i);
 
@@ -449,7 +498,7 @@ public:
 			pElement->SetAttribute("column", eColumn);
 			pRoot->InsertEndChild(pElement);
 
-			pElement = xmlDoc.NewElement("Flight");
+			pElement = xmlDoc.NewElement("Seat");
 			pElement->SetAttribute("reference", reference);
 			pElement->SetAttribute("user", cUser);
 			pElement->SetAttribute("flight", cFlight);
@@ -489,6 +538,57 @@ public:
 		string flightID_temp = flightID;
 		string planeID_temp = planeDetails.getID();
 		string destination_temp = destinationDetails.getDestination();
+		string departureTime_temp = to_string(departureTime);
+		string arrivalTime_temp = to_string(arrivalTime);
+
+		const char * flightID = flightID_temp.c_str();
+		const char * planeID = planeID_temp.c_str();
+		const char * destination = destination_temp.c_str();
+		const char * departureTime = departureTime_temp.c_str();
+		const char * arrivalTime = arrivalTime_temp.c_str();
+
+		vector<tuple <string, string, string, string, string>> testVector = parseXML();
+		tuple <string, string, string, string, string> data;
+
+		XMLDocument xmlDoc;
+		XMLNode * pRoot = xmlDoc.NewElement("Flights");
+		xmlDoc.InsertFirstChild(pRoot);
+
+		XMLElement * pElement = xmlDoc.NewElement("Flight");
+		for (int i = 0; i < testVector.size(); i++) {
+			data = testVector.at(i);
+
+			const char * eFlightID = get<0>(data).c_str();
+			const char * ePlaneID = get<1>(data).c_str();
+			const char * eDestination = get<2>(data).c_str();
+			const char * eDepartureTime = get<3>(data).c_str();
+			const char * eArrivalTime = get<4>(data).c_str();
+
+			pElement->SetAttribute("flightID", eFlightID);
+			pElement->SetAttribute("planeID", ePlaneID);
+			pElement->SetAttribute("destination", eDestination);
+			pElement->SetAttribute("departure", eDepartureTime);
+			pElement->SetAttribute("arrival", eArrivalTime);
+			pRoot->InsertEndChild(pElement);
+
+			pElement = xmlDoc.NewElement("Flight");
+			pElement->SetAttribute("flightID", flightID);
+			pElement->SetAttribute("planeID", planeID);
+			pElement->SetAttribute("destination", destination);
+			pElement->SetAttribute("departure", departureTime);
+			pElement->SetAttribute("arrival", arrivalTime);
+			pRoot->InsertEndChild(pElement);
+		}
+
+		xmlDoc.SaveFile("flights.xml");
+
+	}
+
+	void createFlightXML(string destName) {
+
+		string flightID_temp = flightID;
+		string planeID_temp = planeDetails.getID();
+		string destination_temp = destName;
 		string departureTime_temp = to_string(departureTime);
 		string arrivalTime_temp = to_string(arrivalTime);
 
@@ -597,6 +697,10 @@ public:
 
 	Destination getDest() {
 		return destinationDetails;
+	}
+
+	Plane getPlane() {
+		return planeDetails;
 	}
 
 

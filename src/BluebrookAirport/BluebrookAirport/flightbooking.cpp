@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "class.h"
+#include <conio.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <cstdio>
 #include <fstream>
 #include <istream>
@@ -9,6 +11,11 @@
 #include <string>
 #include <vector>
 #include <ctime>
+#include <deque>
+
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define ESC 27
 
 using namespace std;
 
@@ -152,13 +159,7 @@ int main() {
 		cout << "MENU:" << endl;
 		cout << "1. View flight" << endl;
 		cout << "2. Create flight" << endl;
-		//cout << "3. Edit flight" << endl;
-		//cout << "4. Delete flight" << endl;
-		//cout << "5. View customer booking" << endl;
-		//cout << "6. Edit customer booking" << endl;
-		//cout << "7. Delete customer booking" << endl;
-		//cout << "8. Create staff account" << endl;
-		//cout << "9. Log out" << endl;
+		cout << "3. Log out" << endl;
 		cout << "" << endl;
 
 		while (finished == false) {
@@ -168,7 +169,7 @@ int main() {
 			if (userInput == 1) {
 				cout << "Enter the flight number of the flight you want to view" << endl;
 				cin >> flightNo;
-				
+
 				while (!A00001.searchXML("flightID", flightNo)) {
 					cout << "Invalid flight number." << endl;
 					cout << "Enter the flight number of the flight you want to view" << endl;
@@ -204,9 +205,19 @@ int main() {
 				}
 				cout << "Enter departure hour: ";
 				cin >> departureHour;
+				if (departureHour > 24 || departureHour < 0) {
+					cout << "That time doesn't make sense." << endl;
+					cout << "Enter departure hour: ";
+					cin >> departureHour;
+				}
 
 				cout << "Enter departure minute: ";
 				cin >> departureMinute;
+				if (departureMinute > 59 || departureHour < 0) {
+					cout << "That time doesn't make sense." << endl;
+					cout << "Enter departure minute: ";
+					cin >> departureMinute;
+				}
 
 				departure = (departureHour * 60) + departureMinute;
 				tuple <string, string, string, string, string, string> planeData = tempPlane.getPlaneInfo("id", planeID);
@@ -224,8 +235,13 @@ int main() {
 				tempDestination.setDistance(stoi(get<2>(destinationData)));
 				string newFlightID = to_string(A00001.getLastID() + 1);
 				Flight createdFlight(newFlightID, tempPlane, tempDestination, departure, departure);
-				cout << createdFlight.getDest().getDestination() << endl;
-				createdFlight.createXML();
+				createdFlight.createFlightXML(get<0>(destinationData));
+			}
+			else if (userInput == 3) {
+				return 0;
+			}
+			else {
+				return 0;
 			}
 		}
 	}
@@ -248,9 +264,7 @@ int main() {
 		cout << "MENU:" << endl;
 		cout << "1. View flight list" << endl;
 		cout << "2. Book flight" << endl;
-		//cout << "3. Check existing bookings" << endl;
-		//cout << "4. Change user details" << endl;
-		//cout << "5. Log out" << endl;
+		cout << "3. Log out" << endl;
 		cout << "" << endl;
 
 		while (finished == false) {
@@ -258,20 +272,93 @@ int main() {
 			cin >> userInput;
 
 			if (userInput == 1) {
-
+				int offset = 0;
+				int push_front_pos = 0;
+				int push_back_pos = 10;
 				vector<int> A = A00001.getFlightTimes();
-				tuple <string, string, string, string, string> flightData;
 				int p = 0;
 				int q = A.size();
 				quickSort(A, p, q);
+				//vector A is sorted
+				deque<int> queue;
+				for (int i = 0; i < 10; i++) {
+					queue.push_back(A.at(i));
+				}
+				//deque is filled with first 10 values of A
+
+				int c = 0;
+
+
+				system("CLS");
+				tuple <string, string, string, string, string> flightData;
+				cout << "TODAYS FLIGHTS" << endl;
 				cout << "FlightID        Destination                     Departure Time          Expected Arrival Time" << endl;
-				for (auto e : A) {
+				for (auto e : queue) {
 					flightData = A00001.getFlightInfo("departure", to_string(e));
 					string tabspacing = "\t\t\t\t";
 					if (get<2>(flightData).length() > 8) {
 						tabspacing = "\t\t\t";
 					}
 					cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + tabspacing + formatTime(stoi(get<3>(flightData))) + "\t\t\t" + formatTime(stoi(get<4>(flightData))) << endl;
+					cout << "" << flush;
+				}
+				cout << "USE ARROW KEYS TO MOVE THROUGH BOOKINGS AND PRESS ESCAPE TO EXIT" << endl;
+
+				bool cont = true;
+				while (cont == true) {
+					switch ((c = _getch())) {
+					case KEY_UP:
+						if (offset - 1 >= 0) {
+							system("CLS");
+							push_front_pos -= 1;
+							push_back_pos -= 1;
+							offset -= 1;
+							queue.pop_back();
+							queue.push_front(A.at(push_front_pos));
+
+							tuple <string, string, string, string, string> flightData;
+							cout << "TODAYS FLIGHTS" << endl;
+							cout << "FlightID        Destination                     Departure Time          Expected Arrival Time" << endl;
+							for (auto e : queue) {
+								flightData = A00001.getFlightInfo("departure", to_string(e));
+								string tabspacing = "\t\t\t\t";
+								if (get<2>(flightData).length() > 8) {
+									tabspacing = "\t\t\t";
+								}
+								cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + tabspacing + formatTime(stoi(get<3>(flightData))) + "\t\t\t" + formatTime(stoi(get<4>(flightData))) << endl;
+								cout << "" << flush;
+							}
+							cout << "USE ARROW KEYS TO MOVE THROUGH BOOKINGS AND PRESS ESCAPE TO EXIT" << endl;
+						}
+						break;
+					case KEY_DOWN:
+						if (offset + 1 < A.size() - 10) {
+							system("CLS");
+							push_front_pos += 1;
+							push_back_pos += 1;
+							offset += 1;
+							queue.pop_front();
+							queue.push_back(A.at(push_back_pos));
+
+							tuple <string, string, string, string, string> flightData;
+							cout << "TODAYS FLIGHTS" << endl;
+							cout << "FlightID        Destination                     Departure Time          Expected Arrival Time" << endl;
+							for (auto e : queue) {
+								flightData = A00001.getFlightInfo("departure", to_string(e));
+								string tabspacing = "\t\t\t\t";
+								if (get<2>(flightData).length() > 8) {
+									tabspacing = "\t\t\t";
+								}
+								cout << get<0>(flightData) + "\t\t" + get<2>(flightData) + tabspacing + formatTime(stoi(get<3>(flightData))) + "\t\t\t" + formatTime(stoi(get<4>(flightData))) << endl;
+								cout << "" << flush;
+							}
+							cout << "USE ARROW KEYS TO MOVE THROUGH BOOKINGS AND PRESS ESCAPE TO EXIT" << endl;
+						}
+						break;
+					case ESC:
+						cont = false;
+						break;
+					}
 				}
 			}
 
@@ -280,7 +367,7 @@ int main() {
 				string column;
 
 				cout << "Enter the flight number of the flight you want to book:" << endl;
-				
+
 				cin >> flightNo;
 
 				while (!A00001.searchXML("flightID", flightNo)) {
@@ -294,11 +381,23 @@ int main() {
 				cout << "Destination: " + A00001.getXML("flightID", flightNo, "destination") << endl;
 				cout << "Departure Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "departure"))) << endl;
 				cout << "Arrival Time: " + formatTime(stoi(A00001.getXML("flightID", flightNo, "arrival"))) << endl;
+				finished = false;
+				while (finished == false) {
+					cout << "Enter the row of the seat you want:" << endl;
+					cin >> row;
+					cout << "Enter the column of the seat you want:" << endl;
+					cin >> column;
 
-				cout << "Enter the row of the seat you want:" << endl;
-				cin >> row;
-				cout << "Enter the column of the seat you want:" << endl;
-				cin >> column;
+					if (A00001.isSeatTaken(flightNo, row, column)) {
+						cout << "That seat is taken. Choose another?" << endl;
+						cout << "1. Yes" << endl;
+						cout << "2. No" << endl;
+						cin >> userInput;
+						if (userInput == 2) {
+							finished = true;
+						}
+					}
+				}
 
 				tuple <string, string, string, string, string, string> planeData = tempPlane.getPlaneInfo("id", A00001.getXML("flightID", flightNo, "planeID"));
 				tuple <string, string, string> destinationData = testDestination.getDestinationInfo("name", A00001.getXML("flightID", flightNo, "destination"));
@@ -315,6 +414,12 @@ int main() {
 				int arrival = departure + stoi(get<1>(destinationData));
 				Flight createdFlight("1", tempPlane, testDestination, departure, arrival);
 				createdFlight.bookSeat(1, "1", createdFlight.getID(), row, column);
+			}
+			else if (userInput == 3) {
+				return 0;
+			}
+			else {
+				cout << "Please enter a valid number" << endl;
 			}
 		}
 
@@ -413,7 +518,7 @@ string formatTime(int time) {
 void quickSort(vector<int>& A, int p, int q)
 {
 	int r;
-	if (p<q)
+	if (p < q)
 	{
 		r = partition(A, p, q);
 		quickSort(A, p, r);
@@ -428,7 +533,7 @@ int partition(vector<int>& A, int p, int q)
 	int i = p;
 	int j;
 
-	for (j = p + 1; j<q; j++)
+	for (j = p + 1; j < q; j++)
 	{
 		if (A[j] <= x)
 		{
